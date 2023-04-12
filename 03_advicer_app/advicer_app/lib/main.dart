@@ -22,6 +22,7 @@ class AdvicerApp extends StatelessWidget {
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
         home: const Placeholder(),
+        debugShowCheckedModeBanner: false,
       );
     });
   }
