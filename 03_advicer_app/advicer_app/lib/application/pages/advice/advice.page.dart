@@ -1,4 +1,5 @@
 import 'package:advicer_app/application/core/services/theme.service.dart';
+import 'package:advicer_app/application/pages/advice/widgets/get-advices.button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +20,10 @@ class AdvicerPage extends StatelessWidget {
                 Provider.of<ThemeService>(context, listen: false).toggleTheme();
               })
         ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 50),
+        child: Column(children: const [GetAdvicesButton()]),
       ),
     );
   }
