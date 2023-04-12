@@ -42,3 +42,5 @@ VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=usernam
 ## Github Course Repo
 
 <https://github.com/OpenSphereSoftware/FlutterMadeEasy_ZeroToMastery>
+
+- Dart Basics: https://github.dev/OpenSphereSoftware/FlutterMadeEasy_ZeroToMastery/tree/main/1_dart
