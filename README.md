@@ -44,3 +44,19 @@ VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=usernam
 <https://github.com/OpenSphereSoftware/FlutterMadeEasy_ZeroToMastery>
 
 - Dart Basics: https://github.dev/OpenSphereSoftware/FlutterMadeEasy_ZeroToMastery/tree/main/1_dart
+
+## ADB Cli Configuration
+
+Update Path variable for your profile terminal, (eg: zsh)
+
+```bash
+export PATH="$PATH:$HOME/flutter/bin/"
+export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools"
+export PATH="$PATH:$HOME/Library/Android/sdk/cmdline-tools/latest/bin"
+export PATH="$PATH:$HOME/Library/Android/sdk/tools"
+```
+
+## Debug app with ADB via wifi
+
+> adb connect $IP:$PORT
+> https://medium.com/android-news/wireless-debugging-through-adb-in-android-using-wifi-965f7edd163a
