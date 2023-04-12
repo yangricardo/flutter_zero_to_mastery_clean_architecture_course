@@ -3,6 +3,8 @@ import 'package:advicer_app/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'application/pages/advice/advice.page.dart';
+
 void main() {
   runApp(ChangeNotifierProvider(
     create: (context) => ThemeService(),
@@ -21,7 +23,7 @@ class AdvicerApp extends StatelessWidget {
         themeMode: themeService.isDarkModeOn ? ThemeMode.dark : ThemeMode.light,
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
-        home: const Placeholder(),
+        home: const AdvicerPage(),
         debugShowCheckedModeBanner: false,
       );
     });
