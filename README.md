@@ -38,3 +38,7 @@ Description: Improve highlighting of errors, warnings and other language diagnos
 Version: 3.9.0
 Publisher: Alexander
 VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens
+
+## Github Course Repo
+
+<https://github.com/OpenSphereSoftware/FlutterMadeEasy_ZeroToMastery>
