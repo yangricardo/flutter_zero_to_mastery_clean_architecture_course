@@ -39,6 +39,13 @@ Version: 3.9.0
 Publisher: Alexander
 VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens
 
+Name: bloc
+Id: FelixAngelov.bloc
+Description: Support for the bloc library and provides tools for effectively creating blocs for both Flutter and AngularDart apps.
+Version: 6.6.3
+Publisher: Felix Angelov
+VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=FelixAngelov.bloc
+
 ## Github Course Repo
 
 <https://github.com/OpenSphereSoftware/FlutterMadeEasy_ZeroToMastery>
