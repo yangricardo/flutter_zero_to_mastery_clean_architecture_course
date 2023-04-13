@@ -10,7 +10,7 @@ class AdvicerStateLoading extends AdvicerState {}
 class AdvicerStateLoaded extends AdvicerState {
   final String advice;
 
-  AdvicerStateLoaded(this.advice);
+  AdvicerStateLoaded({required this.advice});
 }
 
 class AdvicerStateError extends AdvicerState {
