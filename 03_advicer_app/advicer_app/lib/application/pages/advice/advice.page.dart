@@ -1,5 +1,6 @@
 import 'package:advicer_app/application/core/services/theme.service.dart';
 import 'package:advicer_app/application/pages/advice/widgets/get-advices.button.dart';
+import 'package:advicer_app/application/pages/advice/widgets/advice.field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +25,11 @@ class AdvicerPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 50),
         child: Column(children: const [
-          Expanded(child: Center(child: Placeholder())),
+          Expanded(
+              child: Center(
+                  child: AdviceField(
+            advice: 'Example advice - good day',
+          ))),
           SizedBox(height: 200, child: Center(child: GetAdvicesButton()))
         ]),
       ),
