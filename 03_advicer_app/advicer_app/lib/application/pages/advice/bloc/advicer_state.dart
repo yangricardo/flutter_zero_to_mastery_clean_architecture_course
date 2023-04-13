@@ -4,3 +4,9 @@ part of 'advicer_bloc.dart';
 abstract class AdvicerState {}
 
 class AdvicerInitial extends AdvicerState {}
+
+class AdvicerStateLoading extends AdvicerState {}
+
+class AdvicerStateLoaded extends AdvicerState {}
+
+class AdvicerStateError extends AdvicerState {}
