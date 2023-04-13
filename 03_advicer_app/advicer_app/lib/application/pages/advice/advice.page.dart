@@ -23,7 +23,10 @@ class AdvicerPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 50),
-        child: Column(children: const [GetAdvicesButton()]),
+        child: Column(children: const [
+          Expanded(child: Center(child: Placeholder())),
+          SizedBox(height: 200, child: Center(child: GetAdvicesButton()))
+        ]),
       ),
     );
   }
