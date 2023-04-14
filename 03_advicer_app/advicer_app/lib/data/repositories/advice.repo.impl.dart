@@ -1,26 +1,23 @@
-import 'dart:math';
-
+import 'package:advicer_app/data/datasources/advice.remote.datasource.dart';
+import 'package:advicer_app/data/exceptions/exceptions.dart';
 import 'package:advicer_app/domain/entities/advice.entity.dart';
 import 'package:advicer_app/domain/failures/failure.dart';
 import 'package:advicer_app/domain/repositories/advice.repo.dart';
 import 'package:dartz/dartz.dart';
 
 class AdviceRepoImpl extends AdviceRepo {
+  final AdviceRemoteDatasource adviceRemoteDatasource =
+      AdviceRemoteDatasourceImpl();
+
   @override
   Future<Either<AdviceEntity, Failure>> getAdviceFromDataSource() async {
-    Random random = Random();
-    int randomId = random.nextInt(100);
-    await Future.delayed(const Duration(seconds: 3), () {});
-    if (randomId % 2 == 0) {
-      return left(
-          AdviceEntity(advice: 'Some fake advice from entity', id: randomId));
+    try {
+      final result = await adviceRemoteDatasource.getRandomAdviceFromApi();
+      return left(result);
+    } on ServerException catch (_) {
+      return right(const ServerFailure(id: 502));
+    } catch (e) {
+      return right(const GeneralFailure(id: 500));
     }
-    if (randomId % 3 == 0) {
-      return right(ServerFailure(id: randomId));
-    }
-    if (randomId % 5 == 0) {
-      return right(CacheFailure(id: randomId));
-    }
-    return right(GeneralFailure(id: randomId));
   }
 }
