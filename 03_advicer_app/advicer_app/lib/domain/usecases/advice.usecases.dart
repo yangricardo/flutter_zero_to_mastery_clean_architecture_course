@@ -7,13 +7,18 @@ import 'package:dartz/dartz.dart';
 class AdviceUseCases {
   Future<Either<AdviceEntity, Failure>> getAdvice() async {
     Random random = Random();
-    int randomId = random.nextInt(10);
+    int randomId = random.nextInt(100);
     await Future.delayed(const Duration(seconds: 3), () {});
     if (randomId % 2 == 0) {
       return left(
           AdviceEntity(advice: 'Some fake advice from entity', id: randomId));
     }
-
+    if (randomId % 3 == 0) {
+      return right(ServerFailure());
+    }
+    if (randomId % 5 == 0) {
+      return right(CacheFailure());
+    }
     return right(GeneralFailure());
   }
 }
