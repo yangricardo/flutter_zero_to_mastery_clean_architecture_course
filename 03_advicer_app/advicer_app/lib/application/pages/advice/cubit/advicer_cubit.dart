@@ -1,3 +1,4 @@
+import 'package:advicer_app/domain/failures/failure.dart';
 import 'package:advicer_app/domain/usecases/advice.usecases.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -14,7 +15,7 @@ class AdvicerCubit extends Cubit<AdvicerCubitState> {
     adviceOrFailure.fold(
         (advice) => emit(
             AdvicerCubitStateLoaded(advice: "${advice.id} - ${advice.advice}")),
-        (failure) =>
-            emit(const AdvicerCubitStateError(message: 'Unknown Error')));
+        (failure) => emit(
+            AdvicerCubitStateError(message: mapFailureToMessage(failure))));
   }
 }
