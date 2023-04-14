@@ -1,5 +1,5 @@
 import 'package:advicer_app/application/core/services/theme.service.dart';
-import 'package:advicer_app/application/pages/advice/bloc/advicer_bloc.dart';
+import 'package:advicer_app/application/pages/advice/cubit/advicer_cubit.dart';
 import 'package:advicer_app/application/pages/advice/widgets/get-advices.button.dart';
 import 'package:advicer_app/application/pages/advice/widgets/error.message.dart';
 import 'package:advicer_app/application/pages/advice/widgets/advice.field.dart';
@@ -14,7 +14,7 @@ class AdvicerPageWrapperProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AdvicerBloc(),
+      create: (context) => AdvicerCubit(),
       child: const AdvicerPage(),
     );
   }
@@ -42,17 +42,17 @@ class AdvicerPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 50),
         child: Column(children: [
           Expanded(
-            child: Center(child: BlocBuilder<AdvicerBloc, AdvicerState>(
+            child: Center(child: BlocBuilder<AdvicerCubit, AdvicerCubitState>(
                 builder: (context, state) {
               if (state is AdvicerInitial) {
                 return Text('Your advice is waiting for you!',
                     style: themeData.textTheme.headlineSmall);
-              } else if (state is AdvicerStateLoading) {
+              } else if (state is AdvicerCubitStateLoading) {
                 return CircularProgressIndicator(
                     color: themeData.colorScheme.secondary);
-              } else if (state is AdvicerStateLoaded) {
+              } else if (state is AdvicerCubitStateLoaded) {
                 return AdviceField(advice: state.advice);
-              } else if (state is AdvicerStateError) {
+              } else if (state is AdvicerCubitStateError) {
                 return ErrorMessage(message: state.message);
               }
               return const SizedBox();
