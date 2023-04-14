@@ -1,3 +1,4 @@
+import 'package:advicer_app/domain/entities/advice.entity.dart';
 import 'package:advicer_app/domain/usecases/advice.usecases.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -10,7 +11,7 @@ class AdvicerCubit extends Cubit<AdvicerCubitState> {
 
   void requestAdvice() async {
     emit(AdvicerCubitStateLoading());
-    final String advice = await adviceUseCases.getAdvice();
-    emit(AdvicerCubitStateLoaded(advice: advice));
+    final AdviceEntity advice = await adviceUseCases.getAdvice();
+    emit(AdvicerCubitStateLoaded(advice: "${advice.id} - ${advice.advice}"));
   }
 }
