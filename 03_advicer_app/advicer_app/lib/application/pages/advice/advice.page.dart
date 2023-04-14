@@ -52,8 +52,10 @@ class AdvicerPage extends StatelessWidget {
                     color: themeData.colorScheme.secondary);
               } else if (state is AdvicerStateLoaded) {
                 return AdviceField(advice: state.advice);
+              } else if (state is AdvicerStateError) {
+                return ErrorMessage(message: state.message);
               }
-              return const ErrorMessage(message: "Something went wrong");
+              return const SizedBox();
             })),
           ),
           const SizedBox(height: 200, child: Center(child: GetAdvicesButton()))
