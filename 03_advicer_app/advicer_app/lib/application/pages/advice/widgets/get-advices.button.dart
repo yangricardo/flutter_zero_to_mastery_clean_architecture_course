@@ -1,4 +1,4 @@
-import 'package:advicer_app/application/pages/advice/bloc/advicer_bloc.dart';
+import 'package:advicer_app/application/pages/advice/cubit/advicer_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,7 +10,7 @@ class GetAdvicesButton extends StatelessWidget {
     final themeData = Theme.of(context);
     return InkResponse(
       onTap: () {
-        BlocProvider.of<AdvicerBloc>(context).add(AdviceRequestedEvent());
+        BlocProvider.of<AdvicerCubit>(context).requestAdvice();
       },
       child: Material(
         elevation: 20,

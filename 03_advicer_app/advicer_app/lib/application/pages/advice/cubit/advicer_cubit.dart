@@ -7,7 +7,7 @@ part 'advicer_state.dart';
 class AdvicerCubit extends Cubit<AdvicerCubitState> {
   AdvicerCubit() : super(AdvicerInitial());
 
-  void adviceRequested() async {
+  void requestAdvice() async {
     emit(AdvicerCubitStateLoading());
     // execute business logic
     // like get and advice
