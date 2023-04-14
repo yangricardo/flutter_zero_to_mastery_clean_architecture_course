@@ -23,7 +23,7 @@ class AdvicerCubitStateLoaded extends AdvicerCubitState {
 class AdvicerCubitStateError extends AdvicerCubitState {
   final String message;
 
-  const AdvicerCubitStateError(this.message);
+  const AdvicerCubitStateError({required this.message});
 
   @override
   List<Object?> get props => [message];
