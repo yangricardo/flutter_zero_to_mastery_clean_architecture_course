@@ -14,11 +14,11 @@ class AdviceUseCases {
           AdviceEntity(advice: 'Some fake advice from entity', id: randomId));
     }
     if (randomId % 3 == 0) {
-      return right(ServerFailure());
+      return right(ServerFailure(id: randomId));
     }
     if (randomId % 5 == 0) {
-      return right(CacheFailure());
+      return right(CacheFailure(id: randomId));
     }
-    return right(GeneralFailure());
+    return right(GeneralFailure(id: randomId));
   }
 }

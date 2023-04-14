@@ -1,10 +1,25 @@
-abstract class Failure {}
+import 'package:equatable/equatable.dart';
 
-class ServerFailure extends Failure {}
+abstract class Failure extends Equatable {
+  final int id;
 
-class CacheFailure extends Failure {}
+  const Failure({required this.id});
 
-class GeneralFailure extends Failure {}
+  @override
+  List<Object?> get props => [id];
+}
+
+class ServerFailure extends Failure {
+  const ServerFailure({required super.id});
+}
+
+class CacheFailure extends Failure {
+  const CacheFailure({required super.id});
+}
+
+class GeneralFailure extends Failure {
+  const GeneralFailure({required super.id});
+}
 
 const generalFailureMessage = 'Ups, something gone wrong. Please try again!';
 const serverFailureMessage = 'Ups, API Error. please try again!';
@@ -13,10 +28,10 @@ const cacheFailureMessage = 'Ups, cache failed. Please try again!';
 String mapFailureToMessage(Failure failure) {
   switch (failure.runtimeType) {
     case ServerFailure:
-      return serverFailureMessage;
+      return "${failure.id} - $serverFailureMessage";
     case CacheFailure:
-      return cacheFailureMessage;
+      return "${failure.id} - $cacheFailureMessage";
     default:
-      return generalFailureMessage;
+      return "${failure.id} - $generalFailureMessage";
   }
 }
