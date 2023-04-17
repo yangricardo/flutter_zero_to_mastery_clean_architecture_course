@@ -50,6 +50,26 @@ void main() {
                 verify(mockAdviceRepoImpl.getAdviceFromDataSource()).called(1);
                 verifyNoMoreInteractions(mockAdviceRepoImpl);
               });
+
+      test(
+          'a GeneralFailure',
+          () => () async {
+                final mockAdviceRepoImpl = MockAdviceRepoImpl();
+                final adviceUseCaseUnderTest =
+                    AdviceUseCases(adviceRepo: mockAdviceRepoImpl);
+                when(mockAdviceRepoImpl.getAdviceFromDataSource()).thenAnswer(
+                    (realInvocation) =>
+                        Future.value(const Right(GeneralFailure(id: 500))));
+                final result = await adviceUseCaseUnderTest.getAdvice();
+                expect(result.isLeft(), false);
+                expect(result.isRight(), true);
+                expect(
+                    result,
+                    const Right<AdviceEntity, Failure>(
+                        GeneralFailure(id: 500)));
+                verify(mockAdviceRepoImpl.getAdviceFromDataSource()).called(1);
+                verifyNoMoreInteractions(mockAdviceRepoImpl);
+              });
     });
   });
 }
