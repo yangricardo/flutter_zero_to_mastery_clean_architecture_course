@@ -48,6 +48,23 @@ void main() {
         expect(() => adviceRemoteDatasourceUnderTest.getRandomAdviceFromApi(),
             throwsA(isA<ServerException>()));
       });
+      test('a type error when client response was 200 and has no valid data',
+          () async {
+        final mockClient = MockClient();
+        final adviceRemoteDatasourceUnderTest =
+            AdviceRemoteDatasourceImpl(client: mockClient);
+        const responseBody = '{"advice": "test advice"}';
+        when(mockClient.get(
+          Uri.parse(Env.adviceApiUrl),
+          headers: {
+            'content-type': 'application/json ',
+          },
+        )).thenAnswer(
+            (realInvocation) => Future.value(Response(responseBody, 200)));
+
+        expect(() => adviceRemoteDatasourceUnderTest.getRandomAdviceFromApi(),
+            throwsA(isA<TypeError>()));
+      });
     });
   });
 }
