@@ -32,5 +32,24 @@ void main() {
                 verifyNoMoreInteractions(mockAdviceRepoImpl);
               });
     });
+    group('should return right with', () {
+      test(
+          'a ServerFailure',
+          () => () async {
+                final mockAdviceRepoImpl = MockAdviceRepoImpl();
+                final adviceUseCaseUnderTest =
+                    AdviceUseCases(adviceRepo: mockAdviceRepoImpl);
+                when(mockAdviceRepoImpl.getAdviceFromDataSource()).thenAnswer(
+                    (realInvocation) =>
+                        Future.value(const Right(ServerFailure(id: 502))));
+                final result = await adviceUseCaseUnderTest.getAdvice();
+                expect(result.isLeft(), false);
+                expect(result.isRight(), true);
+                expect(result,
+                    const Right<AdviceEntity, Failure>(ServerFailure(id: 502)));
+                verify(mockAdviceRepoImpl.getAdviceFromDataSource()).called(1);
+                verifyNoMoreInteractions(mockAdviceRepoImpl);
+              });
+    });
   });
 }
