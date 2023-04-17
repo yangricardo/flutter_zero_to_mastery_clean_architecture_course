@@ -13,14 +13,14 @@ class GetAdvicesButton extends StatelessWidget {
         BlocProvider.of<AdvicerCubit>(context).requestAdvice();
       },
       child: Material(
-        elevation: 20,
-        borderRadius: BorderRadius.circular(15),
+        elevation: 5,
+        borderRadius: BorderRadius.circular(20),
         child: Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(20),
               color: themeData.colorScheme.secondary),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
             child: Text(
               'Get Advice',
               style: themeData.textTheme.headlineSmall,
