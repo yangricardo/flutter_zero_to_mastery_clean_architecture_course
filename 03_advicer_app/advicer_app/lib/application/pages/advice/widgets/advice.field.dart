@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:advicer_app/theme.dart';
 
 class AdviceField extends StatelessWidget {
   final String advice;
@@ -6,19 +7,20 @@ class AdviceField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeData = Theme.of(context);
+    var backgroundColor = AppTheme.getRandomColor();
+    var randomTheme = AppTheme.generateThemeData(backgroundColor);
+
     return Material(
-      elevation: 20,
-      borderRadius: BorderRadius.circular(15),
+      elevation: 5,
+      borderRadius: BorderRadius.circular(20),
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: themeData.colorScheme.onPrimary),
+            borderRadius: BorderRadius.circular(20), color: backgroundColor),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Text(
-            advice,
-            style: themeData.textTheme.bodySmall,
+            "\"$advice\"",
+            style: randomTheme.textTheme.bodyLarge,
             textAlign: TextAlign.center,
           ),
         ),
