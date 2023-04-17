@@ -6,8 +6,9 @@ import 'package:equatable/equatable.dart';
 part 'advicer_state.dart';
 
 class AdvicerCubit extends Cubit<AdvicerCubitState> {
-  AdvicerCubit() : super(AdvicerInitial());
-  final AdviceUseCases adviceUseCases = AdviceUseCases();
+  final AdviceUseCases adviceUseCases;
+
+  AdvicerCubit({required this.adviceUseCases}) : super(AdvicerInitial());
 
   void requestAdvice() async {
     emit(AdvicerCubitStateLoading());
