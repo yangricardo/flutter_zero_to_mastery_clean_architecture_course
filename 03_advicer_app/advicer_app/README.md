@@ -18,3 +18,7 @@ samples, guidance on mobile development, and a full API reference.
 ## Environment Variables
 
 > flutter pub run build_runner build
+
+## Generate nice mocks
+
+> flutter pub run build_runner build -d
