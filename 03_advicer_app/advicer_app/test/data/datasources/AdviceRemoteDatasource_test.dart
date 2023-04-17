@@ -1,4 +1,5 @@
 import 'package:advicer_app/data/datasources/advice.remote.datasource.dart';
+import 'package:advicer_app/data/exceptions/exceptions.dart';
 import 'package:advicer_app/data/models/advice.model.dart';
 import 'package:advicer_app/env/env.dart';
 import 'package:http/http.dart';
@@ -29,6 +30,23 @@ void main() {
             await adviceRemoteDatasourceUnderTest.getRandomAdviceFromApi();
 
         expect(result, AdviceModel(advice: 'test advice', id: 1));
+      });
+    });
+    group('should throw', () {
+      test('a Server Exception when client response was not 200', () async {
+        final mockClient = MockClient();
+        final adviceRemoteDatasourceUnderTest =
+            AdviceRemoteDatasourceImpl(client: mockClient);
+
+        when(mockClient.get(
+          Uri.parse(Env.adviceApiUrl),
+          headers: {
+            'content-type': 'application/json ',
+          },
+        )).thenAnswer((realInvocation) => Future.value(Response('', 201)));
+
+        expect(() => adviceRemoteDatasourceUnderTest.getRandomAdviceFromApi(),
+            throwsA(isA<ServerException>()));
       });
     });
   });
