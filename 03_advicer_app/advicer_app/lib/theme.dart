@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class AppTheme {
   AppTheme._();
@@ -21,6 +22,18 @@ class AppTheme {
   static const Color _iconColor = Colors.white;
 
   static const Color _accentColor = Color.fromRGBO(74, 217, 217, 1);
+
+  static Color getRandomColor() {
+    return Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
+  }
+
+  static Color getCompliantTextColor(Color backgroundColor) {
+    final luminance = (0.299 * backgroundColor.red +
+            0.587 * backgroundColor.green +
+            0.114 * backgroundColor.blue) /
+        255;
+    return luminance > 0.5 ? Colors.black : Colors.white;
+  }
 
   // *****************
   // Text Style - light
@@ -94,4 +107,49 @@ class AppTheme {
     textTheme: _darkTextTheme,
     bottomAppBarTheme: BottomAppBarTheme(color: _appbarColorDark),
   );
+
+  static ThemeData generateThemeData(Color backgroundColor) {
+    final isLight = backgroundColor.computeLuminance() > 0.5;
+    final Color textColor =
+        isLight ? _darkTextColorPrimary : _lightTextColorPrimary;
+    final Color primaryVariant =
+        isLight ? _darkPrimaryVariantColor : _lightPrimaryVariantColor;
+    final Color onPrimary =
+        isLight ? _darkOnPrimaryColor : _lightOnPrimaryColor;
+    final Brightness brightness =
+        ThemeData.estimateBrightnessForColor(backgroundColor);
+
+    return ThemeData(
+      scaffoldBackgroundColor: backgroundColor,
+      appBarTheme: const AppBarTheme(
+        color: _appbarColorLight,
+        iconTheme: IconThemeData(color: _iconColor),
+      ),
+      colorScheme: ColorScheme(
+          primary: backgroundColor,
+          primaryContainer: primaryVariant,
+          onPrimary: onPrimary,
+          secondary: _accentColor,
+          secondaryContainer: _accentColor,
+          onSecondary: isLight ? _darkTextColorPrimary : _lightTextColorPrimary,
+          background: backgroundColor,
+          onBackground: textColor,
+          error: Colors.red,
+          onError: Colors.white,
+          surface: Colors.white,
+          onSurface: _lightTextColorPrimary,
+          brightness: brightness),
+      textTheme: isLight
+          ? _darkTextTheme.copyWith(
+              displayLarge:
+                  _darkThemeHeadingTextStyle.copyWith(color: textColor),
+              bodyLarge: _darkThemeBodyTextStyle.copyWith(color: textColor),
+            )
+          : _lightTextTheme.copyWith(
+              displayLarge: _lightHeadingText.copyWith(color: textColor),
+              bodyLarge: _lightBodyText.copyWith(color: textColor),
+            ),
+      bottomAppBarTheme: const BottomAppBarTheme(color: _appbarColorLight),
+    );
+  }
 }
