@@ -59,7 +59,13 @@ class AdvicerPage extends StatelessWidget {
               return const SizedBox();
             })),
           ),
-          const SizedBox(height: 200, child: Center(child: GetAdvicesButton()))
+          SizedBox(
+              height: 200,
+              child: Center(
+                  child: GetAdvicesButton(
+                onTap: () =>
+                    BlocProvider.of<AdvicerCubit>(context).requestAdvice(),
+              )))
         ]),
       ),
     );

@@ -1,16 +1,15 @@
-import 'package:advicer_app/application/pages/advice/cubit/advicer_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GetAdvicesButton extends StatelessWidget {
-  const GetAdvicesButton({super.key});
+  final Function() onTap;
+  const GetAdvicesButton({required this.onTap, super.key});
 
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     return InkResponse(
       onTap: () {
-        BlocProvider.of<AdvicerCubit>(context).requestAdvice();
+        onTap.call();
       },
       child: Material(
         elevation: 5,
