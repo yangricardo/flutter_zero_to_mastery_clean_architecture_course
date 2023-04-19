@@ -35,6 +35,17 @@ void main() {
             find.text('Your advice is waiting for you!');
         expect(advicerInitialTextFinder, findsOneWidget);
       });
+
+      testWidgets('Loading when cubit emits AdvicerStateLoading()',
+          (widgetTester) async {
+        whenListen(
+            mockAdvicerCubit, Stream.fromIterable([AdvicerCubitStateLoading()]),
+            initialState: AdvicerInitial());
+        await widgetTester.pumpWidget(widgetUnderTest(cubit: mockAdvicerCubit));
+        await widgetTester.pump();
+        final advicerLoadingFinder = find.byType(CircularProgressIndicator);
+        expect(advicerLoadingFinder, findsOneWidget);
+      });
     });
   });
 }
