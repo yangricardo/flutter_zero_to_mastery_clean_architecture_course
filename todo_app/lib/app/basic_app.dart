@@ -7,11 +7,15 @@ class BasicApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Todo App',
-      localizationsDelegates: const [
-        ...GlobalMaterialLocalizations.delegates,
-        GlobalMaterialLocalizations.delegate
-      ],
-    );
+        title: 'Todo App',
+        localizationsDelegates: const [
+          ...GlobalMaterialLocalizations.delegates,
+          GlobalMaterialLocalizations.delegate
+        ],
+        themeMode: ThemeMode.system,
+        theme: ThemeData.from(
+            useMaterial3: true,
+            colorScheme: ColorScheme.fromSeed(
+                seedColor: Colors.deepOrange, brightness: Brightness.light)));
   }
 }
