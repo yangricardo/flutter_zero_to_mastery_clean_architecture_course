@@ -5,6 +5,9 @@ class BasicApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return MaterialApp.router(
+      title: 'Todo App',
+      localizationsDelegates: const [],
+    );
   }
 }
