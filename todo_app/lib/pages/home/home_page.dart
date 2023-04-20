@@ -50,6 +50,14 @@ class _HomePageState extends State<HomePage> {
               ),
             )
           }),
+          body: SlotLayout(
+            config: <Breakpoint, SlotLayoutConfig>{
+              Breakpoints.smallAndUp: SlotLayout.from(
+                key: const Key('primary-body-small'),
+                builder: (_) => HomePage.tabs.first.child,
+              ),
+            },
+          ),
         ),
       ),
     );
