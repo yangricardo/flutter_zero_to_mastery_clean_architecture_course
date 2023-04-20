@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:todo_app/core/page_config.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -12,6 +13,20 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+        color: Colors.green,
+        child: Column(
+          children: [
+            TextButton(
+                onPressed: () {
+                  if (context.canPop()) {
+                    context.pop();
+                  } else {
+                    context.push('/home/task');
+                  }
+                },
+                child: const Text('Go Back'))
+          ],
+        ));
   }
 }
