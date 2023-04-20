@@ -19,6 +19,7 @@ class _HomePageState extends State<HomePage> {
       .toList();
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       body: SafeArea(
         child: AdaptiveLayout(
@@ -26,6 +27,12 @@ class _HomePageState extends State<HomePage> {
             Breakpoints.mediumAndUp: SlotLayout.from(
                 key: const Key('primary-navigation-medium'),
                 builder: (context) => AdaptiveScaffold.standardNavigationRail(
+                    selectedLabelTextStyle:
+                        TextStyle(color: theme.colorScheme.onBackground),
+                    selectedIconTheme:
+                        IconThemeData(color: theme.colorScheme.onBackground),
+                    unselectedIconTheme: IconThemeData(
+                        color: theme.colorScheme.onBackground.withOpacity(0.5)),
                     onDestinationSelected: (index) =>
                         debugPrint('selected $index'),
                     destinations: destinations
