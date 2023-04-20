@@ -12,12 +12,25 @@ class StartView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         color: Colors.blue,
-        child: ElevatedButton(
-          onPressed: () {
-            context.push('/home/settings');
-            // onPressedGoToSettings();
-          },
-          child: const Text('Go to Settings'),
+        child: Column(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                context.push('/home/settings');
+                // onPressedGoToSettings();
+              },
+              child: const Text('Go to Settings'),
+            ),
+            TextButton(
+                onPressed: () {
+                  if (context.canPop()) {
+                    context.pop();
+                  } else {
+                    context.push('/home/start');
+                  }
+                },
+                child: const Text('Go Back'))
+          ],
         ));
   }
 }

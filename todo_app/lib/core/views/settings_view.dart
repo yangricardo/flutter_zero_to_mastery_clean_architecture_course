@@ -12,12 +12,16 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         color: Colors.amber,
-        child: ElevatedButton(
-          onPressed: () {
-            context.push('/home/start');
-            // onPressedGoToSettings();
-          },
-          child: const Text('Go Back'),
+        child: Column(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                context.push('/home/start');
+                // onPressedGoToSettings();
+              },
+              child: const Text('Go Back'),
+            )
+          ],
         ));
   }
 }
