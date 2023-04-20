@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class BasicApp extends StatelessWidget {
   const BasicApp({super.key});
@@ -7,7 +8,10 @@ class BasicApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Todo App',
-      localizationsDelegates: const [],
+      localizationsDelegates: const [
+        ...GlobalMaterialLocalizations.delegates,
+        GlobalMaterialLocalizations.delegate
+      ],
     );
   }
 }
