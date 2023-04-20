@@ -33,6 +33,16 @@ class _HomePageState extends State<HomePage> {
                             AdaptiveScaffold.toRailDestination(config))
                         .toList())),
           }),
+          bottomNavigation: SlotLayout(config: <Breakpoint, SlotLayoutConfig>{
+            Breakpoints.small: SlotLayout.from(
+              key: const Key('bottom-navigation-small'),
+              builder: (context) =>
+                  AdaptiveScaffold.standardBottomNavigationBar(
+                destinations: destinations,
+                onDestinationSelected: (index) => debugPrint('selected $index'),
+              ),
+            )
+          }),
         ),
       ),
     );

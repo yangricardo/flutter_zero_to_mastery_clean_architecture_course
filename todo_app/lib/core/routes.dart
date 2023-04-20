@@ -20,7 +20,7 @@ final routes = GoRouter(
           builder: (context, state, child) => child,
           routes: [
             GoRoute(
-                path: '/home/:tab',
+                path: '/home',
                 builder: (context, state) {
                   return HomePage(
                     key: state.pageKey,
