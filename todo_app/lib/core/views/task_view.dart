@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class SettingsView extends StatelessWidget {
-  const SettingsView({
+class TaskView extends StatelessWidget {
+  const TaskView({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Colors.amber,
+        color: Colors.green,
         child: Column(
           children: [
             ElevatedButton(
@@ -20,9 +20,9 @@ class SettingsView extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                context.push('/home/task');
+                context.push('/home/settings');
               },
-              child: const Text('Go to task'),
+              child: const Text('Go to settings'),
             ),
             TextButton(
                 onPressed: () {
