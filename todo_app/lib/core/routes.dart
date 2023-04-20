@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:todo_app/core/views/settings_view.dart';
+import 'package:todo_app/core/views/start_view.dart';
 import './go_route_observer.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
@@ -12,13 +14,13 @@ final routes = GoRouter(
       GoRoute(
         path: '/home/settings',
         builder: (context, state) {
-          return Container(color: Colors.amber);
+          return const SettingsView();
         },
       ),
       GoRoute(
         path: '/home/start',
         builder: (context, state) {
-          return Container(color: Colors.blue);
+          return const StartView();
         },
       )
     ]);
