@@ -13,7 +13,7 @@ final GlobalKey<NavigatorState> _shellNavigatorKey =
 final routes = GoRouter(
     navigatorKey: _rootNavigatorKey,
     observers: [GoRouteObserver()],
-    initialLocation: '/home/start',
+    initialLocation: '/home/dashboard',
     routes: [
       ShellRoute(
           navigatorKey: _shellNavigatorKey,
