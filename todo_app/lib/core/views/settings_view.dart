@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class SettingsView extends StatelessWidget {
-  // final Function onPressedGoToSettings;
   const SettingsView({
     super.key,
-    // required this.onPressedGoToSettings
   });
 
   @override
