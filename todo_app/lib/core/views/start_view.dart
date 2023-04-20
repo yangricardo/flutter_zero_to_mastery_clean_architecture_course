@@ -17,16 +17,15 @@ class StartView extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 context.push('/home/settings');
-                // onPressedGoToSettings();
               },
-              child: const Text('Go to Settings'),
+              child: const Text('Go to settings'),
             ),
             TextButton(
                 onPressed: () {
                   if (context.canPop()) {
                     context.pop();
                   } else {
-                    context.push('/home/start');
+                    context.push('/home/settings');
                   }
                 },
                 child: const Text('Go Back'))

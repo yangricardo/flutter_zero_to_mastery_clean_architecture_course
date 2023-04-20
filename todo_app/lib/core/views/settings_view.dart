@@ -15,10 +15,18 @@ class SettingsView extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 context.push('/home/start');
-                // onPressedGoToSettings();
               },
-              child: const Text('Go Back'),
-            )
+              child: const Text('Go to start'),
+            ),
+            TextButton(
+                onPressed: () {
+                  if (context.canPop()) {
+                    context.pop();
+                  } else {
+                    context.push('/home/start');
+                  }
+                },
+                child: const Text('Go Back'))
           ],
         ));
   }
