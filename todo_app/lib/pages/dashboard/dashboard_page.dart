@@ -12,6 +12,10 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Column(
+      children: const [
+        Text('Dashboard'),
+      ],
+    );
   }
 }

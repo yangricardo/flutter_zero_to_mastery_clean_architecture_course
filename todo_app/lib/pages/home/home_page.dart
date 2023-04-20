@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:todo_app/pages/dashboard/dashboard_page.dart';
 import 'package:todo_app/pages/overview/overview_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  HomePage({
+    super.key,
+    required String tab,
+  }) : index = tabs.indexWhere((element) => element.name == tab);
+
+  final int index;
 
   static const tabs = [DashboardPage.pageConfig, OverviewPage.pageConfig];
 
@@ -17,6 +23,10 @@ class _HomePageState extends State<HomePage> {
       .map((config) =>
           NavigationDestination(icon: Icon(config.icon), label: config.name))
       .toList();
+
+  void _tapOnNavigationDestination(BuildContext context, int index) =>
+      context.go('/home/${HomePage.tabs[index].name}');
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -33,8 +43,9 @@ class _HomePageState extends State<HomePage> {
                         IconThemeData(color: theme.colorScheme.onBackground),
                     unselectedIconTheme: IconThemeData(
                         color: theme.colorScheme.onBackground.withOpacity(0.5)),
-                    onDestinationSelected: (index) =>
-                        debugPrint('selected $index'),
+                    onDestinationSelected: (value) =>
+                        _tapOnNavigationDestination(context, value),
+                    selectedIndex: widget.index,
                     destinations: destinations
                         .map((config) =>
                             AdaptiveScaffold.toRailDestination(config))
@@ -46,7 +57,9 @@ class _HomePageState extends State<HomePage> {
               builder: (context) =>
                   AdaptiveScaffold.standardBottomNavigationBar(
                 destinations: destinations,
-                onDestinationSelected: (index) => debugPrint('selected $index'),
+                currentIndex: widget.index,
+                onDestinationSelected: (value) =>
+                    _tapOnNavigationDestination(context, value),
               ),
             )
           }),
@@ -54,7 +67,7 @@ class _HomePageState extends State<HomePage> {
             config: <Breakpoint, SlotLayoutConfig>{
               Breakpoints.smallAndUp: SlotLayout.from(
                 key: const Key('primary-body-small'),
-                builder: (_) => HomePage.tabs.first.child,
+                builder: (_) => HomePage.tabs[widget.index].child,
               ),
             },
           ),
