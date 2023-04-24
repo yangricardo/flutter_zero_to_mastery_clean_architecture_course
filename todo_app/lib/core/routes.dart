@@ -8,13 +8,15 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> _shellNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'shell');
 
+const _basePath = '/home';
+
 final routes = GoRouter(
     navigatorKey: _rootNavigatorKey,
     observers: [GoRouteObserver()],
-    initialLocation: '/home/dashboard',
+    initialLocation: '$_basePath/dashboard',
     routes: [
       GoRoute(
-        path: '/home/settings',
+        path: '$_basePath/settings',
         builder: (context, state) {
           return const SettingsPage();
         },
@@ -24,7 +26,7 @@ final routes = GoRouter(
           builder: (context, state, child) => child,
           routes: [
             GoRoute(
-                path: '/home/:tab',
+                path: '$_basePath/:tab',
                 builder: (context, state) {
                   return HomePage(
                     key: state.pageKey,
