@@ -4,6 +4,7 @@ import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:todo_app/core/page_config.dart';
 import 'package:todo_app/pages/dashboard/dashboard_page.dart';
 import 'package:todo_app/pages/overview/overview_page.dart';
+import 'package:todo_app/pages/settings/settings_page.dart';
 import 'package:todo_app/pages/task/task_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -49,6 +50,10 @@ class _HomePageState extends State<HomePage> {
             Breakpoints.mediumAndUp: SlotLayout.from(
                 key: const Key('primary-navigation-medium'),
                 builder: (context) => AdaptiveScaffold.standardNavigationRail(
+                    trailing: IconButton(
+                        onPressed: () =>
+                            context.pushNamed(SettingsPage.pageConfig.name),
+                        icon: Icon(SettingsPage.pageConfig.icon)),
                     selectedLabelTextStyle:
                         TextStyle(color: theme.colorScheme.onBackground),
                     selectedIconTheme:
