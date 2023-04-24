@@ -11,7 +11,7 @@ class TaskPage extends StatelessWidget {
 
   static const pageConfig = PageConfig(
     icon: Icons.task_rounded,
-    name: 'task',
+    name: 'tasks',
     child: TaskPage(),
   );
 
