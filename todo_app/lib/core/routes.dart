@@ -16,6 +16,7 @@ final routes = GoRouter(
     initialLocation: '$_basePath/dashboard',
     routes: [
       GoRoute(
+        name: SettingsPage.pageConfig.name,
         path: '$_basePath/settings',
         builder: (context, state) {
           return const SettingsPage();
@@ -26,6 +27,7 @@ final routes = GoRouter(
           builder: (context, state, child) => child,
           routes: [
             GoRoute(
+                name: HomePage.pageConfig.name,
                 path: '$_basePath/:tab',
                 builder: (context, state) {
                   return HomePage(
