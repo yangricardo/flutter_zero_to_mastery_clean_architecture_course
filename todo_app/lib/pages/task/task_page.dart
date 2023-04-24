@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/core/page_config.dart';
+import 'package:todo_app/pages/overview/overview_page.dart';
+import 'package:todo_app/pages/settings/settings_page.dart';
 
 class TaskPage extends StatelessWidget {
   const TaskPage({
@@ -21,13 +23,7 @@ class TaskPage extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                context.push('/home/dashboard');
-              },
-              child: const Text('Go to Dashboard'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                context.push('/home/settings');
+                context.pushNamed(SettingsPage.pageConfig.name);
               },
               child: const Text('Go to settings'),
             ),
@@ -36,7 +32,7 @@ class TaskPage extends StatelessWidget {
                   if (context.canPop()) {
                     context.pop();
                   } else {
-                    context.push('/home/overview');
+                    context.pushNamed(OverviewPage.pageConfig.name);
                   }
                 },
                 child: const Text('Go Back'))

@@ -36,7 +36,8 @@ class _HomePageState extends State<HomePage> {
       .toList();
 
   void _tapOnNavigationDestination(BuildContext context, int index) =>
-      context.go('/home/${HomePage.tabs[index].name}');
+      context.goNamed(HomePage.pageConfig.name,
+          params: {'tab': HomePage.tabs[index].name});
 
   @override
   Widget build(BuildContext context) {
