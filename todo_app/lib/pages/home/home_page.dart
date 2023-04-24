@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
+import 'package:todo_app/core/page_config.dart';
 import 'package:todo_app/pages/dashboard/dashboard_page.dart';
 import 'package:todo_app/pages/overview/overview_page.dart';
 import 'package:todo_app/pages/task/task_page.dart';
@@ -12,6 +13,11 @@ class HomePage extends StatefulWidget {
   }) : index = tabs.indexWhere((element) => element.name == tab);
 
   final int index;
+
+  static const pageConfig = PageConfig(
+    icon: Icons.home_rounded,
+    name: 'home',
+  );
 
   static const tabs = [
     DashboardPage.pageConfig,
