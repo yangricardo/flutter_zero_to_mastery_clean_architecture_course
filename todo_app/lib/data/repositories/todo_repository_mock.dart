@@ -1,4 +1,5 @@
 import 'package:todo_app/domain/entities/todo_color_entity.dart';
+import 'package:todo_app/domain/entities/todo_entity.dart';
 import 'package:todo_app/domain/entities/unique_id_entity.dart';
 import 'package:todo_app/domain/failures/failure.dart';
 import 'package:todo_app/domain/entities/todo_collection_entity.dart';
@@ -16,5 +17,31 @@ class TodoRepositoryMock implements TodoRepository {
             color: ToDoColor(
                 colorIndex: index % ToDoColor.predefinedColors.length)));
     return Future.delayed(const Duration(milliseconds: 200), () => Right(list));
+  }
+
+  @override
+  Future<Either<Failure, ToDoEntry>> readToDoEntry(
+      CollectionId collectionId, EntryId entryId) {
+    try {
+      final List<ToDoEntry> toDoEntries = List.generate(
+        100,
+        (index) => ToDoEntry(
+          id: EntryId.fromUniqueString(index.toString()),
+          description: 'description $index',
+          isDone: false,
+        ),
+      );
+
+      final selectedEntryItem = toDoEntries.firstWhere(
+        (element) => element.id == entryId,
+      );
+
+      return Future.delayed(
+        const Duration(milliseconds: 200),
+        () => Right(selectedEntryItem),
+      );
+    } on Exception catch (e) {
+      return Future.value(Left(ServerFailure(stackTrace: e.toString())));
+    }
   }
 }
