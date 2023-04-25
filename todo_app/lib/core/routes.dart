@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:todo_app/domain/entities/unique_id_entity.dart';
+import 'package:todo_app/pages/detail/todo_detail_page.dart';
 import 'package:todo_app/pages/home/home_page.dart';
+import 'package:todo_app/pages/overview/overview_page.dart';
 import 'package:todo_app/pages/settings/settings_page.dart';
 import './go_route_observer.dart';
 
@@ -36,4 +39,32 @@ final routes = GoRouter(
                   );
                 })
           ]),
+      GoRoute(
+        path: '$_basePath/overview/:collectionId',
+        name: ToDoDetailPage.pageConfig.name,
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('details'),
+              leading: BackButton(
+                onPressed: () {
+                  if (context.canPop()) {
+                    context.pop();
+                  } else {
+                    context.goNamed(
+                      HomePage.pageConfig.name,
+                      params: {'tab': OverviewPage.pageConfig.name},
+                    );
+                  }
+                },
+              ),
+            ),
+            body: ToDoDetailPageProvider(
+              collectionId: CollectionId.fromUniqueString(
+                state.params['collectionId'] ?? '',
+              ),
+            ),
+          );
+        },
+      )
     ]);
