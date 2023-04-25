@@ -70,6 +70,21 @@ void main() {
           expect(find.byType(ListTile), findsNWidgets(10));
         },
       );
+
+      testWidgets(
+        'error state should display error message',
+        (widgetTester) async {
+          whenListen(
+            mockTodoOverviewCubit,
+            Stream.fromIterable([ToDoOverviewErrorState()]),
+            initialState: ToDoOverviewLoadingState(),
+          );
+          await widgetTester
+              .pumpWidget(widgetUnderTest(cubit: mockTodoOverviewCubit));
+          await widgetTester.pumpAndSettle();
+          expect(find.text('ERROR, please try again'), findsOneWidget);
+        },
+      );
     });
   });
 }
