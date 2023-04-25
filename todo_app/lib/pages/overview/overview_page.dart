@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/core/page_config.dart';
 import 'package:todo_app/domain/use_cases/load_todo_collection.dart';
 import 'package:todo_app/pages/overview/cubit/todo_overview_cubit.dart';
+import 'package:todo_app/pages/overview/view_states/todo_overview_error.dart';
+import 'package:todo_app/pages/overview/view_states/todo_overview_loaded.dart';
+import 'package:todo_app/pages/overview/view_states/todo_overview_loading.dart';
 
 class OverviewPageProvider extends StatelessWidget {
   const OverviewPageProvider({super.key});
@@ -24,15 +27,24 @@ class OverviewPage extends StatelessWidget {
   static const pageConfig = PageConfig(
     icon: Icons.work_history_rounded,
     name: 'overview',
-    child: OverviewPage(),
+    child: OverviewPageProvider(),
   );
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [
-        Text('Overview'),
-      ],
+    return Container(
+      color: Colors.tealAccent,
+      child: BlocBuilder<TodoOverviewCubit, TodoOverviewState>(
+        builder: (context, state) {
+          if (state is ToDoOverviewLoadingState) {
+            return const ToDoOverviewLoading();
+          } else if (state is ToDoOverviewLoadedState) {
+            return ToDoOverviewLoaded(collections: state.collections);
+          } else {
+            return const ToDoOverviewError();
+          }
+        },
+      ),
     );
   }
 }
