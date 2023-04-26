@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/domain/entities/unique_id_entity.dart';
+import 'package:todo_app/pages/create_todo_collection/create_todo_collection_page.dart';
 import 'package:todo_app/pages/detail/todo_detail_page.dart';
 import 'package:todo_app/pages/home/cubit/navigation_todo_cubit.dart';
 import 'package:todo_app/pages/home/home_page.dart';
@@ -20,6 +21,30 @@ final routes = GoRouter(
     observers: [GoRouteObserver()],
     initialLocation: '$_basePath/dashboard',
     routes: [
+      GoRoute(
+        name: CreateTodoCollectionPage.pageConfig.name,
+        path: '$_basePath/overview/${CreateTodoCollectionPage.pageConfig.name}',
+        builder: (context, state) => Scaffold(
+          appBar: AppBar(
+            title: const Text('create collection'),
+            leading: BackButton(
+              onPressed: () {
+                if (context.canPop()) {
+                  context.pop();
+                } else {
+                  context.goNamed(
+                    HomePage.pageConfig.name,
+                    params: {'tab': OverviewPage.pageConfig.name},
+                  );
+                }
+              },
+            ),
+          ),
+          body: SafeArea(
+            child: CreateTodoCollectionPage.pageConfig.child,
+          ),
+        ),
+      ),
       GoRoute(
         name: SettingsPage.pageConfig.name,
         path: '$_basePath/settings',
