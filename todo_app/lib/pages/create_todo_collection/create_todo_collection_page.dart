@@ -28,7 +28,7 @@ class CreateTodoCollectionPage extends StatefulWidget {
   static const pageConfig = PageConfig(
       icon: Icons.add_task_rounded,
       name: 'create_todo_collection',
-      child: CreateTodoCollectionPage());
+      child: CreateTodoCollectionPageProvider());
   @override
   State<CreateTodoCollectionPage> createState() =>
       _CreateTodoCollectionPageState();
@@ -38,6 +38,7 @@ class _CreateTodoCollectionPageState extends State<CreateTodoCollectionPage> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<CreateTodoCollectionPageCubit>();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Form(
@@ -46,6 +47,7 @@ class _CreateTodoCollectionPageState extends State<CreateTodoCollectionPage> {
             children: [
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Title'),
+                onChanged: cubit.titleChanged,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a title';
@@ -55,6 +57,7 @@ class _CreateTodoCollectionPageState extends State<CreateTodoCollectionPage> {
               ),
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Color'),
+                onChanged: cubit.colorChanged,
                 validator: (value) {
                   if (value != null && value.isNotEmpty) {
                     final parsedColorIndex = int.tryParse(value);
@@ -72,6 +75,8 @@ class _CreateTodoCollectionPageState extends State<CreateTodoCollectionPage> {
                 onPressed: () {
                   final isValid = _formKey.currentState?.validate();
                   if (isValid == true) {
+                    cubit.submit();
+                    context.read<CreateTodoCollectionPageCubit>().submit();
                     context.pop();
                   }
                 },
