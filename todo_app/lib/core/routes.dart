@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/domain/entities/unique_id_entity.dart';
 import 'package:todo_app/pages/detail/todo_detail_page.dart';
+import 'package:todo_app/pages/home/cubit/navigation_todo_cubit.dart';
 import 'package:todo_app/pages/home/home_page.dart';
 import 'package:todo_app/pages/overview/overview_page.dart';
 import 'package:todo_app/pages/settings/settings_page.dart';
@@ -46,24 +48,33 @@ final routes = GoRouter(
           final collectionId = CollectionId.fromUniqueString(
             state.params['collectionId'] ?? '',
           );
-          return Scaffold(
-            appBar: AppBar(
-              title: Text('Collection ${collectionId.value}'),
-              leading: BackButton(
-                onPressed: () {
-                  if (context.canPop()) {
-                    context.pop();
-                  } else {
-                    context.goNamed(
-                      HomePage.pageConfig.name,
-                      params: {'tab': OverviewPage.pageConfig.name},
-                    );
-                  }
-                },
+          return BlocListener<NavigationTodoCubit, NavigationTodoState>(
+            listenWhen: (previous, current) =>
+                previous.isSecondBodyDisplayed != current.isSecondBodyDisplayed,
+            listener: (context, state) {
+              if (context.canPop() && (state.isSecondBodyDisplayed ?? false)) {
+                context.pop();
+              }
+            },
+            child: Scaffold(
+              appBar: AppBar(
+                title: Text('Collection ${collectionId.value}'),
+                leading: BackButton(
+                  onPressed: () {
+                    if (context.canPop()) {
+                      context.pop();
+                    } else {
+                      context.goNamed(
+                        HomePage.pageConfig.name,
+                        params: {'tab': OverviewPage.pageConfig.name},
+                      );
+                    }
+                  },
+                ),
               ),
-            ),
-            body: ToDoDetailPageProvider(
-              collectionId: collectionId,
+              body: ToDoDetailPageProvider(
+                collectionId: collectionId,
+              ),
             ),
           );
         },
