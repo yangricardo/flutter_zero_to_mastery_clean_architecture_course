@@ -57,7 +57,8 @@ class _CreateTodoCollectionPageState extends State<CreateTodoCollectionPage> {
               }
               return null;
             },
-          )
+          ),
+          const SizedBox(height: 16)
         ],
       )),
     );
