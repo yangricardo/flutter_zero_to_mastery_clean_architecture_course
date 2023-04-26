@@ -7,6 +7,7 @@ import 'package:todo_app/components/todo_entry_item/view_states/todo_entry_item_
 import 'package:todo_app/domain/entities/unique_id_entity.dart';
 import 'package:todo_app/domain/repositories/todo_repository.dart';
 import 'package:todo_app/domain/use_cases/load_todo_entry.dart';
+import 'package:todo_app/domain/use_cases/update_todo_entry.dart';
 
 class ToDoEntryItemProvider extends StatelessWidget {
   final EntryId entryId;
@@ -21,6 +22,8 @@ class ToDoEntryItemProvider extends StatelessWidget {
         entryId: entryId,
         collectionId: collectionId,
         loadToDoEntry: LoadToDoEntry(
+            todoRepository: RepositoryProvider.of<TodoRepository>(context)),
+        updateToDoEntry: UpdateToDoEntry(
             todoRepository: RepositoryProvider.of<TodoRepository>(context)),
       )..fetch(),
       child: const ToDoEntryItem(),
@@ -41,7 +44,7 @@ class ToDoEntryItem extends StatelessWidget {
           return ToDoEntryItemLoaded(
             entryItem: state.toDoEntry,
             onChanged: (value) {
-              context.read<ToDoEntryItemCubit>().fetch();
+              context.read<ToDoEntryItemCubit>().update();
             },
           );
         } else {
