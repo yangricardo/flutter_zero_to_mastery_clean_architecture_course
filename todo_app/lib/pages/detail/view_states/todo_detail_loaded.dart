@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/components/todo_entry_item/todo_entry_item.dart';
 import 'package:todo_app/domain/entities/unique_id_entity.dart';
 
 class ToDoDetailLoaded extends StatelessWidget {
@@ -19,8 +20,10 @@ class ToDoDetailLoaded extends StatelessWidget {
         child: ListView.builder(
           itemCount: entryIds.length,
           itemBuilder: (context, index) {
-            final item = entryIds[index];
-            return Text('Entry: ${item.value}');
+            return ToDoEntryItemProvider(
+              entryId: entryIds[index],
+              collectionId: collectionId,
+            );
           },
         ),
       ),
