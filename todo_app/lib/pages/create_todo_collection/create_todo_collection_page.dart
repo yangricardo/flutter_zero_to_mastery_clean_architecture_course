@@ -29,6 +29,22 @@ class CreateTodoCollectionPage extends StatefulWidget {
 class _CreateTodoCollectionPageState extends State<CreateTodoCollectionPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Form(
+          child: Column(
+        children: [
+          TextFormField(
+            decoration: const InputDecoration(labelText: 'Title'),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter a title';
+              }
+              return null;
+            },
+          )
+        ],
+      )),
+    );
   }
 }
