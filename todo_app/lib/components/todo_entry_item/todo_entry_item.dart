@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/components/todo_entry_item/cubit/todo_entry_item_cubit.dart';
+import 'package:todo_app/components/todo_entry_item/view_states/todo_entry_item_error.dart';
+import 'package:todo_app/components/todo_entry_item/view_states/todo_entry_item_loaded.dart';
+import 'package:todo_app/components/todo_entry_item/view_states/todo_entry_item_loading.dart';
 import 'package:todo_app/domain/entities/unique_id_entity.dart';
 import 'package:todo_app/domain/repositories/todo_repository.dart';
 import 'package:todo_app/domain/use_cases/load_todo_entry.dart';
@@ -30,6 +33,16 @@ class ToDoEntryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return BlocBuilder<ToDoEntryItemCubit, ToDoEntryItemState>(
+      builder: (context, state) {
+        if (state is ToDoEntryItemLoading) {
+          return const ToDoEntryItemLoading();
+        } else if (state is ToDoEntryItemLoaded) {
+          return const ToDoEntryItemLoaded();
+        } else {
+          return const ToDoEntryItemError();
+        }
+      },
+    );
   }
 }
