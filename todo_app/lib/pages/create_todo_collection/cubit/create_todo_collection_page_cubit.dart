@@ -11,4 +11,8 @@ class CreateTodoCollectionPageCubit
   void titleChanged(String? title) {
     emit(state.copyWith(title: title));
   }
+
+  void colorChanged(String? color) {
+    emit(state.copyWith(color: color));
+  }
 }
