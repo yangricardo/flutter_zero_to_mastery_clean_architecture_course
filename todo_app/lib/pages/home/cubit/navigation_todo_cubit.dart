@@ -6,4 +6,8 @@ part 'navigation_todo_state.dart';
 
 class NavigationTodoCubit extends Cubit<NavigationTodoState> {
   NavigationTodoCubit() : super(const NavigationTodoState());
+
+  void selectedToDoCollectionChanged(CollectionId collectionId) {
+    emit(NavigationTodoState(selectedCollectionId: collectionId));
+  }
 }
