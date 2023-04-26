@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/core/page_config.dart';
 import 'package:todo_app/domain/entities/todo_color_entity.dart';
+import 'package:todo_app/domain/repositories/todo_repository.dart';
+import 'package:todo_app/domain/use_cases/create_todo_collection.dart';
 import 'package:todo_app/pages/create_todo_collection/cubit/create_todo_collection_page_cubit.dart';
 
 class CreateTodoCollectionPageProvider extends StatelessWidget {
@@ -10,8 +12,12 @@ class CreateTodoCollectionPageProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CreateTodoCollectionPageCubit(),
+    return BlocProvider<CreateTodoCollectionPageCubit>(
+      create: (context) => CreateTodoCollectionPageCubit(
+        createToDoCollection: CreateTodoCollection(
+          todoRepository: RepositoryProvider.of<TodoRepository>(context),
+        ),
+      ),
       child: const CreateTodoCollectionPage(),
     );
   }
