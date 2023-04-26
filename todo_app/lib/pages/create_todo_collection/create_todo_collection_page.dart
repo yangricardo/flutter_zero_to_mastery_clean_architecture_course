@@ -28,39 +28,41 @@ class CreateTodoCollectionPage extends StatefulWidget {
 }
 
 class _CreateTodoCollectionPageState extends State<CreateTodoCollectionPage> {
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Form(
+          key: _formKey,
           child: Column(
-        children: [
-          TextFormField(
-            decoration: const InputDecoration(labelText: 'Title'),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter a title';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            decoration: const InputDecoration(labelText: 'Color'),
-            validator: (value) {
-              if (value != null && value.isNotEmpty) {
-                final parsedColorIndex = int.tryParse(value);
-                if (parsedColorIndex == null ||
-                    parsedColorIndex < 0 ||
-                    parsedColorIndex > ToDoColor.predefinedColors.length) {
-                  return 'Only numbers between 0 and ${ToDoColor.predefinedColors.length - 1} are allowed';
-                }
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: 16)
-        ],
-      )),
+            children: [
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Title'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a title';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Color'),
+                validator: (value) {
+                  if (value != null && value.isNotEmpty) {
+                    final parsedColorIndex = int.tryParse(value);
+                    if (parsedColorIndex == null ||
+                        parsedColorIndex < 0 ||
+                        parsedColorIndex > ToDoColor.predefinedColors.length) {
+                      return 'Only numbers between 0 and ${ToDoColor.predefinedColors.length - 1} are allowed';
+                    }
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16)
+            ],
+          )),
     );
   }
 }
