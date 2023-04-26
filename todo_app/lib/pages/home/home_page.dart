@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:todo_app/core/page_config.dart';
+import 'package:todo_app/pages/create_todo_collection/create_todo_collection_page.dart';
 import 'package:todo_app/pages/dashboard/dashboard_page.dart';
 import 'package:todo_app/pages/detail/todo_detail_page.dart';
 import 'package:todo_app/pages/home/cubit/navigation_todo_cubit.dart';
@@ -53,6 +54,12 @@ class _HomePageState extends State<HomePage> {
             Breakpoints.mediumAndUp: SlotLayout.from(
                 key: const Key('primary-navigation-medium'),
                 builder: (context) => AdaptiveScaffold.standardNavigationRail(
+                    leading: IconButton(
+                        onPressed: () {
+                          context.pushNamed(
+                              CreateTodoCollectionPage.pageConfig.name);
+                        },
+                        icon: Icon(CreateTodoCollectionPage.pageConfig.icon)),
                     trailing: IconButton(
                         onPressed: () =>
                             context.pushNamed(SettingsPage.pageConfig.name),
