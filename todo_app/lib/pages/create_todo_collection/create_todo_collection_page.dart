@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:todo_app/core/page_config.dart';
 import 'package:todo_app/domain/entities/todo_color_entity.dart';
 import 'package:todo_app/pages/create_todo_collection/cubit/create_todo_collection_page_cubit.dart';
@@ -60,7 +61,16 @@ class _CreateTodoCollectionPageState extends State<CreateTodoCollectionPage> {
                   return null;
                 },
               ),
-              const SizedBox(height: 16)
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  final isValid = _formKey.currentState?.validate();
+                  if (isValid == true) {
+                    context.pop();
+                  }
+                },
+                child: const Text('Save Collection'),
+              ),
             ],
           )),
     );
