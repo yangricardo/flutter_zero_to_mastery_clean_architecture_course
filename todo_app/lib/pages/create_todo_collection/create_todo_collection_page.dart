@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/core/page_config.dart';
+import 'package:todo_app/domain/entities/todo_color_entity.dart';
 import 'package:todo_app/pages/create_todo_collection/cubit/create_todo_collection_page_cubit.dart';
 
 class CreateTodoCollectionPageProvider extends StatelessWidget {
@@ -39,6 +40,20 @@ class _CreateTodoCollectionPageState extends State<CreateTodoCollectionPage> {
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter a title';
+              }
+              return null;
+            },
+          ),
+          TextFormField(
+            decoration: const InputDecoration(labelText: 'Color'),
+            validator: (value) {
+              if (value != null && value.isNotEmpty) {
+                final parsedColorIndex = int.tryParse(value);
+                if (parsedColorIndex == null ||
+                    parsedColorIndex < 0 ||
+                    parsedColorIndex > ToDoColor.predefinedColors.length) {
+                  return 'Only numbers between 0 and ${ToDoColor.predefinedColors.length - 1} are allowed';
+                }
               }
               return null;
             },
