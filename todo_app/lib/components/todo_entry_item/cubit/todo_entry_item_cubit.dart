@@ -26,7 +26,7 @@ class ToDoEntryItemCubit extends Cubit<ToDoEntryItemState> {
         ),
       );
       return entry.fold((left) => emit(ToDoEntryItemErrorState()),
-          (right) => ToDoEntryItemLoadedState(toDoEntry: right));
+          (right) => emit(ToDoEntryItemLoadedState(toDoEntry: right)));
     } on Exception catch (_) {
       emit(ToDoEntryItemErrorState());
     }
