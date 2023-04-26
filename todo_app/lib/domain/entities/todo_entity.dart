@@ -20,6 +20,17 @@ class ToDoEntry extends Equatable {
     );
   }
 
+  ToDoEntry copyWith({
+    String? description,
+    bool? isDone,
+  }) {
+    return ToDoEntry(
+      id: id,
+      description: description ?? this.description,
+      isDone: isDone ?? this.isDone,
+    );
+  }
+
   @override
   List<Object?> get props => [id, isDone, description];
 }
