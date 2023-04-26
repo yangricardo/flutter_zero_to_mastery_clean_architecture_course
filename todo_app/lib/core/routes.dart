@@ -43,9 +43,12 @@ final routes = GoRouter(
         path: '$_basePath/overview/:collectionId',
         name: ToDoDetailPage.pageConfig.name,
         builder: (context, state) {
+          final collectionId = CollectionId.fromUniqueString(
+            state.params['collectionId'] ?? '',
+          );
           return Scaffold(
             appBar: AppBar(
-              title: const Text('details'),
+              title: Text('Collection ${collectionId.value}'),
               leading: BackButton(
                 onPressed: () {
                   if (context.canPop()) {
@@ -60,9 +63,7 @@ final routes = GoRouter(
               ),
             ),
             body: ToDoDetailPageProvider(
-              collectionId: CollectionId.fromUniqueString(
-                state.params['collectionId'] ?? '',
-              ),
+              collectionId: collectionId,
             ),
           );
         },
