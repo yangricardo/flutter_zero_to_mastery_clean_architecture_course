@@ -75,8 +75,7 @@ class _CreateTodoCollectionPageState extends State<CreateTodoCollectionPage> {
                 onPressed: () {
                   final isValid = _formKey.currentState?.validate();
                   if (isValid == true) {
-                    cubit.submit();
-                    context.pop();
+                    cubit.submit().then((_) => context.pop(true));
                   }
                 },
                 child: const Text('Save Collection'),
