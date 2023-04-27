@@ -76,7 +76,6 @@ class _CreateTodoCollectionPageState extends State<CreateTodoCollectionPage> {
                   final isValid = _formKey.currentState?.validate();
                   if (isValid == true) {
                     cubit.submit();
-                    context.read<CreateTodoCollectionPageCubit>().submit();
                     context.pop();
                   }
                 },
