@@ -10,6 +10,7 @@ class ToDoColor {
     Colors.yellow,
     Colors.teal,
     Colors.orange,
+    Colors.pink
   ];
 
   Color get color => predefinedColors[colorIndex];
