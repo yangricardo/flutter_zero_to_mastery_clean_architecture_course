@@ -67,7 +67,8 @@ final routes = GoRouter(
           ),
           body: SafeArea(
             child: CreateTodoEntryPageProvider(
-                collectionId: state.extra as CollectionId),
+              collectionId: state.extra as CollectionId,
+            ),
           ),
         ),
       ),

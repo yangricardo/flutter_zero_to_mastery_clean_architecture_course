@@ -31,17 +31,19 @@ class ToDoDetailLoaded extends StatelessWidget {
               },
             ),
             Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Align(
-                  alignment: Alignment.bottomRight,
-                  child: FloatingActionButton(
-                      key: const Key('create-todo-entry-fab'),
-                      onPressed: () {
-                        context.pushNamed(CreateTodoEntryPage.pageConfig.name,
-                            extra: collectionId);
-                      },
-                      child: Icon(CreateTodoEntryPage.pageConfig.icon)),
-                ))
+              padding: const EdgeInsets.all(8.0),
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: FloatingActionButton(
+                    heroTag: 'create-todo-entry-fab-hero-tag',
+                    key: const Key('create-todo-entry-fab'),
+                    onPressed: () {
+                      context.pushNamed(CreateTodoEntryPage.pageConfig.name,
+                          extra: collectionId);
+                    },
+                    child: Icon(CreateTodoEntryPage.pageConfig.icon)),
+              ),
+            )
           ],
         ),
       ),
