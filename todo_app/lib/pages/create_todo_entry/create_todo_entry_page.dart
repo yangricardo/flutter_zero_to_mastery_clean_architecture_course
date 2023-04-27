@@ -24,7 +24,7 @@ class CreateTodoEntryPage extends StatelessWidget {
   const CreateTodoEntryPage({super.key});
 
   static const PageConfig pageConfig =
-      PageConfig(icon: Icons.add_task_rounded, name: 'create_todo_entry');
+      PageConfig(icon: Icons.add, name: 'create_todo_entry');
 
   @override
   Widget build(BuildContext context) {

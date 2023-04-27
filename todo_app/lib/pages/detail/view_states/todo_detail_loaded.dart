@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:todo_app/components/todo_entry_item/todo_entry_item.dart';
 import 'package:todo_app/domain/entities/unique_id_entity.dart';
+import 'package:todo_app/pages/create_todo_entry/create_todo_entry_page.dart';
 
 class ToDoDetailLoaded extends StatelessWidget {
   const ToDoDetailLoaded({
@@ -17,14 +19,29 @@ class ToDoDetailLoaded extends StatelessWidget {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          itemCount: entryIds.length,
-          itemBuilder: (context, index) {
-            return ToDoEntryItemProvider(
-              entryId: entryIds[index],
-              collectionId: collectionId,
-            );
-          },
+        child: Stack(
+          children: [
+            ListView.builder(
+              itemCount: entryIds.length,
+              itemBuilder: (context, index) {
+                return ToDoEntryItemProvider(
+                  entryId: entryIds[index],
+                  collectionId: collectionId,
+                );
+              },
+            ),
+            Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: FloatingActionButton(
+                      onPressed: () {
+                        context.pushNamed(CreateTodoEntryPage.pageConfig.name,
+                            extra: collectionId);
+                      },
+                      child: Icon(CreateTodoEntryPage.pageConfig.icon)),
+                ))
+          ],
         ),
       ),
     );
