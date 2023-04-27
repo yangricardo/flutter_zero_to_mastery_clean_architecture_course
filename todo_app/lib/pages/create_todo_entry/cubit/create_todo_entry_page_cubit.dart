@@ -9,4 +9,8 @@ class CreateTodoEntryPageCubit extends Cubit<CreateTodoEntryPageState> {
 
   CreateTodoEntryPageCubit({required this.collectionId})
       : super(const CreateTodoEntryPageState());
+
+  void descriptionChanged({String? description}) => emit(
+        state.copyWith(description: description),
+      );
 }
