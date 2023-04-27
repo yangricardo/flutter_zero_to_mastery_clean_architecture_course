@@ -1,4 +1,5 @@
 import 'package:todo_app/data/data_sources/interfaces/todo_local_data_source_interface.dart';
+import 'package:todo_app/data/data_sources/models/todo_collection_model.dart';
 import 'package:todo_app/data/data_sources/models/todo_entry_model.dart';
 import 'package:todo_app/data/exceptions/exceptions.dart';
 import 'package:todo_app/domain/failures/failure.dart';
@@ -43,10 +44,12 @@ class LocalToDoRepository extends TodoRepository {
   }
 
   @override
-  Future<Either<Failure, List<ToDoCollection>>> readToDoCollections() {
+  Future<Either<Failure, List<ToDoCollection>>> readToDoCollections() async {
     try {
-      // TODO: implement readToDoCollections
-      throw UnimplementedError();
+      final result = await localDataSource.getToDoCollections();
+      final todoCollections =
+          result.map((e) => ToDoCollectionModel.toToDoCollection(e)).toList();
+      return Right(todoCollections);
     } on CacheException catch (e) {
       return Future.value(Left(CacheFailure(stackTrace: e.toString())));
     } on Exception catch (e) {
