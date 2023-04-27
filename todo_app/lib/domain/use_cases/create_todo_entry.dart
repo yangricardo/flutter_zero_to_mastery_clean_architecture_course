@@ -11,7 +11,8 @@ class CreateTodoEntry implements UseCase<bool, ToDoEntryParams> {
   @override
   Future<Either<Failure, bool>> call(ToDoEntryParams params) {
     try {
-      final result = todoRepository.createToDoEntry(params.entry);
+      final result =
+          todoRepository.createToDoEntry(params.collectionId, params.entry);
       return result.fold((left) => Left(left), (right) => Right(right));
     } on Exception catch (e) {
       return Future.value(Left(ServerFailure(stackTrace: e.toString())));
