@@ -83,7 +83,11 @@ class TodoRepositoryMock implements TodoRepository {
   @override
   Future<Either<Failure, bool>> createToDoCollection(
       ToDoCollection collection) {
-    toDoCollections.add(collection);
+    final collectionToAdd = ToDoCollection(
+        id: CollectionId.fromUniqueString(toDoCollections.length.toString()),
+        title: collection.title,
+        color: collection.color);
+    toDoCollections.add(collectionToAdd);
     return Future.delayed(
         const Duration(milliseconds: 100), () => const Right(true));
   }
