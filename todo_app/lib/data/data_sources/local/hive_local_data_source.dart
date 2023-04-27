@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:todo_app/data/data_sources/interfaces/todo_local_data_source_interface.dart';
 import 'package:todo_app/data/data_sources/models/todo_entry_model.dart';
 import 'package:todo_app/data/data_sources/models/todo_collection_model.dart';
+import 'package:todo_app/data/exceptions/exceptions.dart';
 
 const String collectionsBox = 'collections';
 const String entriesBox = 'entries';
@@ -43,9 +44,15 @@ class HiveLocalDataSource implements ToDoLocalDataSourceInterface {
 
   @override
   Future<bool> createToDoEntry(
-      {required String collectionId, required ToDoEntryModel entry}) {
-    // TODO: implement createToDoEntry
-    throw UnimplementedError();
+      {required String collectionId, required ToDoEntryModel entry}) async {
+    final entries = await _openEntriesBox();
+    final entryList = await entries.get(collectionId);
+    if (entryList == null) throw CollectionNotFoundException();
+    entryList
+        .cast<String, dynamic>()
+        .putIfAbsent(entry.id, () => entry.toJson());
+    await entries.put(collectionId, entryList);
+    return true;
   }
 
   @override
