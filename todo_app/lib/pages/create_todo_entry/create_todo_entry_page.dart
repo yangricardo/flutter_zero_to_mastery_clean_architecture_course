@@ -29,7 +29,7 @@ class CreateTodoEntryPage extends StatefulWidget {
 
   static const pageConfig = PageConfig(
     name: 'create_todo_entry',
-    icon: Icons.add_task_rounded,
+    icon: Icons.add_rounded,
     child: Placeholder(),
   );
 
