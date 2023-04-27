@@ -49,19 +49,22 @@ class ToDoDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ToDoDetailCubit, ToDoDetailState>(
-      builder: (context, state) {
-        if (state is ToDoDetailCubitLoadingState) {
-          return const ToDoDetailLoading();
-        } else if (state is ToDoDetailCubitLoadedState) {
-          return ToDoDetailLoaded(
-            collectionId: collectionId,
-            entryIds: state.entryIds,
-          );
-        } else {
-          return const ToDoDetailError();
-        }
-      },
+    return Container(
+      color: Colors.teal[100],
+      child: BlocBuilder<ToDoDetailCubit, ToDoDetailState>(
+        builder: (context, state) {
+          if (state is ToDoDetailCubitLoadingState) {
+            return const ToDoDetailLoading();
+          } else if (state is ToDoDetailCubitLoadedState) {
+            return ToDoDetailLoaded(
+              collectionId: collectionId,
+              entryIds: state.entryIds,
+            );
+          } else {
+            return const ToDoDetailError();
+          }
+        },
+      ),
     );
   }
 }

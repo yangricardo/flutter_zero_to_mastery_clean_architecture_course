@@ -12,10 +12,8 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [
-        Text('Dashboard'),
-      ],
+    return Container(
+      color: Colors.cyan[50],
     );
   }
 }

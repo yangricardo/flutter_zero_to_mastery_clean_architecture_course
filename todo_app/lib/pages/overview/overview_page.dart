@@ -34,7 +34,7 @@ class OverviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.tealAccent,
+      color: Colors.teal[50],
       child: BlocBuilder<TodoOverviewCubit, TodoOverviewState>(
         builder: (context, state) {
           if (state is ToDoOverviewLoadingState) {

@@ -15,10 +15,9 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Colors.green,
-        child: Column(
-          children: [
-            TextButton(
+        color: Colors.green[50],
+        child: Center(
+            child: TextButton(
                 onPressed: () {
                   if (context.canPop()) {
                     context.pop();
@@ -26,8 +25,6 @@ class SettingsPage extends StatelessWidget {
                     context.push(TaskPage.pageConfig.name);
                   }
                 },
-                child: const Text('Go Back'))
-          ],
-        ));
+                child: const Text('Go Back'))));
   }
 }
