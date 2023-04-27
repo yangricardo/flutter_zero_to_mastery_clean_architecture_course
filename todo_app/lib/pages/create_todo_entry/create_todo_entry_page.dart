@@ -23,7 +23,20 @@ class CreateTodoEntryPage extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Form(
-          child: Column(),
+          child: Column(
+            children: [
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Description'),
+                onChanged: (value) {},
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a description';
+                  }
+                  return null;
+                },
+              ),
+            ],
+          ),
         ));
   }
 }
