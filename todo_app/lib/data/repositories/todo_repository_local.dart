@@ -87,10 +87,11 @@ class LocalToDoRepository extends TodoRepository {
 
   @override
   Future<Either<Failure, ToDoEntry>> updateToDoEntry(
-      {required CollectionId collectionId, required EntryId entryId}) {
+      {required CollectionId collectionId, required EntryId entryId}) async {
     try {
-      // TODO: implement updateToDoEntry
-      throw UnimplementedError();
+      final entry = await localDataSource.updateToDoEntry(
+          collectionId: collectionId.value, entryId: entryId.value);
+      return Right(ToDoEntryModel.toToDoEntry(entry));
     } on CacheException catch (e) {
       return Future.value(Left(CacheFailure(stackTrace: e.toString())));
     } on Exception catch (e) {
