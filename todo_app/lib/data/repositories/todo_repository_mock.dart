@@ -87,4 +87,11 @@ class TodoRepositoryMock implements TodoRepository {
     return Future.delayed(
         const Duration(milliseconds: 100), () => const Right(true));
   }
+
+  @override
+  Future<Either<Failure, bool>> createToDoEntry(ToDoEntry entry) {
+    toDoEntries.add(entry);
+    return Future.delayed(
+        const Duration(milliseconds: 100), () => const Right(true));
+  }
 }
