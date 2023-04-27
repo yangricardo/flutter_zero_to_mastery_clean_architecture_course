@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/core/page_config.dart';
+import 'package:todo_app/domain/entities/unique_id_entity.dart';
+import 'package:todo_app/pages/create_todo_entry/cubit/create_todo_entry_page_cubit.dart';
 
 class CreateTodoEntryPageProvider extends StatelessWidget {
-  const CreateTodoEntryPageProvider({super.key});
+  final CollectionId collectionId;
+  const CreateTodoEntryPageProvider({super.key, required this.collectionId});
 
   @override
   Widget build(BuildContext context) {
-    return const CreateTodoEntryPage();
+    return BlocProvider<CreateTodoEntryPageCubit>(
+      create: (context) => CreateTodoEntryPageCubit(
+        collectionId: collectionId,
+      ),
+      child: const CreateTodoEntryPage(),
+    );
   }
 }
 
 class CreateTodoEntryPage extends StatelessWidget {
   const CreateTodoEntryPage({super.key});
 
-  static const PageConfig pageConfig = PageConfig(
-      icon: Icons.add_task_rounded,
-      name: 'create_todo_entry',
-      child: CreateTodoEntryPageProvider());
+  static const PageConfig pageConfig =
+      PageConfig(icon: Icons.add_task_rounded, name: 'create_todo_entry');
 
   @override
   Widget build(BuildContext context) {
