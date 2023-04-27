@@ -1,6 +1,7 @@
 import 'package:todo_app/data/data_sources/interfaces/todo_local_data_source_interface.dart';
 import 'package:todo_app/data/data_sources/models/todo_entry_model.dart';
 import 'package:todo_app/data/data_sources/models/todo_collection_model.dart';
+import 'package:todo_app/data/exceptions/exceptions.dart';
 
 class MemoryLocalDataSource implements ToDoLocalDataSourceInterface {
   final List<ToDoCollectionModel> todoCollections = [];
@@ -8,8 +9,13 @@ class MemoryLocalDataSource implements ToDoLocalDataSourceInterface {
 
   @override
   Future<bool> createToDoCollection({required ToDoCollectionModel collection}) {
-    // TODO: implement createToDoCollection
-    throw UnimplementedError();
+    try {
+      todoCollections.add(collection);
+      todoEntries.putIfAbsent(collection.id, () => []);
+      return Future.value(true);
+    } on Exception catch (_) {
+      throw CacheException();
+    }
   }
 
   @override
