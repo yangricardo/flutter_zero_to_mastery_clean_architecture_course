@@ -110,8 +110,27 @@ class HiveLocalDataSource implements ToDoLocalDataSourceInterface {
 
   @override
   Future<ToDoEntryModel> updateToDoEntry(
-      {required String collectionId, required String entryId}) {
-    // TODO: implement updateToDoEntry
-    throw UnimplementedError();
+      {required String collectionId, required String entryId}) async {
+    final entries = await _openEntriesBox();
+    final entryList = await entries.get(collectionId);
+
+    if (entryList == null) throw CollectionNotFoundException();
+
+    if (!entryList.containsKey(entryId)) throw EntryNotFoundException();
+
+    final entry =
+        ToDoEntryModel.fromJson(entryList[entryId].cast<String, dynamic>());
+
+    final updatedEntry = ToDoEntryModel(
+      id: entry.id,
+      description: entry.description,
+      isDone: !entry.isDone,
+    );
+
+    entryList[entryId] = updatedEntry.toJson();
+
+    await entries.put(collectionId, entryList);
+
+    return updatedEntry;
   }
 }
