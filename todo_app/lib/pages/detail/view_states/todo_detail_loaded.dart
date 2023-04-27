@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/components/todo_entry_item/todo_entry_item.dart';
 import 'package:todo_app/domain/entities/unique_id_entity.dart';
 import 'package:todo_app/pages/create_todo_entry/create_todo_entry_page.dart';
+import 'package:todo_app/pages/detail/cubit/to_do_detail_cubit.dart';
 
 class ToDoDetailLoaded extends StatelessWidget {
   const ToDoDetailLoaded({
@@ -39,7 +41,11 @@ class ToDoDetailLoaded extends StatelessWidget {
                     key: const Key('create-todo-entry-fab'),
                     onPressed: () {
                       context.pushNamed(CreateTodoEntryPage.pageConfig.name,
-                          extra: collectionId);
+                          extra: CreateTodoEntryPageExtra(
+                            collectionId: collectionId,
+                            onToDoEntryItemAdded:
+                                context.read<ToDoDetailCubit>().fetch,
+                          ));
                     },
                     child: Icon(CreateTodoEntryPage.pageConfig.icon)),
               ),

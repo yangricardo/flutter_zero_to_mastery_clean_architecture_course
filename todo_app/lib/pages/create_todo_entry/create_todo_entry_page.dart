@@ -8,9 +8,23 @@ import 'package:todo_app/domain/repositories/todo_repository.dart';
 import 'package:todo_app/domain/use_cases/create_todo_entry.dart';
 import 'package:todo_app/pages/create_todo_entry/cubit/create_todo_entry_page_cubit.dart';
 
+typedef ToDoEntryItemAddedCallback = Function();
+
+class CreateTodoEntryPageExtra {
+  final CollectionId collectionId;
+  final ToDoEntryItemAddedCallback onToDoEntryItemAdded;
+
+  CreateTodoEntryPageExtra(
+      {required this.collectionId, required this.onToDoEntryItemAdded});
+}
+
 class CreateTodoEntryPageProvider extends StatelessWidget {
   final CollectionId collectionId;
-  const CreateTodoEntryPageProvider({super.key, required this.collectionId});
+  final ToDoEntryItemAddedCallback onToDoEntryItemAdded;
+  const CreateTodoEntryPageProvider(
+      {super.key,
+      required this.collectionId,
+      required this.onToDoEntryItemAdded});
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +33,15 @@ class CreateTodoEntryPageProvider extends StatelessWidget {
           collectionId: collectionId,
           addToDoEntry: CreateTodoEntry(
               todoRepository: RepositoryProvider.of<TodoRepository>(context))),
-      child: const CreateTodoEntryPage(),
+      child: CreateTodoEntryPage(onToDoEntryItemAdded: onToDoEntryItemAdded),
     );
   }
 }
 
 class CreateTodoEntryPage extends StatefulWidget {
-  const CreateTodoEntryPage({super.key});
+  final ToDoEntryItemAddedCallback onToDoEntryItemAdded;
+
+  const CreateTodoEntryPage({super.key, required this.onToDoEntryItemAdded});
 
   static const pageConfig = PageConfig(
     name: 'create_todo_entry',
@@ -42,7 +58,6 @@ class _CreateTodoEntryPageState extends State<CreateTodoEntryPage> {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<CreateTodoEntryPageCubit>();
     return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Form(
@@ -51,12 +66,17 @@ class _CreateTodoEntryPageState extends State<CreateTodoEntryPage> {
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Description'),
                 onChanged: (value) {
-                  cubit.descriptionChanged(description: value);
+                  context
+                      .read<CreateTodoEntryPageCubit>()
+                      .descriptionChanged(description: value);
                 },
                 validator: (value) {
-                  final currentValidationState =
-                      cubit.state.description?.validationStatus ??
-                          ValidationStatus.pending;
+                  final currentValidationState = context
+                          .read<CreateTodoEntryPageCubit>()
+                          .state
+                          .description
+                          ?.validationStatus ??
+                      ValidationStatus.pending;
                   switch (currentValidationState) {
                     case ValidationStatus.error:
                       return 'This field needs at least two characters to be valid';
@@ -74,7 +94,8 @@ class _CreateTodoEntryPageState extends State<CreateTodoEntryPage> {
                   final isValid = _formKey.currentState?.validate();
                   debugPrint('submit status: $isValid');
                   if (isValid == true) {
-                    cubit.submit();
+                    context.read<CreateTodoEntryPageCubit>().submit();
+                    widget.onToDoEntryItemAdded.call();
                     context.pop();
                   }
                 },
