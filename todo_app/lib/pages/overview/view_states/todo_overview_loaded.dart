@@ -13,14 +13,14 @@ class ToDoOverviewLoaded extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: collections.length,
-      itemBuilder: (context, index) {
-        final item = collections[index];
-        final colorScheme = Theme.of(context).colorScheme;
-        return Stack(
-          children: [
-            ListTile(
+    return Stack(
+      children: [
+        ListView.builder(
+          itemCount: collections.length,
+          itemBuilder: (context, index) {
+            final item = collections[index];
+            final colorScheme = Theme.of(context).colorScheme;
+            return ListTile(
               tileColor: colorScheme.surface,
               selectedTileColor: colorScheme.surfaceVariant,
               iconColor: item.color.color,
@@ -38,18 +38,18 @@ class ToDoOverviewLoaded extends StatelessWidget {
               },
               leading: const Icon(Icons.circle),
               title: Text(item.title),
-            ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: FloatingActionButton(
-                  onPressed: () {
-                    context.pushNamed(CreateTodoCollectionPage.pageConfig.name);
-                  },
-                  child: Icon(CreateTodoCollectionPage.pageConfig.icon)),
-            )
-          ],
-        );
-      },
+            );
+          },
+        ),
+        Align(
+          alignment: Alignment.bottomRight,
+          child: FloatingActionButton(
+              onPressed: () {
+                context.pushNamed(CreateTodoCollectionPage.pageConfig.name);
+              },
+              child: Icon(CreateTodoCollectionPage.pageConfig.icon)),
+        )
+      ],
     );
   }
 }
