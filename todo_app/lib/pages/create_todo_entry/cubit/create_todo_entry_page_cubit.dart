@@ -2,14 +2,18 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:todo_app/core/form_value.dart';
 import 'package:todo_app/domain/entities/unique_id_entity.dart';
+import 'package:todo_app/domain/use_cases/create_todo_entry.dart';
 
 part 'create_todo_entry_page_state.dart';
 
 class CreateTodoEntryPageCubit extends Cubit<CreateTodoEntryPageState> {
   final CollectionId collectionId;
+  final CreateTodoEntry addToDoEntry;
 
-  CreateTodoEntryPageCubit({required this.collectionId})
-      : super(const CreateTodoEntryPageState());
+  CreateTodoEntryPageCubit({
+    required this.collectionId,
+    required this.addToDoEntry,
+  }) : super(const CreateTodoEntryPageState());
 
   void descriptionChanged({String? description}) {
     ValidationStatus currentStatus = ValidationStatus.pending;

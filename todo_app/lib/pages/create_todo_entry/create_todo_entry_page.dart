@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:todo_app/core/form_value.dart';
 import 'package:todo_app/core/page_config.dart';
 import 'package:todo_app/domain/entities/unique_id_entity.dart';
+import 'package:todo_app/domain/repositories/todo_repository.dart';
+import 'package:todo_app/domain/use_cases/create_todo_entry.dart';
 import 'package:todo_app/pages/create_todo_entry/cubit/create_todo_entry_page_cubit.dart';
 
 class CreateTodoEntryPageProvider extends StatelessWidget {
@@ -14,8 +16,9 @@ class CreateTodoEntryPageProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<CreateTodoEntryPageCubit>(
       create: (context) => CreateTodoEntryPageCubit(
-        collectionId: collectionId,
-      ),
+          collectionId: collectionId,
+          addToDoEntry: CreateTodoEntry(
+              todoRepository: RepositoryProvider.of<TodoRepository>(context))),
       child: const CreateTodoEntryPage(),
     );
   }
