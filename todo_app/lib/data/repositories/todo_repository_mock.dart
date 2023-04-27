@@ -52,7 +52,10 @@ class TodoRepositoryMock implements TodoRepository {
       CollectionId collectionId) {
     try {
       final startIndex = int.parse(collectionId.value) * 10;
-      final endIndex = startIndex + 10;
+      int endIndex = startIndex + 10;
+      if (toDoEntries.length < endIndex) {
+        endIndex = toDoEntries.length;
+      }
       final entryIds = toDoEntries
           .sublist(startIndex, endIndex)
           .map((entry) => entry.id)
