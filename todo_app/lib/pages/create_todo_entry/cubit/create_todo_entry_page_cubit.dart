@@ -24,4 +24,6 @@ class CreateTodoEntryPageCubit extends Cubit<CreateTodoEntryPageState> {
               FormValue(validationStatus: currentStatus, value: description)),
     );
   }
+
+  void submit() {}
 }

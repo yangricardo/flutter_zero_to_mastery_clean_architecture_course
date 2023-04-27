@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:todo_app/core/form_value.dart';
 import 'package:todo_app/core/page_config.dart';
 import 'package:todo_app/domain/entities/unique_id_entity.dart';
@@ -20,11 +21,21 @@ class CreateTodoEntryPageProvider extends StatelessWidget {
   }
 }
 
-class CreateTodoEntryPage extends StatelessWidget {
+class CreateTodoEntryPage extends StatefulWidget {
   const CreateTodoEntryPage({super.key});
 
-  static const PageConfig pageConfig =
-      PageConfig(icon: Icons.add, name: 'create_todo_entry');
+  static const pageConfig = PageConfig(
+    name: 'create_todo_entry',
+    icon: Icons.add_task_rounded,
+    child: Placeholder(),
+  );
+
+  @override
+  State<CreateTodoEntryPage> createState() => _CreateTodoEntryPageState();
+}
+
+class _CreateTodoEntryPageState extends State<CreateTodoEntryPage> {
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +62,20 @@ class CreateTodoEntryPage extends StatelessWidget {
                       return null;
                   }
                 },
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  final isValid = _formKey.currentState?.validate();
+                  debugPrint('submit status: $isValid');
+                  if (isValid == true) {
+                    cubit.submit();
+                    context.pop();
+                  }
+                },
+                child: const Text('Save entry'),
               ),
             ],
           ),
