@@ -58,6 +58,7 @@ class _CreateTodoEntryPageState extends State<CreateTodoEntryPage> {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<CreateTodoEntryPageCubit>();
     return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Form(
@@ -66,22 +67,17 @@ class _CreateTodoEntryPageState extends State<CreateTodoEntryPage> {
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Description'),
                 onChanged: (value) {
-                  context
-                      .read<CreateTodoEntryPageCubit>()
-                      .descriptionChanged(description: value);
+                  cubit.descriptionChanged(description: value);
                 },
                 validator: (value) {
-                  final currentValidationState = context
-                          .read<CreateTodoEntryPageCubit>()
-                          .state
-                          .description
-                          ?.validationStatus ??
-                      ValidationStatus.pending;
+                  final currentValidationState =
+                      cubit.state.description?.validationStatus ??
+                          ValidationStatus.pending;
                   switch (currentValidationState) {
                     case ValidationStatus.error:
                       return 'This field needs at least two characters to be valid';
-                    case ValidationStatus.success:
                     case ValidationStatus.pending:
+                    case ValidationStatus.success:
                       return null;
                   }
                 },
@@ -92,9 +88,8 @@ class _CreateTodoEntryPageState extends State<CreateTodoEntryPage> {
               ElevatedButton(
                 onPressed: () {
                   final isValid = _formKey.currentState?.validate();
-                  debugPrint('submit status: $isValid');
-                  if (isValid == true) {
-                    context.read<CreateTodoEntryPageCubit>().submit();
+                  if (isValid == null) {
+                    cubit.submit();
                     widget.onToDoEntryItemAdded.call();
                     context.pop();
                   }
