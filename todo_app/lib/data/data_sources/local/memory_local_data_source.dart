@@ -100,8 +100,21 @@ class MemoryLocalDataSource implements ToDoLocalDataSourceInterface {
 
   @override
   Future<ToDoEntryModel> updateToDoEntry(
-      {required String collectionId, required String entryId}) {
-    // TODO: implement updateToDoEntry
-    throw UnimplementedError();
+      {required String collectionId, required String entryId}) async {
+    try {
+      final entry =
+          await getToDoEntry(collectionId: collectionId, entryId: entryId);
+      final updatedEntry = ToDoEntryModel(
+        id: entry.id,
+        description: entry.description,
+        isDone: !entry.isDone,
+      );
+      final indexOfElement =
+          todoEntries[collectionId]?.indexWhere((entry) => entry.id == entryId);
+      todoEntries[collectionId]?[indexOfElement!] = updatedEntry;
+      return Future.value(updatedEntry);
+    } on Exception catch (_) {
+      throw CacheException();
+    }
   }
 }
