@@ -60,7 +60,7 @@ class HiveLocalDataSource implements ToDoLocalDataSourceInterface {
       {required String collectionId}) async {
     final collections = await _openCollectionBox();
     final collection =
-        (await collections.get(collectionId)) as Map<String, dynamic>?;
+        (await collections.get(collectionId))?.cast<String, dynamic>();
     if (collection == null) throw CollectionNotFoundException();
     return ToDoCollectionModel.fromJson(collection);
   }
@@ -74,12 +74,14 @@ class HiveLocalDataSource implements ToDoLocalDataSourceInterface {
 
   @override
   Future<List<ToDoCollectionModel>> getToDoCollections() async {
-    final collections = await _openCollectionBox();
-    final collectionIds = await getToDoCollectionIds();
-    final collectionList = await collections.getAll(collectionIds);
-    return collectionList
-        .map((e) => ToDoCollectionModel.fromJson(e as Map<String, dynamic>))
-        .toList();
+    final collectionList = await getToDoCollectionIds();
+    List<ToDoCollectionModel> collections = [];
+    for (var collectionId in collectionList) {
+      ToDoCollectionModel collection =
+          await getToDoCollection(collectionId: collectionId);
+      collections.add(collection);
+    }
+    return collections;
   }
 
   @override
