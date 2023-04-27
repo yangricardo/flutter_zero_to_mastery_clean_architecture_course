@@ -1,5 +1,9 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'todo_entry_model.g.dart';
+
+@JsonSerializable()
 class ToDoEntryModel extends Equatable {
   final String description;
   final bool isDone;
