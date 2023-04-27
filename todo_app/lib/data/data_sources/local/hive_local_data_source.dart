@@ -90,9 +90,15 @@ class HiveLocalDataSource implements ToDoLocalDataSourceInterface {
   }
 
   @override
-  Future<List<String>> getToDoEntryIds({required String collectionId}) {
-    // TODO: implement getToDoEntryIds
-    throw UnimplementedError();
+  Future<List<String>> getToDoEntryIds({required String collectionId}) async {
+    final entries = await _openEntriesBox();
+    final entryList = await entries.get(collectionId);
+
+    if (entryList == null) throw CollectionNotFoundException();
+
+    final entryIdList = entryList.cast<String, dynamic>().keys.toList();
+
+    return entryIdList;
   }
 
   @override
