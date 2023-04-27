@@ -1,3 +1,4 @@
+import 'package:todo_app/data/data_sources/interfaces/todo_local_data_source_interface.dart';
 import 'package:todo_app/data/exceptions/exceptions.dart';
 import 'package:todo_app/domain/failures/failure.dart';
 import 'package:todo_app/domain/entities/unique_id_entity.dart';
@@ -7,6 +8,10 @@ import 'package:either_dart/either.dart';
 import 'package:todo_app/domain/repositories/todo_repository.dart';
 
 class LocalToDoRepository extends TodoRepository {
+  final ToDoLocalDataSourceInterface localDataSource;
+
+  LocalToDoRepository({required this.localDataSource});
+
   @override
   Future<Either<Failure, bool>> createToDoCollection(
       ToDoCollection collection) {
