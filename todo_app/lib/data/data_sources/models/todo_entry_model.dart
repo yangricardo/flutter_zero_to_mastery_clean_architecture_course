@@ -17,4 +17,9 @@ class ToDoEntryModel extends Equatable {
 
   @override
   List<Object?> get props => [id, isDone, description];
+
+  factory ToDoEntryModel.fromJson(Map<String, dynamic> json) =>
+      _$ToDoEntryModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ToDoEntryModelToJson(this);
 }
