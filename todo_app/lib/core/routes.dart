@@ -91,7 +91,7 @@ final routes = GoRouter(
                 name: HomePage.pageConfig.name,
                 path: '$_basePath/:tab',
                 builder: (context, state) {
-                  return HomePage(
+                  return HomePageProvider(
                     key: state.pageKey,
                     tab: state.params['tab']!,
                   );
