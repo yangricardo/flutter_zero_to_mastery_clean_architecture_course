@@ -4,7 +4,7 @@ import 'package:todo_app/data/data_sources/interfaces/todo_local_data_source_int
 import 'package:todo_app/data/data_sources/models/todo_entry_model.dart';
 import 'package:todo_app/data/data_sources/models/todo_collection_model.dart';
 
-const String collectionBox = 'collections';
+const String collectionsBox = 'collections';
 const String entriesBox = 'entries';
 
 class HiveLocalDataSource implements ToDoLocalDataSourceInterface {
@@ -15,12 +15,20 @@ class HiveLocalDataSource implements ToDoLocalDataSourceInterface {
   Future<void> init() async {
     if (!isInitialize) {
       todoCollections = await BoxCollection.open(
-          'todo', {collectionBox, entriesBox},
+          'todo', {collectionsBox, entriesBox},
           path: "./");
       isInitialize = true;
     } else {
       debugPrint('HiveLocalDataSource is already initialized');
     }
+  }
+
+  Future<CollectionBox<Map>> _openCollectionBox() async {
+    return todoCollections.openBox<Map>(collectionsBox);
+  }
+
+  Future<CollectionBox<Map>> _openEntriesBox() async {
+    return todoCollections.openBox<Map>(entriesBox);
   }
 
   @override
