@@ -7,6 +7,10 @@ abstract class ToDoLocalDataSourceInterface {
     required String collectionId,
   });
 
+  Future<List<String>> getToDoCollectionIds({
+    required String collectionId,
+  });
+
   Future<List<String>> getToDoEntryIds({
     required String collectionId,
   });
