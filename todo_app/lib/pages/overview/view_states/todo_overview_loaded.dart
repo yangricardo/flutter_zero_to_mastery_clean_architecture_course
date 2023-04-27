@@ -41,14 +41,16 @@ class ToDoOverviewLoaded extends StatelessWidget {
             );
           },
         ),
-        Align(
-          alignment: Alignment.bottomRight,
-          child: FloatingActionButton(
-              onPressed: () {
-                context.pushNamed(CreateTodoCollectionPage.pageConfig.name);
-              },
-              child: Icon(CreateTodoCollectionPage.pageConfig.icon)),
-        )
+        Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: FloatingActionButton(
+                  onPressed: () {
+                    context.pushNamed(CreateTodoCollectionPage.pageConfig.name);
+                  },
+                  child: Icon(CreateTodoCollectionPage.pageConfig.icon)),
+            ))
       ],
     );
   }
