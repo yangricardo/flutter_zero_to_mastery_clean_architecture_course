@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:todo_app/data/data_sources/models/todo_entry_model.dart';
 import 'package:todo_app/domain/entities/unique_id_entity.dart';
 
 class ToDoEntry extends Equatable {
@@ -33,4 +34,12 @@ class ToDoEntry extends Equatable {
 
   @override
   List<Object?> get props => [id, isDone, description];
+
+  static toToDoEntryModel(ToDoEntry entry) {
+    return ToDoEntryModel(
+      id: entry.id.value,
+      description: entry.description,
+      isDone: entry.isDone,
+    );
+  }
 }
