@@ -21,8 +21,16 @@ class MemoryLocalDataSource implements ToDoLocalDataSourceInterface {
   @override
   Future<bool> createToDoEntry(
       {required String collectionId, required ToDoEntryModel entry}) {
-    // TODO: implement createToDoEntry
-    throw UnimplementedError();
+    try {
+      final hasCollectionId = todoEntries.containsKey(collectionId);
+      if (hasCollectionId) {
+        todoEntries[collectionId]?.add(entry);
+        return Future.value(true);
+      }
+      throw CollectionNotFoundException();
+    } on Exception catch (_) {
+      throw CacheException();
+    }
   }
 
   @override
