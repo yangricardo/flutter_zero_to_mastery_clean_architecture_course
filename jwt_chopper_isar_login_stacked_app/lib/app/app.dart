@@ -6,6 +6,7 @@ import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/counter/counter_view.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/login/login_view.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/services/authentication_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -20,7 +21,8 @@ import 'package:jwt_chopper_isar_login_stacked_app/ui/views/login/login_view.dar
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
     LazySingleton(classType: NavigationService),
-    // @stacked-service
+    LazySingleton(classType: AuthenticationService),
+// @stacked-service
   ],
   bottomsheets: [
     StackedBottomsheet(classType: NoticeSheet),
