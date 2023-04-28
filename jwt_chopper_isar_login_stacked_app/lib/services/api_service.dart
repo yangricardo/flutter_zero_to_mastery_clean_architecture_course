@@ -5,4 +5,4 @@ part "api_service.chopper.dart";
 @ChopperApi(baseUrl: '/api')
 abstract class ApiServiceInterface extends ChopperService {}
 
-class ApiService {}
+class ApiService extends _$ApiServiceInterface {}
