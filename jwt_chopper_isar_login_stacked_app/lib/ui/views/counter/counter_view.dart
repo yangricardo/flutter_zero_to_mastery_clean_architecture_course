@@ -8,14 +8,20 @@ class CounterView extends StackedView<CounterViewModel> {
 
   @override
   Widget builder(
-    BuildContext context,
-    CounterViewModel viewModel,
-    Widget? child,
-  ) {
+      BuildContext context, CounterViewModel viewModel, Widget? child) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: Container(
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+      floatingActionButton: FloatingActionButton(
+        onPressed: viewModel.incrementCounter,
+        heroTag: 'increment-counter-fab-hero-tag',
+      ),
+      body: Center(
+        child: Text(
+          viewModel.counter.toString(),
+          style: const TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     );
   }
