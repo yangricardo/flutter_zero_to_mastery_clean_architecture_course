@@ -4,7 +4,11 @@ import 'package:stacked/stacked.dart';
 import 'home_viewmodel.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
-  const HomeView({Key? key}) : super(key: key);
+  final int startingIndex;
+  const HomeView({
+    Key? key,
+    required this.startingIndex,
+  }) : super(key: key);
 
   @override
   Widget builder(
@@ -16,6 +20,7 @@ class HomeView extends StackedView<HomeViewModel> {
       backgroundColor: Colors.red,
       body: Container(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+        child: Center(child: Text('HomeView Starting index $startingIndex')),
       ),
     );
   }
