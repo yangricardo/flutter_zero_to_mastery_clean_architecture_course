@@ -46,6 +46,17 @@ class _FakeChopperClient_1 extends _i1.SmartFake implements _i2.ChopperClient {
         );
 }
 
+class _FakeResponse_2<BodyType> extends _i1.SmartFake
+    implements _i2.Response<BodyType> {
+  _FakeResponse_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [NavigationService].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -703,4 +714,27 @@ class MockApiService extends _i1.Mock implements _i8.ApiService {
         ),
         returnValueForMissingStub: null,
       );
+  @override
+  _i5.Future<_i2.Response<dynamic>> getUsers() => (super.noSuchMethod(
+        Invocation.method(
+          #getUsers,
+          [],
+        ),
+        returnValue:
+            _i5.Future<_i2.Response<dynamic>>.value(_FakeResponse_2<dynamic>(
+          this,
+          Invocation.method(
+            #getUsers,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i5.Future<_i2.Response<dynamic>>.value(_FakeResponse_2<dynamic>(
+          this,
+          Invocation.method(
+            #getUsers,
+            [],
+          ),
+        )),
+      ) as _i5.Future<_i2.Response<dynamic>>);
 }

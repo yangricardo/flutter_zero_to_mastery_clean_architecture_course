@@ -15,4 +15,15 @@ class _$ApiServiceInterface extends ApiServiceInterface {
 
   @override
   final definitionType = ApiServiceInterface;
+
+  @override
+  Future<Response<dynamic>> getUsers() {
+    final Uri $url = Uri.parse('/api/users');
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
 }
