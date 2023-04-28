@@ -1,1 +1,5 @@
-class AuthenticationService {}
+class AuthenticationService {
+  bool userLoggedIn() {
+    return true;
+  }
+}
