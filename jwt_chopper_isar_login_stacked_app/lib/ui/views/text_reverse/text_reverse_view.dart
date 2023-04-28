@@ -70,4 +70,10 @@ class TextReverseView extends StackedView<TextReverseViewModel>
   void onViewModelReady(TextReverseViewModel viewModel) {
     syncFormWithViewModel(viewModel);
   }
+
+  @override
+  void onDispose(TextReverseViewModel viewModel) {
+    super.onDispose(viewModel);
+    disposeForm();
+  }
 }
