@@ -14,10 +14,16 @@ class LoginView extends StackedView<LoginViewModel> {
   ) {
     return Scaffold(
       // backgroundColor: Theme.of(context).colorScheme.background,
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.red,
       body: Container(
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-      ),
+          padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+          child: Center(
+              child: ElevatedButton(
+            onPressed: () {
+              viewModel.login();
+            },
+            child: const Text('Login'),
+          ))),
     );
   }
 
