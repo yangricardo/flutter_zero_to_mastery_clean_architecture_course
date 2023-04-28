@@ -57,8 +57,10 @@ class StackedRouter extends _i1.RouterBase {
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.HomeView: (data) {
+      final args = data.getArgs<HomeViewArguments>(nullOk: false);
       return _i6.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i2.HomeView(),
+        builder: (context) =>
+            _i2.HomeView(key: args.key, startingIndex: args.startingIndex),
         settings: data,
       );
     },
@@ -88,15 +90,45 @@ class StackedRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
+class HomeViewArguments {
+  const HomeViewArguments({
+    this.key,
+    required this.startingIndex,
+  });
+
+  final _i6.Key? key;
+
+  final int startingIndex;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "startingIndex": "$startingIndex"}';
+  }
+
+  @override
+  bool operator ==(covariant HomeViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key && other.startingIndex == startingIndex;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^ startingIndex.hashCode;
+  }
+}
+
 extension NavigatorStateExtension on _i7.NavigationService {
-  Future<dynamic> navigateToHomeView([
+  Future<dynamic> navigateToHomeView({
+    _i6.Key? key,
+    required int startingIndex,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.homeView,
+        arguments: HomeViewArguments(key: key, startingIndex: startingIndex),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -145,14 +177,17 @@ extension NavigatorStateExtension on _i7.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithHomeView([
+  Future<dynamic> replaceWithHomeView({
+    _i6.Key? key,
+    required int startingIndex,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.homeView,
+        arguments: HomeViewArguments(key: key, startingIndex: startingIndex),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
