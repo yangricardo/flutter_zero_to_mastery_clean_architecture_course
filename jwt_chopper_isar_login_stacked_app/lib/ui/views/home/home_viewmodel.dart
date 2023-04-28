@@ -19,6 +19,10 @@ class HomeViewModel extends BaseViewModel {
     _navigationService.clearStackAndShow(Routes.loginView);
   }
 
+  void goToTextReverseFormView() {
+    _navigationService.navigateToTextReverseView();
+  }
+
   void incrementCounter() {
     _counter++;
     rebuildUi();

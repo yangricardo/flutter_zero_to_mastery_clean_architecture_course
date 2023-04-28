@@ -34,6 +34,14 @@ class HomeView extends StackedView<HomeViewModel> {
               Center(child: Text('HomeView Starting index $startingIndex')),
               ElevatedButton(
                   onPressed: () {
+                    viewModel.goToTextReverseFormView();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                  ),
+                  child: const Text('Text Reverse')),
+              ElevatedButton(
+                  onPressed: () {
                     viewModel.logout();
                   },
                   style: ElevatedButton.styleFrom(
