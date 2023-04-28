@@ -12,6 +12,7 @@ class HomeViewArguments {
 
 class HomeView extends StackedView<HomeViewModel> {
   final int startingIndex;
+
   const HomeView({
     Key? key,
     required this.startingIndex,
@@ -27,7 +28,16 @@ class HomeView extends StackedView<HomeViewModel> {
       backgroundColor: Colors.red,
       body: Container(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-        child: Center(child: Text('HomeView Starting index $startingIndex')),
+        child: Column(
+          children: [
+            Center(child: Text('HomeView Starting index $startingIndex')),
+            ElevatedButton(
+                onPressed: () {
+                  viewModel.logout();
+                },
+                child: const Text('Logout'))
+          ],
+        ),
       ),
     );
   }
