@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:jwt_chopper_isar_login_stacked_app/ui/views/text_reverse/text_reverse_view.form.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
@@ -8,8 +7,7 @@ import 'text_reverse_viewmodel.dart';
 @FormView(fields: [
   FormTextField(name: 'reverseInput'),
 ])
-class TextReverseView extends StackedView<TextReverseViewModel>
-    with $TextReverseView {
+class TextReverseView extends StackedView<TextReverseViewModel> {
   const TextReverseView({Key? key}) : super(key: key);
 
   @override
@@ -31,9 +29,4 @@ class TextReverseView extends StackedView<TextReverseViewModel>
     BuildContext context,
   ) =>
       TextReverseViewModel();
-
-  @override
-  void onViewModelReady(TextReverseViewModel viewModel) {
-    syncFormWithViewModel(viewModel as FormViewModel);
-  }
 }
