@@ -3,6 +3,13 @@ import 'package:stacked/stacked.dart';
 
 import 'home_viewmodel.dart';
 
+class HomeViewArguments {
+  final int startingIndex;
+  HomeViewArguments({
+    required this.startingIndex,
+  });
+}
+
 class HomeView extends StackedView<HomeViewModel> {
   final int startingIndex;
   const HomeView({
