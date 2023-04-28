@@ -2,6 +2,7 @@ import 'package:jwt_chopper_isar_login_stacked_app/ui/bottom_sheets/notice/notic
 import 'package:jwt_chopper_isar_login_stacked_app/ui/dialogs/info_alert/info_alert_dialog.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/home/home_view.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/startup/startup_view.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/counter/counter_view.dart';
@@ -11,10 +12,14 @@ import 'package:jwt_chopper_isar_login_stacked_app/services/authentication_servi
 
 @StackedApp(
   routes: [
-    MaterialRoute(page: HomeView),
     MaterialRoute(page: StartupView),
+    CustomRoute(
+        page: HomeView,
+        transitionsBuilder: TransitionsBuilders.slideRightWithFade),
+    CustomRoute(
+        page: LoginView,
+        transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
     MaterialRoute(page: CounterView),
-    MaterialRoute(page: LoginView),
 // @stacked-route
   ],
   dependencies: [
