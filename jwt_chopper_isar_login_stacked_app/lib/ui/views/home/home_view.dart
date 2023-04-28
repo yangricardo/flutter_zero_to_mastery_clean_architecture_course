@@ -25,18 +25,23 @@ class HomeView extends StackedView<HomeViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      backgroundColor: Colors.red,
+      backgroundColor: Colors.blue,
       body: Container(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-        child: Column(
-          children: [
-            Center(child: Text('HomeView Starting index $startingIndex')),
-            ElevatedButton(
-                onPressed: () {
-                  viewModel.logout();
-                },
-                child: const Text('Logout'))
-          ],
+        child: Center(
+          child: Column(
+            children: [
+              Center(child: Text('HomeView Starting index $startingIndex')),
+              ElevatedButton(
+                  onPressed: () {
+                    viewModel.logout();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                  ),
+                  child: const Text('Logout'))
+            ],
+          ),
         ),
       ),
     );
