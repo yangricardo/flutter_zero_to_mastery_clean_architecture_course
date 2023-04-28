@@ -1,9 +1,8 @@
-import 'package:chopper/chopper.dart';
-import 'package:flutter/material.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/app/app.bottomsheets.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/app/app.dialogs.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/app/app.locator.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/app/app.router.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/models/api/user.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/services/api_service.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/ui/common/app_strings.dart';
 import 'package:stacked/stacked.dart';
@@ -19,6 +18,14 @@ class HomeViewModel extends BaseViewModel {
 
   int _counter = 0;
 
+  List<User> users = [];
+
+  bool isLoading = false;
+
+  HomeViewModel() {
+    getUsers();
+  }
+
   void logout() {
     _navigationService.clearStackAndShow(Routes.loginView);
   }
@@ -32,10 +39,14 @@ class HomeViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  void getUsers() async {
-    Response<dynamic> users = await _apiService.getClientService().getUsers();
-    debugPrint('users: ${users.body}');
+  void getUsers() {
+    isLoading = true;
     rebuildUi();
+    _apiService.getUsers().then((value) {
+      users = value;
+      isLoading = false;
+      rebuildUi();
+    });
   }
 
   void showDialog() {

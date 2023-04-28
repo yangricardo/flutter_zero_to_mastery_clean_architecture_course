@@ -29,33 +29,36 @@ class HomeView extends StackedView<HomeViewModel> {
       body: Container(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
         child: Center(
-          child: Column(
+          child: Stack(
+            alignment: AlignmentDirectional.bottomEnd,
             children: [
-              Center(child: Text('HomeView Starting index $startingIndex')),
-              ElevatedButton(
-                  onPressed: () {
-                    viewModel.getUsers();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                  ),
-                  child: const Text('Get Users')),
-              ElevatedButton(
-                  onPressed: () {
-                    viewModel.goToTextReverseFormView();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                  ),
-                  child: const Text('Text Reverse')),
-              ElevatedButton(
-                  onPressed: () {
-                    viewModel.logout();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                  ),
-                  child: const Text('Logout'))
+              viewModel.isLoading == true
+                  ? const CircularProgressIndicator()
+                  : ListView.builder(
+                      itemBuilder: (context, index) {
+                        if (index >= 0) {
+                          return Text("${viewModel.users[index].name}");
+                        }
+                        return ElevatedButton(
+                            onPressed: () {
+                              viewModel.getUsers();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                            ),
+                            child: const Text('Get Users'));
+                      },
+                      itemCount: viewModel.users.length,
+                    ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 25.0, horizontal: 0),
+                child: FloatingActionButton(
+                    onPressed: () {
+                      viewModel.getUsers();
+                    },
+                    child: const Icon(Icons.refresh)),
+              ),
             ],
           ),
         ),

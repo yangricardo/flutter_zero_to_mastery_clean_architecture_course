@@ -1,4 +1,5 @@
 import 'package:chopper/chopper.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/models/api/user.dart';
 
 part "api_service.chopper.dart";
 
@@ -20,7 +21,17 @@ class ApiService {
     converter: const JsonConverter(),
   );
 
-  ApiClientServiceInterface getClientService() {
+  ApiClientServiceInterface _getClientService() {
     return client.getService<ApiClientServiceInterface>();
+  }
+
+  Future<List<User>> getUsers() async {
+    final response = await _getClientService().getUsers();
+    if (response.isSuccessful) {
+      final users = response.body as List;
+      return users.map((user) => User.fromJson(user)).toList();
+    } else {
+      return [];
+    }
   }
 }
