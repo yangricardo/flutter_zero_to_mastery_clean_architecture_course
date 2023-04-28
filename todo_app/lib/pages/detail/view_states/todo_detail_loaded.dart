@@ -40,12 +40,18 @@ class ToDoDetailLoaded extends StatelessWidget {
                     heroTag: 'create-todo-entry-fab-hero-tag',
                     key: const Key('create-todo-entry-fab'),
                     onPressed: () {
-                      context.pushNamed(CreateTodoEntryPage.pageConfig.name,
-                          extra: CreateTodoEntryPageExtra(
-                            collectionId: collectionId,
-                            onToDoEntryItemAdded:
-                                context.read<ToDoDetailCubit>().fetch,
-                          ));
+                      context
+                          .pushNamed(CreateTodoEntryPage.pageConfig.name,
+                              extra: CreateTodoEntryPageExtra(
+                                collectionId: collectionId,
+                                onToDoEntryItemAdded:
+                                    context.read<ToDoDetailCubit>().fetch,
+                              ))
+                          .then((value) {
+                        if (value != null) {
+                          context.read<ToDoDetailCubit>().fetch();
+                        }
+                      });
                     },
                     child: Icon(CreateTodoEntryPage.pageConfig.icon)),
               ),

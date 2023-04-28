@@ -31,7 +31,7 @@ class CreateTodoEntryPageCubit extends Cubit<CreateTodoEntryPageState> {
     );
   }
 
-  void submit() {
+  Future<void> submit() async {
     addToDoEntry.call(ToDoEntryParams(
         collectionId: collectionId,
         entry:
