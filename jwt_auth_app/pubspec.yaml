@@ -41,6 +41,7 @@ dependencies:
   chopper_generator: ^6.0.0
   equatable: ^2.0.5
   flutter_secure_storage: ^8.0.0
+  bloc: ^8.1.1
 
 dev_dependencies:
   flutter_test:
