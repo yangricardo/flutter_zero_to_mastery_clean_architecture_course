@@ -7,6 +7,8 @@ import 'dart:async' as _i4;
 import 'dart:ui' as _i5;
 
 import 'package:flutter/material.dart' as _i3;
+import 'package:jwt_chopper_isar_login_stacked_app/services/api_service.dart'
+    as _i7;
 import 'package:jwt_chopper_isar_login_stacked_app/services/authentication_service.dart'
     as _i6;
 import 'package:mockito/mockito.dart' as _i1;
@@ -643,3 +645,8 @@ class MockAuthenticationService extends _i1.Mock
         returnValueForMissingStub: false,
       ) as bool);
 }
+
+/// A class which mocks [ApiService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockApiService extends _i1.Mock implements _i7.ApiService {}

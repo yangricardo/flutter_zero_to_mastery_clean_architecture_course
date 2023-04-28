@@ -9,6 +9,7 @@ import 'package:jwt_chopper_isar_login_stacked_app/ui/views/counter/counter_view
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/login/login_view.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/services/authentication_service.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/text_reverse/text_reverse_view.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/services/api_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -29,6 +30,7 @@ import 'package:jwt_chopper_isar_login_stacked_app/ui/views/text_reverse/text_re
     LazySingleton(classType: DialogService),
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: AuthenticationService),
+    LazySingleton(classType: ApiService),
 // @stacked-service
   ],
   bottomsheets: [
