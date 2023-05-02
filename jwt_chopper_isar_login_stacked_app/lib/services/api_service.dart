@@ -18,7 +18,7 @@ abstract class ApiClientServiceInterface extends ChopperService {
 
 class ApiService with ListenableServiceMixin {
   final client = ChopperClient(
-    baseUrl: Uri.parse('https://jsonplaceholder.typicode.com/users'),
+    baseUrl: Uri.parse('https://jsonplaceholder.typicode.com'),
     services: [
       ApiClientServiceInterface.create(),
     ],
@@ -39,8 +39,8 @@ class ApiService with ListenableServiceMixin {
     }
   }
 
-  Future<User?> getUserById() async {
-    final response = await _getClientService().getUsers();
+  Future<User?> getUserById(int userId) async {
+    final response = await _getClientService().getUserById(userId);
     if (response.isSuccessful) {
       final user = response.body as Map<String, dynamic>;
       return User.fromJson(user);

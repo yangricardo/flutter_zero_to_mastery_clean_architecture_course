@@ -691,6 +691,15 @@ class MockApiService extends _i1.Mock implements _i8.ApiService {
             _i5.Future<List<_i9.User>>.value(<_i9.User>[]),
       ) as _i5.Future<List<_i9.User>>);
   @override
+  _i5.Future<_i9.User?> getUserById(int? userId) => (super.noSuchMethod(
+        Invocation.method(
+          #getUserById,
+          [userId],
+        ),
+        returnValue: _i5.Future<_i9.User?>.value(),
+        returnValueForMissingStub: _i5.Future<_i9.User?>.value(),
+      ) as _i5.Future<_i9.User?>);
+  @override
   void listenToReactiveValues(List<dynamic>? reactiveValues) =>
       super.noSuchMethod(
         Invocation.method(
