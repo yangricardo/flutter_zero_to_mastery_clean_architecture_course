@@ -38,4 +38,14 @@ class ApiService with ListenableServiceMixin {
       return [];
     }
   }
+
+  Future<User?> getUserById() async {
+    final response = await _getClientService().getUsers();
+    if (response.isSuccessful) {
+      final user = response.body as Map<String, dynamic>;
+      return User.fromJson(user);
+    } else {
+      return null;
+    }
+  }
 }
