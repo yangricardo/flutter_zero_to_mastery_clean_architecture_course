@@ -1,4 +1,5 @@
 import 'package:chopper/chopper.dart';
+import 'package:flutter/material.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/models/api/user.dart';
 import 'package:stacked/stacked.dart';
 
@@ -18,11 +19,12 @@ abstract class ApiClientServiceInterface extends ChopperService {
 
 class ApiService with ListenableServiceMixin {
   final client = ChopperClient(
-    baseUrl: Uri.parse('https://jsonplaceholder.typicode.com'),
+    baseUrl: Uri.parse('https://jsonplaceholder.typicode.com/'),
     services: [
       ApiClientServiceInterface.create(),
     ],
     converter: const JsonConverter(),
+    errorConverter: const JsonConverter(),
   );
 
   ApiClientServiceInterface _getClientService() {
@@ -31,6 +33,7 @@ class ApiService with ListenableServiceMixin {
 
   Future<List<User>> getUsers() async {
     final response = await _getClientService().getUsers();
+    debugPrint(response.base.request?.url.toString());
     if (response.isSuccessful) {
       final users = response.body as List;
       return users.map((user) => User.fromJson(user)).toList();
@@ -41,6 +44,7 @@ class ApiService with ListenableServiceMixin {
 
   Future<User?> getUserById(int userId) async {
     final response = await _getClientService().getUserById(userId);
+    debugPrint(response.base.request?.url.toString());
     if (response.isSuccessful) {
       final user = response.body as Map<String, dynamic>;
       return User.fromJson(user);
