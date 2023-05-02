@@ -3,8 +3,15 @@ import 'package:stacked/stacked.dart';
 
 import 'user_detail_viewmodel.dart';
 
+class UserDetailViewArguments {
+  final int index;
+
+  UserDetailViewArguments(this.index);
+}
+
 class UserDetailView extends StackedView<UserDetailViewModel> {
-  const UserDetailView({Key? key}) : super(key: key);
+  final int index;
+  const UserDetailView({Key? key, required this.index}) : super(key: key);
 
   @override
   Widget builder(
@@ -13,9 +20,11 @@ class UserDetailView extends StackedView<UserDetailViewModel> {
     Widget? child,
   ) {
     return Scaffold(
+      appBar: AppBar(title: Text("${viewModel.data?.name}")),
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: Container(
+      body: Padding(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+        child: Text("${viewModel.data?.name}"),
       ),
     );
   }
@@ -24,5 +33,5 @@ class UserDetailView extends StackedView<UserDetailViewModel> {
   UserDetailViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      UserDetailViewModel();
+      UserDetailViewModel(index);
 }
