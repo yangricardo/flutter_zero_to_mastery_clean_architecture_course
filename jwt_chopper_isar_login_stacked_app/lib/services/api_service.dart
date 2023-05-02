@@ -1,5 +1,6 @@
 import 'package:chopper/chopper.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/models/api/user.dart';
+import 'package:stacked/stacked.dart';
 
 part "api_service.chopper.dart";
 
@@ -12,7 +13,7 @@ abstract class ApiClientServiceInterface extends ChopperService {
   Future<Response> getUsers();
 }
 
-class ApiService {
+class ApiService with ListenableServiceMixin {
   final client = ChopperClient(
     baseUrl: Uri.parse('https://jsonplaceholder.typicode.com/users'),
     services: [
