@@ -11,6 +11,9 @@ abstract class ApiClientServiceInterface extends ChopperService {
 
   @Get(path: "/users")
   Future<Response> getUsers();
+
+  @Get(path: "/users/{userId}")
+  Future<Response> getUserById(@Path("userId") int userId);
 }
 
 class ApiService with ListenableServiceMixin {
