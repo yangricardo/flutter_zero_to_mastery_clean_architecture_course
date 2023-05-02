@@ -51,11 +51,11 @@ class HomeView extends StackedView<HomeViewModel> {
   Widget getViewForIndex(int index) {
     switch (index) {
       case 0:
-        return const UsersView();
+        return UsersView();
       case 1:
         return const TextReverseView();
       default:
-        return const UsersView();
+        return UsersView();
     }
   }
 }
