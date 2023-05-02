@@ -74,7 +74,9 @@ class UsersView extends StackedView<UsersViewModel> {
                                   icon: const Icon(Icons.arrow_forward_sharp),
                                   color: Colors.purple[200],
                                   onPressed: () => _navigationService
-                                      .navigateToUserDetailView(index: index)),
+                                      .navigateToUserDetailView(
+                                          index:
+                                              viewModel.data?[index].id ?? 0)),
                             )
                           ],
                         ),
