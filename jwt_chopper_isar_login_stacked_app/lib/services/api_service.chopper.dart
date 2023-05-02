@@ -26,4 +26,15 @@ class _$ApiClientServiceInterface extends ApiClientServiceInterface {
     );
     return client.send<dynamic, dynamic>($request);
   }
+
+  @override
+  Future<Response<dynamic>> getUserById(int userId) {
+    final Uri $url = Uri.parse('/api/users/${userId}');
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
 }
