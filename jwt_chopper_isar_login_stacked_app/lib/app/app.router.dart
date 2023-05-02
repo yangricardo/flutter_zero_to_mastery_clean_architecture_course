@@ -121,14 +121,19 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i7.UsersView: (data) {
+      final args = data.getArgs<UsersViewArguments>(
+        orElse: () => const UsersViewArguments(),
+      );
       return _i9.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i7.UsersView(),
+        builder: (context) => _i7.UsersView(key: args.key),
         settings: data,
       );
     },
     _i8.UserDetailView: (data) {
+      final args = data.getArgs<UserDetailViewArguments>(nullOk: false);
       return _i9.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i8.UserDetailView(),
+        builder: (context) =>
+            _i8.UserDetailView(key: args.key, index: args.index),
         settings: data,
       );
     },
@@ -164,6 +169,55 @@ class HomeViewArguments {
   @override
   int get hashCode {
     return key.hashCode ^ startingIndex.hashCode;
+  }
+}
+
+class UsersViewArguments {
+  const UsersViewArguments({this.key});
+
+  final _i9.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant UsersViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
+class UserDetailViewArguments {
+  const UserDetailViewArguments({
+    this.key,
+    required this.index,
+  });
+
+  final _i9.Key? key;
+
+  final int index;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "index": "$index"}';
+  }
+
+  @override
+  bool operator ==(covariant UserDetailViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key && other.index == index;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^ index.hashCode;
   }
 }
 
@@ -241,28 +295,33 @@ extension NavigatorStateExtension on _i10.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToUsersView([
+  Future<dynamic> navigateToUsersView({
+    _i9.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.usersView,
+        arguments: UsersViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> navigateToUserDetailView([
+  Future<dynamic> navigateToUserDetailView({
+    _i9.Key? key,
+    required int index,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.userDetailView,
+        arguments: UserDetailViewArguments(key: key, index: index),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -342,28 +401,33 @@ extension NavigatorStateExtension on _i10.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithUsersView([
+  Future<dynamic> replaceWithUsersView({
+    _i9.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.usersView,
+        arguments: UsersViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> replaceWithUserDetailView([
+  Future<dynamic> replaceWithUserDetailView({
+    _i9.Key? key,
+    required int index,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.userDetailView,
+        arguments: UserDetailViewArguments(key: key, index: index),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
