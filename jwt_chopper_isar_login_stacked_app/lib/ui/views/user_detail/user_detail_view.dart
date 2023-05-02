@@ -24,7 +24,18 @@ class UserDetailView extends StackedView<UserDetailViewModel> {
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Padding(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-        child: Text("${viewModel.data?.name}"),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Name: ${viewModel.data?.name}"),
+            const SizedBox(height: 10),
+            Text("Company: ${viewModel.data?.company}"),
+            const SizedBox(height: 10),
+            Text("Username: ${viewModel.data?.username}"),
+            const SizedBox(height: 10),
+          ],
+        ),
       ),
     );
   }
