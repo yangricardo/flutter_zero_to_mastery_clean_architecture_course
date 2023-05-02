@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/ui/views/text_reverse/text_reverse_view.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/ui/views/users/users_view.dart';
 import 'package:stacked/stacked.dart';
 
 import 'home_viewmodel.dart';
@@ -18,82 +20,42 @@ class HomeView extends StackedView<HomeViewModel> {
     required this.startingIndex,
   }) : super(key: key);
 
-  // @override
-  // Widget builder(
-  //   BuildContext context,
-  //   HomeViewModel viewModel,
-  //   Widget? child,
-  // ) {
-  //   return Scaffold(
-  //     backgroundColor: Colors.blue,
-  //     body: Container(
-  //       padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-  //       child: Center(
-  //         child: Stack(
-  //           alignment: AlignmentDirectional.bottomEnd,
-  //           children: [
-  //             viewModel.isLoading == true
-  //                 ? const CircularProgressIndicator()
-  //                 : ListView.builder(
-  //                     itemBuilder: (context, index) {
-  //                       if (index >= 0) {
-  //                         return Text("${viewModel.users[index].name}");
-  //                       }
-  //                       return ElevatedButton(
-  //                           onPressed: () {
-  //                             viewModel.getUsers();
-  //                           },
-  //                           style: ElevatedButton.styleFrom(
-  //                             backgroundColor: Colors.green,
-  //                           ),
-  //                           child: const Text('Get Users'));
-  //                     },
-  //                     itemCount: viewModel.users.length,
-  //                   ),
-  //             Padding(
-  //               padding:
-  //                   const EdgeInsets.symmetric(vertical: 25.0, horizontal: 0),
-  //               child: FloatingActionButton(
-  //                   onPressed: () {
-  //                     viewModel.getUsers();
-  //                   },
-  //                   child: const Icon(Icons.refresh)),
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  @override
-  HomeViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      HomeViewModel();
-
   @override
   Widget builder(BuildContext context, HomeViewModel viewModel, Widget? child) {
-    return ViewModelBuilder<HomeViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.grey[800],
-          currentIndex: model.currentIndex,
-          onTap: model.setIndex,
-          items: const [
-            BottomNavigationBarItem(
-              label: 'Posts',
-              icon: Icon(Icons.art_track),
-            ),
-            BottomNavigationBarItem(
-              label: 'To DOs',
-              icon: Icon(Icons.list),
-            ),
-          ],
-        ),
+    return Scaffold(
+      body: getViewForIndex(viewModel.currentIndex),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.grey[800],
+        currentIndex: viewModel.currentIndex,
+        onTap: viewModel.setIndex,
+        items: const [
+          BottomNavigationBarItem(
+            label: "Users",
+            icon: Icon(Icons.person),
+          ),
+          BottomNavigationBarItem(
+            label: 'To DO',
+            icon: Icon(Icons.list),
+          ),
+        ],
       ),
-      viewModelBuilder: () => HomeViewModel(),
     );
+  }
+
+  @override
+  HomeViewModel viewModelBuilder(BuildContext context) {
+    return HomeViewModel();
+  }
+
+  Widget getViewForIndex(int index) {
+    switch (index) {
+      case 0:
+        return const UsersView();
+      case 1:
+        return const TextReverseView();
+      default:
+        return const UsersView();
+    }
   }
 }
