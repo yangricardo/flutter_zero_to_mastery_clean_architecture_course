@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/app/app.locator.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/app/app.router.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 import 'users_viewmodel.dart';
 
 class UsersView extends StackedView<UsersViewModel> {
-  const UsersView({Key? key}) : super(key: key);
+  final _navigationService = locator<NavigationService>();
+
+  UsersView({Key? key}) : super(key: key);
 
   @override
   Widget builder(
@@ -65,10 +70,11 @@ class UsersView extends StackedView<UsersViewModel> {
                               ),
                             ),
                             SizedBox(
-                              child: Icon(
-                                Icons.star,
-                                color: Colors.purple[200],
-                              ),
+                              child: IconButton(
+                                  icon: const Icon(Icons.arrow_forward_sharp),
+                                  color: Colors.purple[200],
+                                  onPressed: () => _navigationService
+                                      .navigateToUserDetailView(index: index)),
                             )
                           ],
                         ),
