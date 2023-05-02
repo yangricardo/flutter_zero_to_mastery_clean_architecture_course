@@ -10,6 +10,7 @@ import 'package:jwt_chopper_isar_login_stacked_app/ui/views/login/login_view.dar
 import 'package:jwt_chopper_isar_login_stacked_app/services/authentication_service.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/text_reverse/text_reverse_view.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/services/api_service.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/ui/views/users/users_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -23,6 +24,7 @@ import 'package:jwt_chopper_isar_login_stacked_app/services/api_service.dart';
         transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
     MaterialRoute(page: CounterView),
     MaterialRoute(page: TextReverseView),
+    MaterialRoute(page: UsersView),
 // @stacked-route
   ],
   dependencies: [
