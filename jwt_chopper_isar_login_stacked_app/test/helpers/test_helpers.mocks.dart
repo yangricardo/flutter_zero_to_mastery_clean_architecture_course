@@ -681,13 +681,21 @@ class MockAuthenticationService extends _i1.Mock
         returnValueForMissingStub: false,
       ) as bool);
   @override
-  void login() => super.noSuchMethod(
+  _i5.Future<void> login(
+    String? email,
+    String? password,
+  ) =>
+      (super.noSuchMethod(
         Invocation.method(
           #login,
-          [],
+          [
+            email,
+            password,
+          ],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
   void logout() => super.noSuchMethod(
         Invocation.method(
@@ -843,6 +851,15 @@ class MockLocalDataService extends _i1.Mock implements _i10.LocalDataService {
         Invocation.method(
           #getUser,
           [userId],
+        ),
+        returnValue: _i5.Future<_i11.User?>.value(),
+        returnValueForMissingStub: _i5.Future<_i11.User?>.value(),
+      ) as _i5.Future<_i11.User?>);
+  @override
+  _i5.Future<_i11.User?> getUserByEmail(String? email) => (super.noSuchMethod(
+        Invocation.method(
+          #getUserByEmail,
+          [email],
         ),
         returnValue: _i5.Future<_i11.User?>.value(),
         returnValueForMissingStub: _i5.Future<_i11.User?>.value(),
