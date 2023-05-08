@@ -56,6 +56,12 @@ class SignUpView extends StackedView<SignUpViewModel> with $SignUpView {
                 hintText: 'Enter your password',
                 border: OutlineInputBorder()),
           ),
+          verticalSpaceMedium,
+          ElevatedButton(
+              onPressed: () {
+                viewModel.signUp();
+              },
+              child: const Text('Sign Up'))
         ]),
       ),
     );
@@ -68,7 +74,8 @@ class SignUpView extends StackedView<SignUpViewModel> with $SignUpView {
       SignUpViewModel();
 
   @override
-  void onViewModelReady(SignUpViewModel viewModel) {
-    syncFormWithViewModel(viewModel);
+  void onDispose(SignUpViewModel viewModel) {
+    super.onDispose(viewModel);
+    disposeForm();
   }
 }
