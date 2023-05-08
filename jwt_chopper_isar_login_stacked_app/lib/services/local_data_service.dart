@@ -30,10 +30,9 @@ class LocalDataService {
     });
   }
 
-  Future<void> deleteUser(int userId) async {
-    await _isar.writeTxn(() async {
-      await _isar.users.delete(userId); //delete
+  Future<bool> deleteUser(int userId) async {
+    return await _isar.writeTxn(() async {
+      return await _isar.users.delete(userId); //delete
     });
   }
-  Futu
 }
