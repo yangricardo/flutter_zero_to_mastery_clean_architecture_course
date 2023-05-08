@@ -697,6 +697,24 @@ class MockAuthenticationService extends _i1.Mock
         returnValueForMissingStub: null,
       );
   @override
+  _i5.Future<int> signUp(
+    String? email,
+    String? password,
+    String? name,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #signUp,
+          [
+            email,
+            password,
+            name,
+          ],
+        ),
+        returnValue: _i5.Future<int>.value(0),
+        returnValueForMissingStub: _i5.Future<int>.value(0),
+      ) as _i5.Future<int>);
+  @override
   void listenToReactiveValues(List<dynamic>? reactiveValues) =>
       super.noSuchMethod(
         Invocation.method(
