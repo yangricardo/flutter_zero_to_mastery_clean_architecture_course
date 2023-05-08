@@ -24,6 +24,10 @@ class LocalDataService {
     return await _isar.users.get(userId);
   }
 
+  Future<User?> getUserByEmail(String email) async {
+    return await _isar.users.filter().emailMatches(email).build().findFirst();
+  }
+
   Future<int> createOrUpdateUser(User user) async {
     return await _isar.writeTxn(() async {
       return await _isar.users.put(user);
