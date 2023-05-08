@@ -30,7 +30,15 @@ class SignUpView extends StackedView<SignUpViewModel> with $SignUpView {
       appBar: AppBar(title: const Text('Sign Up')),
       body: Padding(
         padding: const EdgeInsets.all(25.0),
-        child: Column(children: const []),
+        child: Column(children: [
+          TextFormField(
+            controller: nameController,
+            decoration: const InputDecoration(
+                labelText: 'Name',
+                hintText: 'Enter your name',
+                border: OutlineInputBorder()),
+          ),
+        ]),
       ),
     );
   }
