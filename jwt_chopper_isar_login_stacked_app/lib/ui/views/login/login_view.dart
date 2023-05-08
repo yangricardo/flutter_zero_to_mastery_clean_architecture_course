@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
 
 import 'login_viewmodel.dart';
 
+@FormView(fields: [
+  FormTextField(
+    name: 'email',
+  ),
+  FormTextField(
+    name: 'password',
+  ),
+])
 class LoginView extends StackedView<LoginViewModel> {
   const LoginView({Key? key}) : super(key: key);
 
