@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/data/isar/user_collection.dart';
 import 'package:path_provider/path_provider.dart';
@@ -25,7 +25,10 @@ class LocalDataService {
   }
 
   Future<User?> getUserByEmail(String email) async {
-    return await _isar.users.filter().emailMatches(email).build().findFirst();
+    User? user =
+        await _isar.users.filter().emailMatches(email).build().findFirst();
+    debugPrint("email: $email userFound: ${user.toString()}");
+    return user;
   }
 
   Future<int> createOrUpdateUser(User user) async {
