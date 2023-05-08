@@ -18,11 +18,23 @@ class LoginView extends StackedView<LoginViewModel> {
       body: Container(
           padding: const EdgeInsets.only(left: 25.0, right: 25.0),
           child: Center(
-              child: ElevatedButton(
-            onPressed: () {
-              viewModel.login();
-            },
-            child: const Text('Login'),
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  viewModel.login();
+                },
+                child: const Text('Login'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  viewModel.goSignUp();
+                },
+                child: const Text('Sign Up'),
+              )
+            ],
           ))),
     );
   }
