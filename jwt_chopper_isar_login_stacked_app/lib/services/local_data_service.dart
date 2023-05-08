@@ -24,9 +24,9 @@ class LocalDataService {
     return await _isar.users.get(userId);
   }
 
-  Future<void> createOrUpdateUser(User user) async {
-    await _isar.writeTxn(() async {
-      await _isar.users.put(user);
+  Future<int> createOrUpdateUser(User user) async {
+    return await _isar.writeTxn(() async {
+      return await _isar.users.put(user);
     });
   }
 
@@ -35,4 +35,5 @@ class LocalDataService {
       await _isar.users.delete(userId); //delete
     });
   }
+  Futu
 }
