@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/ui/views/sign_up/sign_up_view.form.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
@@ -15,7 +16,7 @@ import 'sign_up_viewmodel.dart';
     name: 'password',
   ),
 ])
-class SignUpView extends StackedView<SignUpViewModel> {
+class SignUpView extends StackedView<SignUpViewModel> with $SignUpView {
   const SignUpView({Key? key}) : super(key: key);
 
   @override
@@ -39,4 +40,9 @@ class SignUpView extends StackedView<SignUpViewModel> {
     BuildContext context,
   ) =>
       SignUpViewModel();
+
+  @override
+  void onViewModelReady(SignUpViewModel viewModel) {
+    syncFormWithViewModel(viewModel);
+  }
 }
