@@ -15,8 +15,16 @@ class SettingsView extends StackedView<SettingsViewModel> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Container(
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-      ),
+          padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+          child: Center(
+              child: ElevatedButton(
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.red)),
+            onPressed: () {
+              viewModel.logout();
+            },
+            child: const Text('Logout'),
+          ))),
     );
   }
 
