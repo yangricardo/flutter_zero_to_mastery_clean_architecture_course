@@ -74,6 +74,11 @@ class SignUpView extends StackedView<SignUpViewModel> with $SignUpView {
       SignUpViewModel();
 
   @override
+  void onViewModelReady(SignUpViewModel viewModel) {
+    syncFormWithViewModel(viewModel);
+  }
+
+  @override
   void onDispose(SignUpViewModel viewModel) {
     super.onDispose(viewModel);
     disposeForm();
