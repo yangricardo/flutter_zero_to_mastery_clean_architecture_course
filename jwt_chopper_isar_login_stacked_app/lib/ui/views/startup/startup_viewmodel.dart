@@ -13,12 +13,11 @@ class StartupViewModel extends BaseViewModel {
         () => _authenticationService.userLoggedIn());
     if (isLoggedIn) {
       // 3. Navigate to HomeView
-      // _navigationService.replaceWith(Routes.homeView,
-      //     arguments: HomeViewArguments(startingIndex: 1));
-      _navigationService.replaceWithHomeView(startingIndex: 1);
+      _navigationService.clearStackAndShow(Routes.homeView,
+          arguments: const HomeViewArguments(startingIndex: 1));
     } else {
       // 4. Or navigate to LoginView
-      _navigationService.replaceWithLoginView();
+      _navigationService.clearStackAndShow(Routes.loginView);
     }
   }
 }
