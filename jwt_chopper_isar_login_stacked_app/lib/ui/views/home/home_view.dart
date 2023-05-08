@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/ui/views/settings/settings_view.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/text_reverse/text_reverse_view.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/users/users_view.dart';
 import 'package:stacked/stacked.dart';
@@ -35,8 +36,12 @@ class HomeView extends StackedView<HomeViewModel> {
             icon: Icon(Icons.person),
           ),
           BottomNavigationBarItem(
-            label: 'To DO',
-            icon: Icon(Icons.list),
+            label: 'Reverse Text',
+            icon: Icon(Icons.text_rotate_up),
+          ),
+          BottomNavigationBarItem(
+            label: 'Settings',
+            icon: Icon(Icons.settings),
           ),
         ],
       ),
@@ -54,6 +59,8 @@ class HomeView extends StackedView<HomeViewModel> {
         return UsersView();
       case 1:
         return const TextReverseView();
+      case 2:
+        return const SettingsView();
       default:
         return UsersView();
     }
