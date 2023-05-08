@@ -648,6 +648,26 @@ class MockDialogService extends _i1.Mock implements _i3.DialogService {
 class MockAuthenticationService extends _i1.Mock
     implements _i7.AuthenticationService {
   @override
+  bool get loggedIn => (super.noSuchMethod(
+        Invocation.getter(#loggedIn),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+  @override
+  set loggedIn(bool? _loggedIn) => super.noSuchMethod(
+        Invocation.setter(
+          #loggedIn,
+          _loggedIn,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  int get listenersCount => (super.noSuchMethod(
+        Invocation.getter(#listenersCount),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+  @override
   bool userLoggedIn() => (super.noSuchMethod(
         Invocation.method(
           #userLoggedIn,
@@ -656,6 +676,55 @@ class MockAuthenticationService extends _i1.Mock
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
+  @override
+  void login() => super.noSuchMethod(
+        Invocation.method(
+          #login,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void logout() => super.noSuchMethod(
+        Invocation.method(
+          #logout,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void listenToReactiveValues(List<dynamic>? reactiveValues) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #listenToReactiveValues,
+          [reactiveValues],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void addListener(void Function()? listener) => super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void removeListener(void Function()? listener) => super.noSuchMethod(
+        Invocation.method(
+          #removeListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
 }
 
 /// A class which mocks [ApiService].

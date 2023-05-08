@@ -12,6 +12,7 @@ import 'package:jwt_chopper_isar_login_stacked_app/ui/views/text_reverse/text_re
 import 'package:jwt_chopper_isar_login_stacked_app/services/api_service.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/users/users_view.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/user_detail/user_detail_view.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/ui/views/settings/settings_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -27,6 +28,7 @@ import 'package:jwt_chopper_isar_login_stacked_app/ui/views/user_detail/user_det
     MaterialRoute(page: TextReverseView),
     MaterialRoute(page: UsersView),
     MaterialRoute(page: UserDetailView),
+    MaterialRoute(page: SettingsView),
 // @stacked-route
   ],
   dependencies: [
