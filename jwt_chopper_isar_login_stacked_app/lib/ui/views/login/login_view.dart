@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/ui/common/ui_helpers.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/ui/views/login/login_view.form.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
@@ -12,7 +14,7 @@ import 'login_viewmodel.dart';
     name: 'password',
   ),
 ])
-class LoginView extends StackedView<LoginViewModel> {
+class LoginView extends StackedView<LoginViewModel> with $LoginView {
   const LoginView({Key? key}) : super(key: key);
 
   @override
@@ -24,13 +26,30 @@ class LoginView extends StackedView<LoginViewModel> {
     return Scaffold(
       // backgroundColor: Theme.of(context).colorScheme.background,
       backgroundColor: Colors.red,
-      body: Container(
-          padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-          child: Center(
-              child: Column(
+      appBar: AppBar(title: const Text('Login')),
+      body: Padding(
+          padding: const EdgeInsets.all(25.0),
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              TextFormField(
+                controller: emailController,
+                decoration: const InputDecoration(
+                    labelText: 'Email',
+                    hintText: 'Enter your email',
+                    border: OutlineInputBorder()),
+              ),
+              verticalSpaceMedium,
+              TextFormField(
+                controller: passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                    labelText: 'Password',
+                    hintText: 'Enter your password',
+                    border: OutlineInputBorder()),
+              ),
+              verticalSpaceMedium,
               ElevatedButton(
                 onPressed: () {
                   viewModel.login();
@@ -44,7 +63,7 @@ class LoginView extends StackedView<LoginViewModel> {
                 child: const Text('Sign Up'),
               )
             ],
-          ))),
+          )),
     );
   }
 
