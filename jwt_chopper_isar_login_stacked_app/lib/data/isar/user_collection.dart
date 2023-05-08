@@ -4,7 +4,7 @@ part 'user_collection.g.dart';
 
 @collection
 class User {
-  Id id = Isar
+  Id? id = Isar
       .autoIncrement; // você também pode attribuir id = null para incrementar automaticamente
 
   String? name;

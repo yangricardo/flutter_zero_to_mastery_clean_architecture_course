@@ -8,6 +8,8 @@ import 'dart:ui' as _i6;
 
 import 'package:chopper/chopper.dart' as _i2;
 import 'package:flutter/material.dart' as _i4;
+import 'package:jwt_chopper_isar_login_stacked_app/data/isar/user_collection.dart'
+    as _i11;
 import 'package:jwt_chopper_isar_login_stacked_app/models/api/user.dart' as _i9;
 import 'package:jwt_chopper_isar_login_stacked_app/services/api_service.dart'
     as _i8;
@@ -808,4 +810,41 @@ class MockApiService extends _i1.Mock implements _i8.ApiService {
 /// A class which mocks [LocalDataService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLocalDataService extends _i1.Mock implements _i10.LocalDataService {}
+class MockLocalDataService extends _i1.Mock implements _i10.LocalDataService {
+  @override
+  _i5.Future<void> init() => (super.noSuchMethod(
+        Invocation.method(
+          #init,
+          [],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<_i11.User?> getUser(int? userId) => (super.noSuchMethod(
+        Invocation.method(
+          #getUser,
+          [userId],
+        ),
+        returnValue: _i5.Future<_i11.User?>.value(),
+        returnValueForMissingStub: _i5.Future<_i11.User?>.value(),
+      ) as _i5.Future<_i11.User?>);
+  @override
+  _i5.Future<void> createOrUpdateUser(_i11.User? user) => (super.noSuchMethod(
+        Invocation.method(
+          #createOrUpdateUser,
+          [user],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+  @override
+  _i5.Future<void> deleteUser(int? userId) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteUser,
+          [userId],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+}
