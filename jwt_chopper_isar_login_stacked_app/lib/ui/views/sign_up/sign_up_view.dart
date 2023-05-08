@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/ui/common/ui_helpers.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/sign_up/sign_up_view.form.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
@@ -36,6 +37,14 @@ class SignUpView extends StackedView<SignUpViewModel> with $SignUpView {
             decoration: const InputDecoration(
                 labelText: 'Name',
                 hintText: 'Enter your name',
+                border: OutlineInputBorder()),
+          ),
+          verticalSpaceMedium,
+          TextFormField(
+            controller: emailController,
+            decoration: const InputDecoration(
+                labelText: 'Email',
+                hintText: 'Enter your email',
                 border: OutlineInputBorder()),
           ),
         ]),
