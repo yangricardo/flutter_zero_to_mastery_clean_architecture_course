@@ -47,6 +47,15 @@ class SignUpView extends StackedView<SignUpViewModel> with $SignUpView {
                 hintText: 'Enter your email',
                 border: OutlineInputBorder()),
           ),
+          verticalSpaceMedium,
+          TextFormField(
+            controller: passwordController,
+            obscureText: true,
+            decoration: const InputDecoration(
+                labelText: 'Password',
+                hintText: 'Enter your password',
+                border: OutlineInputBorder()),
+          ),
         ]),
       ),
     );
