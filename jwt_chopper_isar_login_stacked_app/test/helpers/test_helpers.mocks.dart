@@ -830,21 +830,21 @@ class MockLocalDataService extends _i1.Mock implements _i10.LocalDataService {
         returnValueForMissingStub: _i5.Future<_i11.User?>.value(),
       ) as _i5.Future<_i11.User?>);
   @override
-  _i5.Future<void> createOrUpdateUser(_i11.User? user) => (super.noSuchMethod(
+  _i5.Future<int> createOrUpdateUser(_i11.User? user) => (super.noSuchMethod(
         Invocation.method(
           #createOrUpdateUser,
           [user],
         ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
+        returnValue: _i5.Future<int>.value(0),
+        returnValueForMissingStub: _i5.Future<int>.value(0),
+      ) as _i5.Future<int>);
   @override
-  _i5.Future<void> deleteUser(int? userId) => (super.noSuchMethod(
+  _i5.Future<bool> deleteUser(int? userId) => (super.noSuchMethod(
         Invocation.method(
           #deleteUser,
           [userId],
         ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
+        returnValue: _i5.Future<bool>.value(false),
+        returnValueForMissingStub: _i5.Future<bool>.value(false),
+      ) as _i5.Future<bool>);
 }
