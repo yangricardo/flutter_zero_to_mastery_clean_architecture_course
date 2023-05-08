@@ -25,7 +25,6 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
   ) {
     return Scaffold(
       // backgroundColor: Theme.of(context).colorScheme.background,
-      backgroundColor: Colors.red,
       appBar: AppBar(title: const Text('Login')),
       body: Padding(
           padding: const EdgeInsets.all(25.0),
@@ -56,7 +55,8 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                 },
                 child: const Text('Login'),
               ),
-              ElevatedButton(
+              verticalSpaceMedium,
+              TextButton(
                 onPressed: () {
                   viewModel.goSignUp();
                 },
