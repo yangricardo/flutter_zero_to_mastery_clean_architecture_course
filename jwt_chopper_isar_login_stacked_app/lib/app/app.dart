@@ -14,6 +14,7 @@ import 'package:jwt_chopper_isar_login_stacked_app/ui/views/users/users_view.dar
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/user_detail/user_detail_view.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/settings/settings_view.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/services/local_data_service.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/ui/views/sign_up/sign_up_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -30,6 +31,7 @@ import 'package:jwt_chopper_isar_login_stacked_app/services/local_data_service.d
     MaterialRoute(page: UsersView),
     MaterialRoute(page: UserDetailView),
     MaterialRoute(page: SettingsView),
+    MaterialRoute(page: SignUpView),
 // @stacked-route
   ],
   dependencies: [
