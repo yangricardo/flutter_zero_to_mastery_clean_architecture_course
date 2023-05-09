@@ -7,7 +7,7 @@ import 'package:web3dart/crypto.dart';
 import 'package:web3dart/web3dart.dart';
 
 class Web3Service with ListenableServiceMixin {
-  void createEthPrivateKey() {
+  Wallet createEthWallet() {
     final random = Random.secure();
     EthPrivateKey privateKey = EthPrivateKey.createRandom(random);
     debugPrint(
@@ -23,6 +23,7 @@ class Web3Service with ListenableServiceMixin {
     debugPrint("walletString: ${wallet.toString()}");
     wallet = Wallet.fromJson(walletJson, address.toString());
     debugPrint("walletString::Recovered: ${wallet.toString()}");
+    return wallet;
   }
 
   String signWithPrivateKey(EthPrivateKey privateKey, String message) {
