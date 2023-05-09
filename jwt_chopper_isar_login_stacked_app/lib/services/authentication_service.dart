@@ -51,10 +51,23 @@ class AuthenticationService with ListenableServiceMixin {
     notifyListeners();
   }
 
-  Future<int> signUp(String email, String password, String name) {
-    return _localDataService.createOrUpdateUser(User()
+  Future<void> signUp(String email, String password, String name) async {
+    User? user = await _localDataService.getUserByEmail(email);
+    if (user != null) {
+      _dialogService.showCustomDialog(
+        variant: DialogType.infoAlert,
+        title: 'Sign Up Error',
+        description: 'email already exist',
+      );
+    }
+    _localDataService.createOrUpdateUser(User()
       ..name = name
       ..email = email
       ..password = password);
+    _dialogService.showCustomDialog(
+      variant: DialogType.infoAlert,
+      title: 'Sign Up Success',
+      description: 'Go back to previous page and try to login',
+    );
   }
 }
