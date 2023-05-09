@@ -22,4 +22,19 @@ class Web3Service with ListenableServiceMixin {
     wallet = Wallet.fromJson(walletJson, address.toString());
     debugPrint("walletString::Recovered: ${wallet.toString()}");
   }
+
+  String signWithPrivateKey(EthPrivateKey privateKey, String message) {
+    final credentials = privateKey;
+    final messageBytes = hexToBytes(message);
+
+    final signature = credentials.signPersonalMessageToUint8List(messageBytes);
+    final signatureHex = bytesToHex(signature);
+    debugPrint("signatureHex: $signatureHex Uint8ListString: $signature");
+    return signatureHex;
+  }
+
+  String signWithWallet(Wallet wallet, String message) {
+    final credentials = wallet.privateKey;
+    return signWithPrivateKey(credentials, message);
+  }
 }
