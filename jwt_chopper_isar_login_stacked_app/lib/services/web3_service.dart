@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:stacked/stacked.dart';
 import 'dart:math'; //used for the random number generator
 import 'package:flutter/material.dart';
@@ -36,5 +38,27 @@ class Web3Service with ListenableServiceMixin {
   String signWithWallet(Wallet wallet, String message) {
     final credentials = wallet.privateKey;
     return signWithPrivateKey(credentials, message);
+  }
+
+  // String bytesToHex(List<int> bytes) {
+  //   return bytes.map((byte) => byte.toRadixString(16).padLeft(2, '0')).join();
+  // }
+
+  // List<int> hexToBytes(String hexString) {
+  //   final pairs = hexString.replaceAll(' ', '').trim().split('');
+  //   return List<int>.generate(pairs.length ~/ 2,
+  //       (i) => int.parse(pairs[i * 2] + pairs[i * 2 + 1], radix: 16));
+  // }
+
+  BigInt bytesToBigInt(Uint8List bytes) {
+    return BigInt.parse(bytesToHex(bytes), radix: 16);
+  }
+
+  MsgSignature hexToMsgSignature(String signatureHex) {
+    final signatureBytes = hexToBytes(signatureHex);
+    final r = Uint8List.sublistView(signatureBytes, 0, 32);
+    final s = Uint8List.sublistView(signatureBytes, 32, 64);
+    final v = signatureBytes[64];
+    return MsgSignature(bytesToBigInt(r), bytesToBigInt(s), v);
   }
 }
