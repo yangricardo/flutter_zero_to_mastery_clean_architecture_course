@@ -4,6 +4,7 @@ import 'package:jwt_chopper_isar_login_stacked_app/app/app.locator.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/app/app.router.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/data/isar/user_collection.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/services/local_data_service.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/services/web3_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -11,6 +12,7 @@ class AuthenticationService with ListenableServiceMixin {
   final _navigationService = locator<NavigationService>();
   final _localDataService = locator<LocalDataService>();
   final _dialogService = locator<DialogService>();
+  final _web3Service = locator<Web3Service>();
   bool loggedIn = false;
 
   bool userLoggedIn() {
@@ -36,6 +38,7 @@ class AuthenticationService with ListenableServiceMixin {
         );
       } else {
         loggedIn = true;
+        _web3Service.createEthPrivateKey();
         Random random = Random();
         _navigationService.clearStackAndShow(Routes.homeView,
             arguments: HomeViewArguments(
