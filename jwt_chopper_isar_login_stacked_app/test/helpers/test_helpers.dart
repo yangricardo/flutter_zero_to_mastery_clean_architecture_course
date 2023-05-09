@@ -5,6 +5,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/services/authentication_service.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/services/api_service.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/services/local_data_service.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/services/web3_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -16,6 +17,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<AuthenticationService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<ApiService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<LocalDataService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<Web3Service>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -25,6 +27,7 @@ void registerServices() {
   getAndRegisterAuthenticationService();
   getAndRegisterApiService();
   getAndRegisterLocalDataService();
+  getAndRegisterWeb3Service();
 // @stacked-mock-register
 }
 
@@ -96,6 +99,13 @@ MockLocalDataService getAndRegisterLocalDataService() {
   _removeRegistrationIfExists<LocalDataService>();
   final service = MockLocalDataService();
   locator.registerSingleton<LocalDataService>(service);
+  return service;
+}
+
+MockWeb3Service getAndRegisterWeb3Service() {
+  _removeRegistrationIfExists<Web3Service>();
+  final service = MockWeb3Service();
+  locator.registerSingleton<Web3Service>(service);
   return service;
 }
 // @stacked-mock-create

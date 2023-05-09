@@ -15,6 +15,7 @@ import 'package:jwt_chopper_isar_login_stacked_app/ui/views/user_detail/user_det
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/settings/settings_view.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/services/local_data_service.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/sign_up/sign_up_view.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/services/web3_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -41,6 +42,7 @@ import 'package:jwt_chopper_isar_login_stacked_app/ui/views/sign_up/sign_up_view
     LazySingleton(classType: AuthenticationService),
     LazySingleton(classType: ApiService),
     LazySingleton(classType: LocalDataService),
+    LazySingleton(classType: Web3Service),
 // @stacked-service
   ],
   bottomsheets: [

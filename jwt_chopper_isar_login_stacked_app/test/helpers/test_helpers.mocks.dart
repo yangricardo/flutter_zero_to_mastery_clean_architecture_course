@@ -17,6 +17,8 @@ import 'package:jwt_chopper_isar_login_stacked_app/services/authentication_servi
     as _i7;
 import 'package:jwt_chopper_isar_login_stacked_app/services/local_data_service.dart'
     as _i10;
+import 'package:jwt_chopper_isar_login_stacked_app/services/web3_service.dart'
+    as _i12;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i3;
 
@@ -705,7 +707,7 @@ class MockAuthenticationService extends _i1.Mock
         returnValueForMissingStub: null,
       );
   @override
-  _i5.Future<int> signUp(
+  _i5.Future<void> signUp(
     String? email,
     String? password,
     String? name,
@@ -719,9 +721,9 @@ class MockAuthenticationService extends _i1.Mock
             name,
           ],
         ),
-        returnValue: _i5.Future<int>.value(0),
-        returnValueForMissingStub: _i5.Future<int>.value(0),
-      ) as _i5.Future<int>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
   @override
   void listenToReactiveValues(List<dynamic>? reactiveValues) =>
       super.noSuchMethod(
@@ -883,3 +885,8 @@ class MockLocalDataService extends _i1.Mock implements _i10.LocalDataService {
         returnValueForMissingStub: _i5.Future<bool>.value(false),
       ) as _i5.Future<bool>);
 }
+
+/// A class which mocks [Web3Service].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockWeb3Service extends _i1.Mock implements _i12.Web3Service {}
