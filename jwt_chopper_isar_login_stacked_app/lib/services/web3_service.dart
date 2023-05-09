@@ -29,9 +29,11 @@ class Web3Service with ListenableServiceMixin {
     final credentials = privateKey;
     final messageBytes = hexToBytes(message);
 
-    final signature = credentials.signPersonalMessageToUint8List(messageBytes);
-    final signatureHex = bytesToHex(signature);
-    debugPrint("signatureHex: $signatureHex Uint8ListString: $signature");
+    final msgSignature = credentials.signToEcSignature(messageBytes);
+    final signatureHex = "0x" +
+        bytesToHex(intToBytes(msgSignature.r).toList()) +
+        bytesToHex(intToBytes(msgSignature.s).toList()) +
+        msgSignature.v.toRadixString(16);
     return signatureHex;
   }
 
@@ -41,7 +43,7 @@ class Web3Service with ListenableServiceMixin {
   }
 
   MsgSignature hexToMsgSignature(String signatureHex) {
-    final signatureBytes = hexToBytes(signatureHex);
+    final signatureBytes = hexToBytes(strip0x(signatureHex));
     final r = Uint8List.sublistView(signatureBytes, 0, 32);
     final s = Uint8List.sublistView(signatureBytes, 32, 64);
     final v = signatureBytes[64];
