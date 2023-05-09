@@ -40,25 +40,34 @@ class Web3Service with ListenableServiceMixin {
     return signWithPrivateKey(credentials, message);
   }
 
-  // String bytesToHex(List<int> bytes) {
-  //   return bytes.map((byte) => byte.toRadixString(16).padLeft(2, '0')).join();
-  // }
-
-  // List<int> hexToBytes(String hexString) {
-  //   final pairs = hexString.replaceAll(' ', '').trim().split('');
-  //   return List<int>.generate(pairs.length ~/ 2,
-  //       (i) => int.parse(pairs[i * 2] + pairs[i * 2 + 1], radix: 16));
-  // }
-
-  BigInt bytesToBigInt(Uint8List bytes) {
-    return BigInt.parse(bytesToHex(bytes), radix: 16);
-  }
-
   MsgSignature hexToMsgSignature(String signatureHex) {
     final signatureBytes = hexToBytes(signatureHex);
     final r = Uint8List.sublistView(signatureBytes, 0, 32);
     final s = Uint8List.sublistView(signatureBytes, 32, 64);
     final v = signatureBytes[64];
-    return MsgSignature(bytesToBigInt(r), bytesToBigInt(s), v);
+    return MsgSignature(bytesToInt(r.toList()), bytesToInt(s.toList()), v);
+  }
+
+  bool verifySignature(
+      EthereumAddress signerAddress, String message, String signature) {
+    try {
+      final messageHash = intToBytes(hexToInt(message));
+      final signatureData = hexToMsgSignature(signature);
+
+      final publicKey = ecRecover(messageHash, signatureData);
+      final recoveredAddress = publicKeyToAddress(publicKey);
+      final recoveredAddressHex = bytesToHex(recoveredAddress.toList());
+      final signerAddressHex = signerAddress.hex;
+      return recoveredAddressHex == signerAddressHex;
+    } catch (e) {
+      debugPrint('Signature verification failed: $e');
+      return false;
+    }
+  }
+
+  bool verifySignatureFromHexSignerAddress(
+      String signerAddressHex, String message, String signature) {
+    EthereumAddress signerAddress = EthereumAddress.fromHex(signerAddressHex);
+    return verifySignature(signerAddress, message, signature);
   }
 }
