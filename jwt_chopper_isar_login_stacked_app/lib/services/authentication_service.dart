@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:flutter/material.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/app/app.dialogs.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/app/app.locator.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/app/app.router.dart';
@@ -7,6 +8,7 @@ import 'package:jwt_chopper_isar_login_stacked_app/services/local_data_service.d
 import 'package:jwt_chopper_isar_login_stacked_app/services/web3_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:web3dart/web3dart.dart';
 
 class AuthenticationService with ListenableServiceMixin {
   final _navigationService = locator<NavigationService>();
@@ -38,7 +40,13 @@ class AuthenticationService with ListenableServiceMixin {
         );
       } else {
         loggedIn = true;
-        _web3Service.createEthPrivateKey();
+        Wallet wallet = _web3Service.createEthWallet();
+        String message = "Hello";
+        String signature = _web3Service.signWithWallet(wallet, message);
+        bool verified = _web3Service.verifySignatureFromHexSignerAddress(
+            wallet.privateKey.address.hex, message, signature);
+        debugPrint(
+            "address: ${wallet.privateKey.address.hex}  message: $message signature: $signature verified: $verified");
         Random random = Random();
         _navigationService.clearStackAndShow(Routes.homeView,
             arguments: HomeViewArguments(

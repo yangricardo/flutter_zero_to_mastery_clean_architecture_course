@@ -46,6 +46,7 @@ dependencies:
   path_provider: ^2.0.14
   web3dart: ^2.6.1
   http: ^0.13.6
+  flutter_web3: ^2.1.9
 
 dev_dependencies:
   flutter_test:
