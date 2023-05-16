@@ -52,6 +52,7 @@ class AuthenticationService with ListenableServiceMixin {
         }
       } else {
         wallet = _web3Service.createRandomWallet(password);
+        user.ethereumAddress = wallet?.privateKey.address.hex;
         user.wallet = wallet?.toJson();
         _localDataService.createOrUpdateUser(user);
         // TODO: refactor to redirect to create wallet page
@@ -92,6 +93,7 @@ class AuthenticationService with ListenableServiceMixin {
       _localDataService.createOrUpdateUser(User()
         ..name = name
         ..email = email
+        ..ethereumAddress = wallet?.privateKey.address.hex
         ..wallet = wallet?.toJson());
       await _dialogService.showCustomDialog(
         variant: DialogType.infoAlert,
