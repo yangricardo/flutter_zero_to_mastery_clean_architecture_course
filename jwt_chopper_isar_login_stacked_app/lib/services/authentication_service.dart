@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:flutter/material.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/app/app.dialogs.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/app/app.locator.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/app/app.router.dart';
@@ -17,42 +16,59 @@ class AuthenticationService with ListenableServiceMixin {
   final _web3Service = locator<Web3Service>();
   bool loggedIn = false;
 
+  Wallet? wallet;
+
   bool userLoggedIn() {
     return loggedIn;
   }
 
   Future<void> login(String email, String password) async {
+    wallet = null;
     User? user = await _localDataService.getUserByEmail(email);
     if (user == null) {
       loggedIn = false;
-      _dialogService.showCustomDialog(
+      await _dialogService.showCustomDialog(
         variant: DialogType.infoAlert,
         title: 'Login Error',
         description: 'email not found',
       );
     } else {
-      if (password != user.password) {
-        loggedIn = false;
-        _dialogService.showCustomDialog(
-          variant: DialogType.infoAlert,
-          title: 'Login Error',
-          description: 'password not match',
-        );
+      if (user.wallet != null) {
+        try {
+          wallet = _web3Service.openWalletFromJSON(user.wallet!, password);
+          await _dialogService.showCustomDialog(
+            variant: DialogType.infoAlert,
+            title: 'Login Success',
+            description: 'Wallet successfully opened',
+          );
+          loggedIn = true;
+        } catch (e) {
+          loggedIn = false;
+          await _dialogService.showCustomDialog(
+            variant: DialogType.infoAlert,
+            title: 'Login Error',
+            description: 'password not match or could not open the wallet',
+          );
+        }
       } else {
+        wallet = _web3Service.createRandomWallet(password);
+        user.wallet = wallet?.toJson();
+        _localDataService.createOrUpdateUser(user);
+        await _dialogService.showCustomDialog(
+          variant: DialogType.infoAlert,
+          title: 'Login Success',
+          description: 'A Wallet new were created',
+        );
         loggedIn = true;
-        Wallet wallet = _web3Service.createEthWallet();
-        String message = "Hello";
-        String signature = _web3Service.signWithWallet(wallet, message);
-        bool verified = _web3Service.verifySignatureFromHexSignerAddress(
-            wallet.privateKey.address.hex, message, signature);
-        debugPrint(
-            "address: ${wallet.privateKey.address.hex}  message: $message signature: $signature verified: $verified");
+      }
+      if (loggedIn == true) {
         Random random = Random();
         _navigationService.clearStackAndShow(Routes.homeView,
             arguments: HomeViewArguments(
                 startingIndex: user.id ?? random.nextInt(1000)));
       }
     }
+
     notifyListeners();
   }
 
@@ -65,7 +81,7 @@ class AuthenticationService with ListenableServiceMixin {
   Future<void> signUp(String email, String password, String name) async {
     User? user = await _localDataService.getUserByEmail(email);
     if (user != null) {
-      _dialogService.showCustomDialog(
+      await _dialogService.showCustomDialog(
         variant: DialogType.infoAlert,
         title: 'Sign Up Error',
         description: 'email already exist',
@@ -75,7 +91,7 @@ class AuthenticationService with ListenableServiceMixin {
       ..name = name
       ..email = email
       ..password = password);
-    _dialogService.showCustomDialog(
+    await _dialogService.showCustomDialog(
       variant: DialogType.infoAlert,
       title: 'Sign Up Success',
       description: 'Go back to previous page and try to login',
