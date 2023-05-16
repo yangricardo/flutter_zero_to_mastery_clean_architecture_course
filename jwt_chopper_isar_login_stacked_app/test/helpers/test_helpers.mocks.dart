@@ -713,6 +713,14 @@ class MockAuthenticationService extends _i1.Mock
         returnValueForMissingStub: null,
       );
   @override
+  set wallet(_i3.Wallet? _wallet) => super.noSuchMethod(
+        Invocation.setter(
+          #wallet,
+          _wallet,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
   int get listenersCount => (super.noSuchMethod(
         Invocation.getter(#listenersCount),
         returnValue: 0,
