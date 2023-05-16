@@ -66,4 +66,13 @@ class Web3Service with ListenableServiceMixin {
   MsgSignature signatureBytesToMsgSignature(Uint8List signatureBytes) {
     return hexToMsgSignature(bytesToHex(signatureBytes, include0x: true));
   }
+
+  EthereumAddress recoverSignatureAddress(
+      MsgSignature signature, Uint8List messageHash) {
+    final recoveredPublicKey = ecRecover(messageHash, signature);
+    EthereumAddress recoveredAddress =
+        EthereumAddress.fromPublicKey(recoveredPublicKey);
+    print("recoveredAddress: ${recoveredAddress.hex}");
+    return recoveredAddress;
+  }
 }
