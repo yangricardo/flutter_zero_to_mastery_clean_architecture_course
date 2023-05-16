@@ -5,6 +5,9 @@ import 'package:stacked/stacked.dart';
 class SettingsViewModel extends BaseViewModel {
   final _authenticationService = locator<AuthenticationService>();
 
+  String? get ethereumAddress =>
+      _authenticationService.wallet?.privateKey.address.hex;
+
   void logout() {
     _authenticationService.logout();
   }
