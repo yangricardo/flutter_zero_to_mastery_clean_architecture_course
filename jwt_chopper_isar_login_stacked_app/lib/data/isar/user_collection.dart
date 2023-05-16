@@ -11,5 +11,7 @@ class User {
 
   String? email;
 
+  String? ethereumAddress;
+
   String? wallet;
 }
