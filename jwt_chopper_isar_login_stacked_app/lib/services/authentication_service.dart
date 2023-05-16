@@ -87,16 +87,18 @@ class AuthenticationService with ListenableServiceMixin {
         title: 'Sign Up Error',
         description: 'email already exist',
       );
+    } else {
+      wallet = _web3Service.createRandomWallet(password);
+      _localDataService.createOrUpdateUser(User()
+        ..name = name
+        ..email = email
+        ..wallet = wallet?.toJson());
+      await _dialogService.showCustomDialog(
+        variant: DialogType.infoAlert,
+        title: 'Sign Up Success',
+        description: 'Go back to previous page and try to login',
+      );
+      _navigationService.back();
     }
-    wallet = _web3Service.createRandomWallet(password);
-    _localDataService.createOrUpdateUser(User()
-      ..name = name
-      ..email = email
-      ..wallet = wallet?.toJson());
-    await _dialogService.showCustomDialog(
-      variant: DialogType.infoAlert,
-      title: 'Sign Up Success',
-      description: 'Go back to previous page and try to login',
-    );
   }
 }
