@@ -54,6 +54,7 @@ class AuthenticationService with ListenableServiceMixin {
         wallet = _web3Service.createRandomWallet(password);
         user.wallet = wallet?.toJson();
         _localDataService.createOrUpdateUser(user);
+        // TODO: refactor to redirect to create wallet page
         await _dialogService.showCustomDialog(
           variant: DialogType.infoAlert,
           title: 'Login Success',
@@ -87,10 +88,11 @@ class AuthenticationService with ListenableServiceMixin {
         description: 'email already exist',
       );
     }
+    wallet = _web3Service.createRandomWallet(password);
     _localDataService.createOrUpdateUser(User()
       ..name = name
       ..email = email
-      ..password = password);
+      ..wallet = wallet?.toJson());
     await _dialogService.showCustomDialog(
       variant: DialogType.infoAlert,
       title: 'Sign Up Success',
