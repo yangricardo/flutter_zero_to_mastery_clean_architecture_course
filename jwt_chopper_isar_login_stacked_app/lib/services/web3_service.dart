@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:stacked/stacked.dart';
+import 'package:web3dart/crypto.dart';
 import 'dart:math'; //used for the random number generator
 import 'package:web3dart/web3dart.dart';
 
@@ -22,5 +23,11 @@ class Web3Service with ListenableServiceMixin {
 
   String bytesToStr(Uint8List message) {
     return String.fromCharCodes(message);
+  }
+
+  Uint8List sign(EthPrivateKey privateKey, Uint8List message) {
+    final signature = privateKey.signPersonalMessageToUint8List(message);
+    print("signature: ${bytesToHex(signature, include0x: true)}");
+    return signature;
   }
 }
