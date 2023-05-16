@@ -1,52 +1,89 @@
-import './web3_service.dart';
+import 'dart:convert';
+import 'dart:math';
+import 'dart:typed_data';
+import 'package:web3dart/crypto.dart';
+import 'package:web3dart/web3dart.dart';
+import 'package:web3dart/src/utils/typed_data.dart';
+
+Wallet createRandomWallet() {
+  final Random random = Random.secure();
+  final EthPrivateKey privateKey = EthPrivateKey.createRandom(random);
+  final Wallet wallet =
+      Wallet.createNew(privateKey, privateKey.address.hex, random);
+  print("new address ${wallet.privateKey.address.hex}");
+  return wallet;
+}
+
+Uint8List strToBytes(String message) {
+  return Uint8List.fromList(message.codeUnits);
+}
+
+String bytesToStr(Uint8List message) {
+  return String.fromCharCodes(message);
+}
+
+Uint8List buildPrefixedMessage(String message) {
+  final Uint8List payload = strToBytes(message);
+  const _messagePrefix = '\u0019Ethereum Signed Message:\n';
+  final prefix = _messagePrefix + payload.length.toString();
+  final prefixBytes = ascii.encode(prefix);
+
+  // will be a Uint8List, see the documentation of Uint8List.+
+  final prefixedMessage = uint8ListFromList(prefixBytes + payload);
+  print("prefixedMessage: ${bytesToHex(prefixedMessage, include0x: true)}");
+  return prefixedMessage;
+}
+
+Uint8List buildPrefixedMessageHash(String message) {
+  final Uint8List prefixedMessage = buildPrefixedMessage(message);
+  final Uint8List messageHash = keccak256(prefixedMessage);
+  print("messageHash: ${bytesToHex(messageHash, include0x: true)}");
+  return messageHash;
+}
+
+Uint8List sign(EthPrivateKey privateKey, Uint8List message) {
+  final signature = privateKey.signPersonalMessageToUint8List(message);
+  print("signature: ${bytesToHex(signature, include0x: true)}");
+  return signature;
+}
+
+EthereumAddress recoverSignatureAddress(
+    MsgSignature signature, Uint8List messageHash) {
+  final recoveredPublicKey = ecRecover(messageHash, signature);
+  EthereumAddress recoveredAddress =
+      EthereumAddress.fromPublicKey(recoveredPublicKey);
+  print("recoveredAddress: ${recoveredAddress.hex}");
+  return recoveredAddress;
+}
+
+String msgSignatureToHex(MsgSignature signature) {
+  final r = bytesToHex(intToBytes(signature.r), include0x: true);
+  final s = bytesToHex(intToBytes(signature.s));
+  final v = signature.v.toRadixString(16);
+  print("r: $r s: $s v: $v");
+  return r + s + v;
+}
+
+MsgSignature hexToMsgSignature(String signatureHex) {
+  final signatureBytes = hexToBytes(strip0x(signatureHex));
+  final r = Uint8List.sublistView(signatureBytes, 0, 32);
+  final s = Uint8List.sublistView(signatureBytes, 32, 64);
+  final v = signatureBytes[64];
+  print(
+      "r: ${bytesToHex(r, include0x: true)} s: ${bytesToHex(s, include0x: true)} v: ${v.toRadixString(16)}");
+  return MsgSignature(bytesToInt(r.toList()), bytesToInt(s.toList()), v);
+}
+
+MsgSignature signatureBytesToMsgSignature(Uint8List signatureBytes) {
+  return hexToMsgSignature(bytesToHex(signatureBytes, include0x: true));
+}
 
 void main(List<String> args) {
-  final _web3Service = Web3Service();
+  final Wallet wallet = createRandomWallet();
+  const message = 'Hello World';
 
-  const message = 'Hello';
-
-  final messageUint8List = _web3Service.stringToUint8List(message);
-  print("messageUint8List $messageUint8List");
-
-  final messageUint8ListStr = _web3Service.uint8ListToString(messageUint8List);
-  print("messageUint8ListStr $messageUint8ListStr");
-
-  final messageKeccakHash = _web3Service.hashMessage(message);
-  print("messageKeccak $messageKeccakHash");
-  final messageKeccakHashUint8List =
-      _web3Service.hexStringToBytes(messageKeccakHash);
-  print("messageKeccakHashUint8List $messageKeccakHashUint8List");
-
-  final wallet = _web3Service.createEthWallet();
-
-  final prefixedSignature = wallet.privateKey
-      .signPersonalMessageToUint8List(messageKeccakHashUint8List);
-
-  final hexPrefixedSignature = _web3Service.uint8ListToHex(prefixedSignature);
-
-  print("prefixedSignature $hexPrefixedSignature");
-
-  final msgSignature = _web3Service.msgSignatureFromHex(hexPrefixedSignature);
-  print(
-      "msgSignature r ${_web3Service.bigIntToHex(msgSignature.r)} s ${_web3Service.bigIntToHex(msgSignature.s)} v ${msgSignature.v.toRadixString(16)}");
-
-  final isValid = _web3Service.isValidEthSignature(
-      _web3Service
-          .uint8ListToHex(_web3Service.stringToUint8List(messageKeccakHash)),
-      hexPrefixedSignature,
-      wallet.privateKey.address);
-
-  print("isValid $isValid");
-  // final messageHashHex = _web3Service.hashMessage(message);
-  // final messageHashUint8List = _web3Service.hexToBytes(messageHashHex);
-  // print("message $message -- messageHash $messageHashHex");
-
-  // final wallet = _web3Service.createEthWallet();
-
-  // wallet.privateKey.signPersonalMessageToUint8List(payload)
-  // print(wallet.toJson());
-
-  // final message = 'Hello';
-
-  // wallet.privateKey.signPersonalMessageToUint8List(payload)
+  final signatureBytes = sign(wallet.privateKey, strToBytes(message));
+  final Uint8List messageHash = buildPrefixedMessageHash(message);
+  final recoveredAddress = recoverSignatureAddress(
+      signatureBytesToMsgSignature(signatureBytes), messageHash);
 }
