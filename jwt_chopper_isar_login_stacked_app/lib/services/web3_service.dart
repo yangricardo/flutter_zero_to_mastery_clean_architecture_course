@@ -12,12 +12,11 @@ import 'package:web3dart/src/utils/typed_data.dart';
 class Web3Service with ListenableServiceMixin {
   static const _messagePrefix = '\u0019Ethereum Signed Message:\n';
 
-  Wallet createRandomWallet() {
+  Wallet createRandomWallet(String password) {
     try {
       final Random random = Random.secure();
       final EthPrivateKey privateKey = EthPrivateKey.createRandom(random);
-      final Wallet wallet =
-          Wallet.createNew(privateKey, privateKey.address.hex, random);
+      final Wallet wallet = Wallet.createNew(privateKey, password, random);
       debugPrint(
           "Wallet Private Key ${bytesToHex(wallet.privateKey.privateKey, include0x: true)}");
       debugPrint("Wallet Public Address ${wallet.privateKey.address.hex}");
@@ -34,8 +33,12 @@ class Web3Service with ListenableServiceMixin {
       }
       return wallet;
     } catch (e) {
-      return createRandomWallet();
+      return createRandomWallet(password);
     }
+  }
+
+  Wallet openWalletFromJSON(String encodedJsonWallet, String password) {
+    return Wallet.fromJson(encodedJsonWallet, password);
   }
 
   EthPrivateKey fromPrivateKeyHex(String privateKeyHex) {
