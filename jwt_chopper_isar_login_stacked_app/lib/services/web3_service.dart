@@ -45,4 +45,11 @@ class Web3Service with ListenableServiceMixin {
     print("prefixedMessage: ${bytesToHex(prefixedMessage, include0x: true)}");
     return prefixedMessage;
   }
+
+  Uint8List buildPrefixedMessageHash(String message) {
+    final Uint8List prefixedMessage = buildPrefixedMessage(message);
+    final Uint8List messageHash = keccak256(prefixedMessage);
+    print("messageHash: ${bytesToHex(messageHash, include0x: true)}");
+    return messageHash;
+  }
 }
