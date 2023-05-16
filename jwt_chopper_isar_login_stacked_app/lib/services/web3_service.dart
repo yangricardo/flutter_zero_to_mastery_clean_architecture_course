@@ -52,4 +52,14 @@ class Web3Service with ListenableServiceMixin {
     print("messageHash: ${bytesToHex(messageHash, include0x: true)}");
     return messageHash;
   }
+
+  MsgSignature hexToMsgSignature(String signatureHex) {
+    final signatureBytes = hexToBytes(strip0x(signatureHex));
+    final r = Uint8List.sublistView(signatureBytes, 0, 32);
+    final s = Uint8List.sublistView(signatureBytes, 32, 64);
+    final v = signatureBytes[64];
+    print(
+        "r: ${bytesToHex(r, include0x: true)} s: ${bytesToHex(s, include0x: true)} v: ${v.toRadixString(16)}");
+    return MsgSignature(bytesToInt(r.toList()), bytesToInt(s.toList()), v);
+  }
 }
