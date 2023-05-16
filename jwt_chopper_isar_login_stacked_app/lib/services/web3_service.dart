@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:web3dart/crypto.dart';
 import 'dart:math'; //used for the random number generator
@@ -16,8 +17,19 @@ class Web3Service with ListenableServiceMixin {
     final EthPrivateKey privateKey = EthPrivateKey.createRandom(random);
     final Wallet wallet =
         Wallet.createNew(privateKey, privateKey.address.hex, random);
-    print("new address ${wallet.privateKey.address.hex}");
+    debugPrint(
+        "Wallet Private Key ${bytesToHex(wallet.privateKey.privateKey, include0x: true)}");
+    debugPrint("Wallet Public Address ${wallet.privateKey.address.hex}");
     return wallet;
+  }
+
+  EthPrivateKey fromPrivateKeyHex(String privateKeyHex) {
+    final privateKeyBytes = hexToBytes(strip0x(privateKeyHex));
+    final privateKey = EthPrivateKey.fromHex(bytesToHex(privateKeyBytes));
+    debugPrint(
+        "Private Key ${bytesToHex(privateKey.privateKey, include0x: true)}");
+    debugPrint("Public Address ${privateKey.address.hex}");
+    return privateKey;
   }
 
   Uint8List strToBytes(String message) {
@@ -28,10 +40,16 @@ class Web3Service with ListenableServiceMixin {
     return String.fromCharCodes(message);
   }
 
-  Uint8List sign(EthPrivateKey privateKey, Uint8List message) {
-    final signature = privateKey.signPersonalMessageToUint8List(message);
-    print("signature: ${bytesToHex(signature, include0x: true)}");
-    return signature;
+  Uint8List sign(EthPrivateKey privateKey, String message) {
+    try {
+      final messageBytes = strToBytes(message);
+      final signature = privateKey.signPersonalMessageToUint8List(messageBytes);
+      final signatureHex = bytesToHex(signature, include0x: true);
+      debugPrint("signature: $signatureHex");
+      return signature;
+    } catch (e) {
+      return sign(privateKey, message);
+    }
   }
 
   Uint8List buildPrefixedMessage(String message) {
@@ -42,14 +60,15 @@ class Web3Service with ListenableServiceMixin {
 
     // will be a Uint8List, see the documentation of Uint8List.+
     final prefixedMessage = uint8ListFromList(prefixBytes + payload);
-    print("prefixedMessage: ${bytesToHex(prefixedMessage, include0x: true)}");
+    debugPrint(
+        "prefixedMessage: ${bytesToHex(prefixedMessage, include0x: true)}");
     return prefixedMessage;
   }
 
   Uint8List buildPrefixedMessageHash(String message) {
     final Uint8List prefixedMessage = buildPrefixedMessage(message);
     final Uint8List messageHash = keccak256(prefixedMessage);
-    print("messageHash: ${bytesToHex(messageHash, include0x: true)}");
+    debugPrint("messageHash: ${bytesToHex(messageHash, include0x: true)}");
     return messageHash;
   }
 
@@ -58,7 +77,7 @@ class Web3Service with ListenableServiceMixin {
     final r = Uint8List.sublistView(signatureBytes, 0, 32);
     final s = Uint8List.sublistView(signatureBytes, 32, 64);
     final v = signatureBytes[64];
-    print(
+    debugPrint(
         "r: ${bytesToHex(r, include0x: true)} s: ${bytesToHex(s, include0x: true)} v: ${v.toRadixString(16)}");
     return MsgSignature(bytesToInt(r.toList()), bytesToInt(s.toList()), v);
   }
@@ -72,7 +91,20 @@ class Web3Service with ListenableServiceMixin {
     final recoveredPublicKey = ecRecover(messageHash, signature);
     EthereumAddress recoveredAddress =
         EthereumAddress.fromPublicKey(recoveredPublicKey);
-    print("recoveredAddress: ${recoveredAddress.hex}");
+    debugPrint("recoveredAddress: ${recoveredAddress.hex}");
     return recoveredAddress;
+  }
+
+  bool isValidHexSignatureFromRawMessage(
+      String hexSignature, String message, String hexAddress) {
+    final signature = hexToMsgSignature(hexSignature);
+    final messageHash = buildPrefixedMessageHash(message);
+    final recoveredAddress = recoverSignatureAddress(signature, messageHash);
+
+    final comparedToAddess = EthereumAddress.fromHex(hexAddress);
+    final isValid = recoveredAddress == comparedToAddess;
+    debugPrint(
+        "isValid: $isValid recoveredAddress: ${recoveredAddress.hex} comparedToAddess: ${comparedToAddess.hex}");
+    return isValid;
   }
 }
