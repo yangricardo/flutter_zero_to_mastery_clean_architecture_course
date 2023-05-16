@@ -62,4 +62,8 @@ class Web3Service with ListenableServiceMixin {
         "r: ${bytesToHex(r, include0x: true)} s: ${bytesToHex(s, include0x: true)} v: ${v.toRadixString(16)}");
     return MsgSignature(bytesToInt(r.toList()), bytesToInt(s.toList()), v);
   }
+
+  MsgSignature signatureBytesToMsgSignature(Uint8List signatureBytes) {
+    return hexToMsgSignature(bytesToHex(signatureBytes, include0x: true));
+  }
 }
