@@ -22,14 +22,36 @@ class PdfPreviewerView extends StackedView<PdfPreviewerViewModel> {
       ]),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Container(
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-        child: Expanded(
-            child: viewModel.pdfFilePath != null
-                ? PDFView(
-                    filePath: viewModel.pdfFilePath!,
-                    onViewCreated: (PDFViewController viewController) {},
-                  )
-                : const Center(child: Text('No PDF file selected'))),
+        padding: const EdgeInsets.all(25.0),
+        child: viewModel.pdfFilePath != null
+            ? Column(
+                children: [
+                  Expanded(
+                    child: PDFView(
+                      filePath: viewModel.pdfFilePath!,
+                      onViewCreated: (PDFViewController viewController) {
+                        viewModel.updatePdfViewController(viewController);
+                      },
+                      enableSwipe: true,
+                      autoSpacing: true,
+                      fitEachPage: true,
+                      defaultPage: 1,
+                      fitPolicy: FitPolicy.WIDTH,
+                      preventLinkNavigation: true,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Flexible(
+                    child: Center(
+                      child: Text(
+                        viewModel.pdfHash ?? 'No PDF file selected for hashing',
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            : const Center(child: Text('No PDF file selected')),
       ),
     );
   }
