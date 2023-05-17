@@ -7,6 +7,7 @@ import 'package:jwt_chopper_isar_login_stacked_app/ui/common/app_colors.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
   setupDialogUi();
   setupBottomSheetUi();
