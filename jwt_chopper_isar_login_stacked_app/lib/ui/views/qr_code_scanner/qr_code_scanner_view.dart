@@ -17,16 +17,30 @@ class QrCodeScannerView extends StackedView<QrCodeScannerViewModel> {
       appBar: AppBar(title: const Text('QR Code Scanner')),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Container(
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-        child: MobileScanner(
-          fit: BoxFit.contain,
-          onDetect: viewModel.onDetect,
-          controller: MobileScannerController(
-              detectionSpeed: DetectionSpeed.normal,
-              facing: CameraFacing.back,
-              torchEnabled: false,
-              autoStart: true,
-              formats: [BarcodeFormat.qrCode]),
+        padding: const EdgeInsets.all(25.0),
+        child: Column(
+          children: [
+            Expanded(
+                child: MobileScanner(
+              fit: BoxFit.contain,
+              onDetect: viewModel.onDetect,
+              controller: MobileScannerController(
+                  detectionSpeed: DetectionSpeed.normal,
+                  facing: CameraFacing.back,
+                  torchEnabled: false,
+                  autoStart: true,
+                  formats: [BarcodeFormat.qrCode]),
+            )),
+            const SizedBox(height: 16),
+            Flexible(
+              child: Center(
+                child: Text(
+                  viewModel.pdfHash ?? 'No PDF file selected for hashing',
+                  style: const TextStyle(fontSize: 18),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
