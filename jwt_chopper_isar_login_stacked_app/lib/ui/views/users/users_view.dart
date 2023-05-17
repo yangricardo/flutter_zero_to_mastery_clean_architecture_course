@@ -18,6 +18,7 @@ class UsersView extends StackedView<UsersViewModel> {
     Widget? child,
   ) {
     return Scaffold(
+      appBar: AppBar(title: const Text('Users')),
       backgroundColor: Colors.grey[900],
       body: viewModel.isBusy
           ? Center(
@@ -56,7 +57,7 @@ class UsersView extends StackedView<UsersViewModel> {
                               child: Column(
                                 children: <Widget>[
                                   Text(
-                                    "${viewModel.data?[index].name}",
+                                    viewModel.data?[index].name ?? '',
                                     style: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
@@ -64,7 +65,7 @@ class UsersView extends StackedView<UsersViewModel> {
                                   ),
                                   const SizedBox(height: 20),
                                   Text(
-                                    "${viewModel.data?[index].company}",
+                                    viewModel.data?[index].company?.name ?? '',
                                   )
                                 ],
                               ),
@@ -84,10 +85,13 @@ class UsersView extends StackedView<UsersViewModel> {
               : Container(
                   color: Colors.red,
                   alignment: Alignment.center,
-                  child: Text(
-                    viewModel.error.toString(),
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(color: Colors.white),
+                  child: Expanded(
+                    child: Text(
+                      viewModel.error.toString(),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(color: Colors.white),
+                      maxLines: 20,
+                    ),
                   ),
                 ),
     );
