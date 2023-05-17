@@ -4,7 +4,8 @@ import 'package:stacked/stacked.dart';
 import 'sign_hash_viewmodel.dart';
 
 class SignHashView extends StackedView<SignHashViewModel> {
-  const SignHashView({Key? key}) : super(key: key);
+  final String? pdfHash;
+  const SignHashView({Key? key, this.pdfHash}) : super(key: key);
 
   @override
   Widget builder(
@@ -15,7 +16,19 @@ class SignHashView extends StackedView<SignHashViewModel> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Container(
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+        child: Column(children: [
+          Text('PDF Hash: $pdfHash'),
+          ElevatedButton(
+            onPressed: () => viewModel.signHash(pdfHash!),
+            child: const Text('Sign Hash'),
+          ),
+          if (viewModel.signatureHex != null)
+            Text('Signature: ${viewModel.signatureHex}'),
+          if (viewModel.isValid != null)
+            Text('Signature is valid: ${viewModel.isValid}'),
+          if (viewModel.ethereumAddress != null)
+            Text('Ethereum Address: ${viewModel.ethereumAddress}'),
+        ]),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/ui/views/sign_hash/sign_hash_view.dart';
 import 'package:stacked/stacked.dart';
 
 import 'pdf_previewer_viewmodel.dart';
@@ -42,13 +43,8 @@ class PdfPreviewerView extends StackedView<PdfPreviewerViewModel> {
                   ),
                   const SizedBox(height: 16),
                   Flexible(
-                    child: Center(
-                      child: Text(
-                        viewModel.pdfHash ?? 'No PDF file selected for hashing',
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                    ),
-                  ),
+                    child: SignHashView(pdfHash: viewModel.pdfHash),
+                  )
                 ],
               )
             : const Center(child: Text('No PDF file selected')),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/ui/views/sign_hash/sign_hash_view.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:stacked/stacked.dart';
 
@@ -33,13 +34,8 @@ class QrCodeScannerView extends StackedView<QrCodeScannerViewModel> {
             )),
             const SizedBox(height: 16),
             Flexible(
-              child: Center(
-                child: Text(
-                  viewModel.pdfHash ?? 'No PDF file selected for hashing',
-                  style: const TextStyle(fontSize: 18),
-                ),
-              ),
-            ),
+              child: SignHashView(pdfHash: viewModel.pdfHash),
+            )
           ],
         ),
       ),
