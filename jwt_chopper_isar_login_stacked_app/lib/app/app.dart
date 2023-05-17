@@ -18,6 +18,7 @@ import 'package:jwt_chopper_isar_login_stacked_app/ui/views/sign_up/sign_up_view
 import 'package:jwt_chopper_isar_login_stacked_app/services/web3_service.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/qr_code_scanner/qr_code_scanner_view.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/pdf_previewer/pdf_previewer_view.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/ui/views/sign_hash/sign_hash_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -37,6 +38,7 @@ import 'package:jwt_chopper_isar_login_stacked_app/ui/views/pdf_previewer/pdf_pr
     MaterialRoute(page: SignUpView),
     MaterialRoute(page: QrCodeScannerView),
     MaterialRoute(page: PdfPreviewerView),
+    MaterialRoute(page: SignHashView),
 // @stacked-route
   ],
   dependencies: [
