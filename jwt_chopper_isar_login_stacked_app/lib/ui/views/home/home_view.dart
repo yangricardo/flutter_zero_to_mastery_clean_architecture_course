@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/ui/views/pdf_previewer/pdf_previewer_view.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/qr_code_scanner/qr_code_scanner_view.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/settings/settings_view.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/text_reverse/text_reverse_view.dart';
@@ -41,6 +42,10 @@ class HomeView extends StackedView<HomeViewModel> {
             icon: Icon(Icons.text_rotate_up),
           ),
           BottomNavigationBarItem(
+            label: 'PDF',
+            icon: Icon(Icons.picture_as_pdf),
+          ),
+          BottomNavigationBarItem(
             label: 'QrCode',
             icon: Icon(Icons.qr_code),
           ),
@@ -65,8 +70,10 @@ class HomeView extends StackedView<HomeViewModel> {
       case 1:
         return const TextReverseView();
       case 2:
-        return const QrCodeScannerView();
+        return const PdfPreviewerView();
       case 3:
+        return const QrCodeScannerView();
+      case 4:
         return const SettingsView();
       default:
         return const SettingsView();
