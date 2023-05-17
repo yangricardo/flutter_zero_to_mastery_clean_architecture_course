@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 
 import 'settings_viewmodel.dart';
@@ -13,12 +14,14 @@ class SettingsView extends StackedView<SettingsViewModel> {
     Widget? child,
   ) {
     return Scaffold(
+      appBar: AppBar(title: const Text('Settings')),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Container(
-          padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+          padding: const EdgeInsets.all(25.0),
           child: Column(
             children: [
               Text(viewModel.ethereumAddress ?? 'No Ethereum Address'),
+              verticalSpaceMedium,
               ElevatedButton(
                 style: ButtonStyle(
                     backgroundColor:
