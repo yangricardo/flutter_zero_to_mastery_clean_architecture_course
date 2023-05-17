@@ -13,6 +13,12 @@ class PdfPreviewerView extends StackedView<PdfPreviewerViewModel> {
     Widget? child,
   ) {
     return Scaffold(
+      appBar: AppBar(title: const Text('PDF Preview'), actions: [
+        IconButton(
+          icon: const Icon(Icons.file_open),
+          onPressed: () => {},
+        ),
+      ]),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Container(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
