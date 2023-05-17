@@ -7,11 +7,10 @@ import 'package:web3dart/crypto.dart';
 import 'dart:math'; //used for the random number generator
 import 'package:web3dart/web3dart.dart';
 
+// ignore: implementation_imports
 import 'package:web3dart/src/utils/typed_data.dart';
 
 class Web3Service with ListenableServiceMixin {
-  static const _messagePrefix = '\u0019Ethereum Signed Message:\n';
-
   Wallet createRandomWallet(String password) {
     try {
       final Random random = Random.secure();
@@ -72,8 +71,8 @@ class Web3Service with ListenableServiceMixin {
 
   Uint8List buildPrefixedMessage(String message) {
     final Uint8List payload = strToBytes(message);
-    const _messagePrefix = '\u0019Ethereum Signed Message:\n';
-    final prefix = _messagePrefix + payload.length.toString();
+    const messagePrefix = '\u0019Ethereum Signed Message:\n';
+    final prefix = messagePrefix + payload.length.toString();
     final prefixBytes = ascii.encode(prefix);
 
     // will be a Uint8List, see the documentation of Uint8List.+
