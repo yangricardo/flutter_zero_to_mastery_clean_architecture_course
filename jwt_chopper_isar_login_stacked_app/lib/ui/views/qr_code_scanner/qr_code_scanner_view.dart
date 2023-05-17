@@ -19,7 +19,7 @@ class QrCodeScannerView extends StackedView<QrCodeScannerViewModel> {
       body: Container(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
         child: MobileScanner(
-          // fit: BoxFit.contain,
+          fit: BoxFit.contain,
           onDetect: viewModel.onDetect,
         ),
       ),
