@@ -8,6 +8,8 @@ class PdfPreviewerViewModel extends BaseViewModel {
   String? pdfFilePath;
 
   void pickFile() async {
+    pdfFilePath = null;
+    notifyListeners();
     FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowedExtensions: ['pdf'],

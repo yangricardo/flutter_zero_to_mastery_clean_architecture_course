@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:stacked/stacked.dart';
 
 import 'pdf_previewer_viewmodel.dart';
@@ -23,10 +24,12 @@ class PdfPreviewerView extends StackedView<PdfPreviewerViewModel> {
       body: Container(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
         child: Expanded(
-          child: Center(
-            child: Text(viewModel.pdfFilePath ?? 'No PDF file selected'),
-          ),
-        ),
+            child: viewModel.pdfFilePath != null
+                ? PDFView(
+                    filePath: viewModel.pdfFilePath!,
+                    onViewCreated: (PDFViewController viewController) {},
+                  )
+                : const Center(child: Text('No PDF file selected'))),
       ),
     );
   }
