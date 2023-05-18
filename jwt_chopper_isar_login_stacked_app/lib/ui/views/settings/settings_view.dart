@@ -14,24 +14,27 @@ class SettingsView extends StackedView<SettingsViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Settings')),
+      appBar: AppBar(
+        title: const Text('Settings'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              viewModel.logout();
+            },
+            icon: const Icon(Icons.logout, color: Colors.red),
+          )
+        ],
+      ),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Container(
           padding: const EdgeInsets.all(25.0),
-          child: Column(
-            children: [
-              Text(viewModel.ethereumAddress ?? 'No Ethereum Address'),
-              verticalSpaceMedium,
-              ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.red)),
-                onPressed: () {
-                  viewModel.logout();
-                },
-                child: const Text('Logout'),
-              )
-            ],
+          child: Center(
+            child: Column(
+              children: [
+                Text(viewModel.ethereumAddress ?? 'No Ethereum Address'),
+                verticalSpaceMedium,
+              ],
+            ),
           )),
     );
   }
