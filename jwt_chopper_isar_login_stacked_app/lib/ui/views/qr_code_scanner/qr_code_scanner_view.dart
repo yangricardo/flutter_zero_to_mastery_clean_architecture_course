@@ -23,7 +23,7 @@ class QrCodeScannerView extends StackedView<QrCodeScannerViewModel> {
           children: [
             Expanded(
                 child: MobileScanner(
-              fit: BoxFit.contain,
+              fit: BoxFit.fill,
               onDetect: viewModel.onDetect,
               controller: MobileScannerController(
                   detectionSpeed: DetectionSpeed.normal,
