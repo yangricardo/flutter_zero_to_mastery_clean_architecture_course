@@ -1,7 +1,9 @@
 import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
+import 'package:jwt_chopper_isar_login_stacked_app/app/app.locator.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/models/api/user.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 part "api_service.chopper.dart";
 
@@ -18,6 +20,8 @@ abstract class ApiClientServiceInterface extends ChopperService {
 }
 
 class ApiService with ListenableServiceMixin {
+  final _dialogService = locator<DialogService>();
+
   final client = ChopperClient(
     baseUrl: Uri.parse('https://jsonplaceholder.typicode.com/'),
     services: [
@@ -32,13 +36,22 @@ class ApiService with ListenableServiceMixin {
   }
 
   Future<List<User>> getUsers() async {
-    final response = await _getClientService().getUsers();
-    debugPrint(response.base.request?.url.toString());
-    if (response.isSuccessful) {
-      final users = response.body as List;
-      return users.map((user) => User.fromJson(user)).toList();
-    } else {
-      return [];
+    try {
+      final response = await _getClientService().getUsers();
+      if (response.isSuccessful) {
+        final users = response.body as List;
+        return users.map((user) => User.fromJson(user)).toList();
+      } else {
+        return [];
+      }
+    } catch (e) {
+      _dialogService.showConfirmationDialog(
+        title: 'Error',
+        description: e.toString(),
+        cancelTitle: 'Cancel',
+        confirmationTitle: 'Ok',
+      );
+      rethrow;
     }
   }
 

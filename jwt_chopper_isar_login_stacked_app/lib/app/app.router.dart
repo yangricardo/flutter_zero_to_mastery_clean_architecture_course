@@ -5,7 +5,7 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i11;
+import 'package:flutter/material.dart' as _i14;
 import 'package:flutter/material.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/counter/counter_view.dart'
     as _i5;
@@ -13,8 +13,14 @@ import 'package:jwt_chopper_isar_login_stacked_app/ui/views/home/home_view.dart'
     as _i3;
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/login/login_view.dart'
     as _i4;
+import 'package:jwt_chopper_isar_login_stacked_app/ui/views/pdf_previewer/pdf_previewer_view.dart'
+    as _i12;
+import 'package:jwt_chopper_isar_login_stacked_app/ui/views/qr_code_scanner/qr_code_scanner_view.dart'
+    as _i11;
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/settings/settings_view.dart'
     as _i9;
+import 'package:jwt_chopper_isar_login_stacked_app/ui/views/sign_hash/sign_hash_view.dart'
+    as _i13;
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/sign_up/sign_up_view.dart'
     as _i10;
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/startup/startup_view.dart'
@@ -26,7 +32,7 @@ import 'package:jwt_chopper_isar_login_stacked_app/ui/views/user_detail/user_det
 import 'package:jwt_chopper_isar_login_stacked_app/ui/views/users/users_view.dart'
     as _i7;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i12;
+import 'package:stacked_services/stacked_services.dart' as _i15;
 
 class Routes {
   static const startupView = '/startup-view';
@@ -47,6 +53,12 @@ class Routes {
 
   static const signUpView = '/sign-up-view';
 
+  static const qrCodeScannerView = '/qr-code-scanner-view';
+
+  static const pdfPreviewerView = '/pdf-previewer-view';
+
+  static const signHashView = '/sign-hash-view';
+
   static const all = <String>{
     startupView,
     homeView,
@@ -57,6 +69,9 @@ class Routes {
     userDetailView,
     settingsView,
     signUpView,
+    qrCodeScannerView,
+    pdfPreviewerView,
+    signHashView,
   };
 }
 
@@ -98,18 +113,30 @@ class StackedRouter extends _i1.RouterBase {
       Routes.signUpView,
       page: _i10.SignUpView,
     ),
+    _i1.RouteDef(
+      Routes.qrCodeScannerView,
+      page: _i11.QrCodeScannerView,
+    ),
+    _i1.RouteDef(
+      Routes.pdfPreviewerView,
+      page: _i12.PdfPreviewerView,
+    ),
+    _i1.RouteDef(
+      Routes.signHashView,
+      page: _i13.SignHashView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.StartupView: (data) {
-      return _i11.MaterialPageRoute<dynamic>(
+      return _i14.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.StartupView(),
         settings: data,
       );
     },
     _i3.HomeView: (data) {
       final args = data.getArgs<HomeViewArguments>(nullOk: false);
-      return _i11.PageRouteBuilder<dynamic>(
+      return _i14.PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
             _i3.HomeView(key: args.key, startingIndex: args.startingIndex),
         settings: data,
@@ -118,7 +145,7 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i4.LoginView: (data) {
-      return _i11.PageRouteBuilder<dynamic>(
+      return _i14.PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
             const _i4.LoginView(),
         settings: data,
@@ -127,13 +154,13 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i5.CounterView: (data) {
-      return _i11.MaterialPageRoute<dynamic>(
+      return _i14.MaterialPageRoute<dynamic>(
         builder: (context) => const _i5.CounterView(),
         settings: data,
       );
     },
     _i6.TextReverseView: (data) {
-      return _i11.MaterialPageRoute<dynamic>(
+      return _i14.MaterialPageRoute<dynamic>(
         builder: (context) => const _i6.TextReverseView(),
         settings: data,
       );
@@ -142,28 +169,46 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<UsersViewArguments>(
         orElse: () => const UsersViewArguments(),
       );
-      return _i11.MaterialPageRoute<dynamic>(
+      return _i14.MaterialPageRoute<dynamic>(
         builder: (context) => _i7.UsersView(key: args.key),
         settings: data,
       );
     },
     _i8.UserDetailView: (data) {
       final args = data.getArgs<UserDetailViewArguments>(nullOk: false);
-      return _i11.MaterialPageRoute<dynamic>(
+      return _i14.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i8.UserDetailView(key: args.key, index: args.index),
         settings: data,
       );
     },
     _i9.SettingsView: (data) {
-      return _i11.MaterialPageRoute<dynamic>(
+      return _i14.MaterialPageRoute<dynamic>(
         builder: (context) => const _i9.SettingsView(),
         settings: data,
       );
     },
     _i10.SignUpView: (data) {
-      return _i11.MaterialPageRoute<dynamic>(
+      return _i14.MaterialPageRoute<dynamic>(
         builder: (context) => const _i10.SignUpView(),
+        settings: data,
+      );
+    },
+    _i11.QrCodeScannerView: (data) {
+      return _i14.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i11.QrCodeScannerView(),
+        settings: data,
+      );
+    },
+    _i12.PdfPreviewerView: (data) {
+      return _i14.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i12.PdfPreviewerView(),
+        settings: data,
+      );
+    },
+    _i13.SignHashView: (data) {
+      return _i14.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i13.SignHashView(),
         settings: data,
       );
     },
@@ -181,7 +226,7 @@ class HomeViewArguments {
     required this.startingIndex,
   });
 
-  final _i11.Key? key;
+  final _i14.Key? key;
 
   final int startingIndex;
 
@@ -205,7 +250,7 @@ class HomeViewArguments {
 class UsersViewArguments {
   const UsersViewArguments({this.key});
 
-  final _i11.Key? key;
+  final _i14.Key? key;
 
   @override
   String toString() {
@@ -230,7 +275,7 @@ class UserDetailViewArguments {
     required this.index,
   });
 
-  final _i11.Key? key;
+  final _i14.Key? key;
 
   final int index;
 
@@ -251,7 +296,7 @@ class UserDetailViewArguments {
   }
 }
 
-extension NavigatorStateExtension on _i12.NavigationService {
+extension NavigatorStateExtension on _i15.NavigationService {
   Future<dynamic> navigateToStartupView([
     int? routerId,
     bool preventDuplicates = true,
@@ -267,7 +312,7 @@ extension NavigatorStateExtension on _i12.NavigationService {
   }
 
   Future<dynamic> navigateToHomeView({
-    _i11.Key? key,
+    _i14.Key? key,
     required int startingIndex,
     int? routerId,
     bool preventDuplicates = true,
@@ -326,7 +371,7 @@ extension NavigatorStateExtension on _i12.NavigationService {
   }
 
   Future<dynamic> navigateToUsersView({
-    _i11.Key? key,
+    _i14.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -342,7 +387,7 @@ extension NavigatorStateExtension on _i12.NavigationService {
   }
 
   Future<dynamic> navigateToUserDetailView({
-    _i11.Key? key,
+    _i14.Key? key,
     required int index,
     int? routerId,
     bool preventDuplicates = true,
@@ -386,6 +431,48 @@ extension NavigatorStateExtension on _i12.NavigationService {
         transition: transition);
   }
 
+  Future<dynamic> navigateToQrCodeScannerView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.qrCodeScannerView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToPdfPreviewerView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.pdfPreviewerView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToSignHashView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.signHashView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
   Future<dynamic> replaceWithStartupView([
     int? routerId,
     bool preventDuplicates = true,
@@ -401,7 +488,7 @@ extension NavigatorStateExtension on _i12.NavigationService {
   }
 
   Future<dynamic> replaceWithHomeView({
-    _i11.Key? key,
+    _i14.Key? key,
     required int startingIndex,
     int? routerId,
     bool preventDuplicates = true,
@@ -460,7 +547,7 @@ extension NavigatorStateExtension on _i12.NavigationService {
   }
 
   Future<dynamic> replaceWithUsersView({
-    _i11.Key? key,
+    _i14.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -476,7 +563,7 @@ extension NavigatorStateExtension on _i12.NavigationService {
   }
 
   Future<dynamic> replaceWithUserDetailView({
-    _i11.Key? key,
+    _i14.Key? key,
     required int index,
     int? routerId,
     bool preventDuplicates = true,
@@ -514,6 +601,48 @@ extension NavigatorStateExtension on _i12.NavigationService {
         transition,
   ]) async {
     return replaceWith<dynamic>(Routes.signUpView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithQrCodeScannerView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.qrCodeScannerView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithPdfPreviewerView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.pdfPreviewerView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithSignHashView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.signHashView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
