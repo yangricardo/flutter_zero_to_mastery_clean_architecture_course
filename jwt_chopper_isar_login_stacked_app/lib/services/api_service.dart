@@ -7,7 +7,8 @@ import 'package:stacked_services/stacked_services.dart';
 
 part "api_service.chopper.dart";
 
-@ChopperApi(baseUrl: '/api')
+// TODO: Study https://www.kodeco.com/10099546-elegant-networking-in-flutter-with-chopper
+@ChopperApi(baseUrl: '')
 abstract class ApiClientServiceInterface extends ChopperService {
   static ApiClientServiceInterface create([ChopperClient? client]) =>
       _$ApiClientServiceInterface(client);
