@@ -61,7 +61,8 @@ class SignUpView extends StackedView<SignUpViewModel> with $SignUpView {
               onPressed: () {
                 viewModel.signUp();
               },
-              child: const Text('Sign Up'))
+              child:
+                  const Text('Sign Up', style: TextStyle(color: Colors.white)))
         ]),
       ),
     );

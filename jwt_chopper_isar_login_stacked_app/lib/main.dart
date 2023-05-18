@@ -3,7 +3,6 @@ import 'package:jwt_chopper_isar_login_stacked_app/app/app.bottomsheets.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/app/app.dialogs.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/app/app.locator.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/app/app.router.dart';
-import 'package:jwt_chopper_isar_login_stacked_app/ui/common/app_colors.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 void main() {
@@ -22,12 +21,27 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: Theme.of(context).copyWith(
-        primaryColor: kcBackgroundColor,
-        focusColor: kcPrimaryColor,
-        textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: Colors.black,
-            ),
+      // theme: ThemeData.dark(useMaterial3: true),
+      // theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.blue[900]),
+      // theme: Theme.of(context).copyWith(
+      //     colorScheme: const ColorScheme.dark(
+      //       primary: Colors.blue,
+      //       secondary: Colors.blue,
+      //     ),
+      //     useMaterial3: true),
+      theme: ThemeData(
+        useMaterial3: true,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.indigo,
+        ),
+        cardTheme: const CardTheme(
+          color: Colors.black,
+        ),
+        colorScheme: const ColorScheme.dark(
+          primary: Colors.indigo,
+          secondary: Colors.black,
+          background: Colors.indigo,
+        ),
       ),
       initialRoute: Routes.startupView,
       onGenerateRoute: StackedRouter().onGenerateRoute,

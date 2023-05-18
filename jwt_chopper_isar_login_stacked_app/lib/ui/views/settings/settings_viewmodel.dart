@@ -8,6 +8,9 @@ class SettingsViewModel extends BaseViewModel {
   String? get ethereumAddress =>
       _authenticationService.wallet?.privateKey.address.hex;
 
+  String? get name => _authenticationService.user?.name;
+  String? get email => _authenticationService.user?.email;
+
   void logout() {
     _authenticationService.logout();
   }

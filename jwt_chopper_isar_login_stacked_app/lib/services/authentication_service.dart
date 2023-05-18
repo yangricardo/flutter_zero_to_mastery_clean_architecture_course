@@ -15,7 +15,7 @@ class AuthenticationService with ListenableServiceMixin {
   final _dialogService = locator<DialogService>();
   final _web3Service = locator<Web3Service>();
   bool loggedIn = false;
-
+  User? user;
   Wallet? wallet;
 
   bool userLoggedIn() {
@@ -24,7 +24,7 @@ class AuthenticationService with ListenableServiceMixin {
 
   Future<void> login(String email, String password) async {
     wallet = null;
-    User? user = await _localDataService.getUserByEmail(email);
+    user = await _localDataService.getUserByEmail(email);
     if (user == null) {
       loggedIn = false;
       await _dialogService.showCustomDialog(
@@ -33,9 +33,9 @@ class AuthenticationService with ListenableServiceMixin {
         description: 'email not found',
       );
     } else {
-      if (user.wallet != null) {
+      if (user?.wallet != null) {
         try {
-          wallet = _web3Service.openWalletFromJSON(user.wallet!, password);
+          wallet = _web3Service.openWalletFromJSON(user!.wallet!, password);
           await _dialogService.showCustomDialog(
             variant: DialogType.infoAlert,
             title: 'Login Success',
@@ -52,9 +52,9 @@ class AuthenticationService with ListenableServiceMixin {
         }
       } else {
         wallet = _web3Service.createRandomWallet(password);
-        user.ethereumAddress = wallet?.privateKey.address.hex;
-        user.wallet = wallet?.toJson();
-        _localDataService.createOrUpdateUser(user);
+        user?.ethereumAddress = wallet?.privateKey.address.hex;
+        user?.wallet = wallet?.toJson();
+        _localDataService.createOrUpdateUser(user!);
         // TODO: refactor to redirect to create wallet page
         await _dialogService.showCustomDialog(
           variant: DialogType.infoAlert,
@@ -67,7 +67,7 @@ class AuthenticationService with ListenableServiceMixin {
         Random random = Random();
         _navigationService.clearStackAndShow(Routes.homeView,
             arguments: HomeViewArguments(
-                startingIndex: user.id ?? random.nextInt(1000)));
+                startingIndex: user?.id ?? random.nextInt(1000)));
       }
     }
 

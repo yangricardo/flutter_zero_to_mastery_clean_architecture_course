@@ -18,7 +18,7 @@ class _$ApiClientServiceInterface extends ApiClientServiceInterface {
 
   @override
   Future<Response<dynamic>> getUsers() {
-    final Uri $url = Uri.parse('/api/users');
+    final Uri $url = Uri.parse('/users');
     final Request $request = Request(
       'GET',
       $url,
@@ -29,7 +29,7 @@ class _$ApiClientServiceInterface extends ApiClientServiceInterface {
 
   @override
   Future<Response<dynamic>> getUserById(int userId) {
-    final Uri $url = Uri.parse('/api/users/${userId}');
+    final Uri $url = Uri.parse('/users/${userId}');
     final Request $request = Request(
       'GET',
       $url,
