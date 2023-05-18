@@ -30,9 +30,38 @@ class SettingsView extends StackedView<SettingsViewModel> {
           padding: const EdgeInsets.all(25.0),
           child: Center(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(viewModel.ethereumAddress ?? 'No Ethereum Address'),
+                Text(
+                  'Name',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                verticalSpaceSmall,
+                Text(
+                  viewModel.name ?? '',
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
                 verticalSpaceMedium,
+                Text(
+                  'Email',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                verticalSpaceSmall,
+                Text(
+                  viewModel.email ?? '',
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
+                verticalSpaceMedium,
+                Text(
+                  'Ethereum Address',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                verticalSpaceSmall,
+                Text(
+                  viewModel.ethereumAddress ?? 'No Ethereum Address',
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
               ],
             ),
           )),
