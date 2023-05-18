@@ -18,7 +18,12 @@ class UsersView extends StackedView<UsersViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Users')),
+      appBar: AppBar(title: const Text('Users'), actions: [
+        IconButton(
+          icon: const Icon(Icons.help),
+          onPressed: viewModel.showBottomSheet,
+        )
+      ]),
       backgroundColor: Colors.grey[900],
       body: viewModel.isBusy
           ? Center(
