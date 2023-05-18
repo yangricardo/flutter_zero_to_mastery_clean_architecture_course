@@ -53,19 +53,14 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                 onPressed: () {
                   viewModel.login();
                 },
-                child:
-                    const Text('Login', style: TextStyle(color: Colors.white)),
+                child: const Text('Login'),
               ),
               verticalSpaceMedium,
               TextButton(
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.indigo)),
                 onPressed: () {
                   viewModel.goSignUp();
                 },
-                child: const Text('Sign Up',
-                    style: TextStyle(color: Colors.white)),
+                child: const Text('Sign Up'),
               )
             ],
           )),

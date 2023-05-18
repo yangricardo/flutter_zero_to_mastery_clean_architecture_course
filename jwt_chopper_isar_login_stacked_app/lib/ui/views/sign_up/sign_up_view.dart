@@ -27,7 +27,6 @@ class SignUpView extends StackedView<SignUpViewModel> with $SignUpView {
     Widget? child,
   ) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(title: const Text('Sign Up')),
       body: Padding(
         padding: const EdgeInsets.all(25.0),
@@ -61,8 +60,7 @@ class SignUpView extends StackedView<SignUpViewModel> with $SignUpView {
               onPressed: () {
                 viewModel.signUp();
               },
-              child:
-                  const Text('Sign Up', style: TextStyle(color: Colors.white)))
+              child: const Text('Sign Up'))
         ]),
       ),
     );

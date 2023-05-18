@@ -22,6 +22,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       // theme: ThemeData.dark(useMaterial3: true),
+      theme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: Colors.indigo,
+        brightness: Brightness.dark,
+        fontFamily: 'Roboto',
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+            selectedItemColor: Colors.indigoAccent),
+        cardTheme: const CardTheme(
+            elevation: 100, surfaceTintColor: Colors.indigoAccent),
+      ),
+
       // theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.blue[900]),
       // theme: Theme.of(context).copyWith(
       //     colorScheme: const ColorScheme.dark(
@@ -29,20 +40,20 @@ class MyApp extends StatelessWidget {
       //       secondary: Colors.blue,
       //     ),
       //     useMaterial3: true),
-      theme: ThemeData(
-        useMaterial3: true,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.indigo,
-        ),
-        cardTheme: const CardTheme(
-          color: Colors.black,
-        ),
-        colorScheme: const ColorScheme.dark(
-          primary: Colors.indigo,
-          secondary: Colors.black,
-          background: Colors.indigo,
-        ),
-      ),
+      // theme: ThemeData(
+      //   useMaterial3: true,
+      //   appBarTheme: const AppBarTheme(
+      //     backgroundColor: Colors.indigo,
+      //   ),
+      //   cardTheme: const CardTheme(
+      //     color: Colors.black,
+      //   ),
+      //   colorScheme: const ColorScheme.dark(
+      //     primary: Colors.indigo,
+      //     secondary: Colors.black,
+      //     background: Colors.indigo,
+      //   ),
+      // ),
       initialRoute: Routes.startupView,
       onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorKey: StackedService.navigatorKey,
