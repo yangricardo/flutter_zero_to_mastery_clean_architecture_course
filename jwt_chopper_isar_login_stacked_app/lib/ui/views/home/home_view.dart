@@ -29,7 +29,7 @@ class HomeView extends StackedView<HomeViewModel> {
       body: getViewForIndex(viewModel.currentIndex),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.grey[800],
+        // backgroundColor: Colors.grey[800],
         currentIndex: viewModel.currentIndex,
         onTap: viewModel.setIndex,
         items: const [

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/app/app.locator.dart';
 import 'package:jwt_chopper_isar_login_stacked_app/app/app.router.dart';
-import 'package:jwt_chopper_isar_login_stacked_app/ui/common/app_colors.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -25,7 +24,6 @@ class UsersView extends StackedView<UsersViewModel> {
           onPressed: viewModel.showBottomSheet,
         )
       ]),
-      // backgroundColor: Colors.grey[900],
       body: viewModel.isBusy
           ? Center(
               child: Column(
@@ -50,9 +48,8 @@ class UsersView extends StackedView<UsersViewModel> {
                   itemCount: viewModel.data?.length ?? 0,
                   itemBuilder: (context, index) => Container(
                       margin: const EdgeInsets.symmetric(horizontal: 25),
-                      decoration: BoxDecoration(
-                          color: kcBackgroundColor,
-                          borderRadius: BorderRadius.circular(5)),
+                      decoration:
+                          BoxDecoration(borderRadius: BorderRadius.circular(5)),
                       alignment: Alignment.centerLeft,
                       child: Card(
                         elevation: 2,
@@ -86,7 +83,6 @@ class UsersView extends StackedView<UsersViewModel> {
                               SizedBox(
                                 child: IconButton(
                                     icon: const Icon(Icons.arrow_forward_sharp),
-                                    // color: Colors.purple[200],
                                     onPressed: () => _navigationService
                                         .navigateToUserDetailView(
                                             index: viewModel.data?[index].id ??
@@ -97,7 +93,6 @@ class UsersView extends StackedView<UsersViewModel> {
                         ),
                       )))
               : Container(
-                  // color: Colors.red,
                   alignment: Alignment.center,
                   child: Expanded(
                     child: Text(
